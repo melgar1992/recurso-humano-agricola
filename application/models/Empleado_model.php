@@ -1,4 +1,4 @@
-<?php 
+<?php
 class Empleado_model extends CI_Model
 {
     public function obtenerEmpleados()
@@ -6,7 +6,7 @@ class Empleado_model extends CI_Model
         $this->db->select('*');
         $this->db->from('empleados');
         $this->db->order_by('apellidos');
-        $this->db->where('Estado','1');
+        $this->db->where('Estado', '1');
         return $this->db->get()->result_array();
     }
 
@@ -37,6 +37,15 @@ class Empleado_model extends CI_Model
             'apellidos' => $apellidos,
             'telefono' => $telefono,
             'direccion' => $direccion,
+        );
+        $this->db->where('id_empleado', $id_empleado);
+        $this->db->update('empleados', $datos);
+    }
+    public function eliminarEmpleado($id_empleado)
+    {
+        $datos = array(
+            'estado' => '0',
+            'ci' => '0',
         );
         $this->db->where('id_empleado', $id_empleado);
         $this->db->update('empleados', $datos);

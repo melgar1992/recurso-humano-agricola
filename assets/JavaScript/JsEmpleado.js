@@ -65,10 +65,10 @@ $(document).ready(function () {
     });
     //cerrar ventana modal
     $('#btn-cerrar').on('click', function () {
-		LimpiarFormulario();
-	});
+        LimpiarFormulario();
+    });
     // limpiar al cerrar
-    $('#modal-empleados').on('hidden.bs.modal', function(){
+    $('#modal-empleados').on('hidden.bs.modal', function () {
         LimpiarFormulario();
     });
     //Botton editar empleado
@@ -181,11 +181,56 @@ $(document).ready(function () {
             });
         }
     });
+    //Eliminar empleado
+    $(document).on('click', '#btn-borrar', function () {
+        Swal.fire({
+            title: 'Esta seguro de elimar?',
+            text: "El empleado se eliminara, una vez eliminado no se recuperara!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, deseo elimniar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+
+                fila = $(this).closest('tr');
+                id = parseInt(fila.find('td:eq(0)').text());
+
+                $.ajax({
+                    url: base_url + "Empleado/eliminarEmpleado/" + id,
+                    type: 'POST',
+                    dataType: "json",
+                    success: function (respuesta) {
+                        if (respuesta['respuesta'] === 'Exitoso') {
+                            tabla.row(fila).remove().draw();
+                            swal({
+                                title: 'Eliminado',
+                                text: 'Se borro correctamente',
+                                type: 'success'
+                            });
+                        } else {
+                            swal({
+                                title: 'Error',
+                                text: 'Ocurrio un error al eliminar',
+                                type: 'error'
+                            });
+                        }
+
+                    }
+                })
+
+
+            }
+        })
+
+    })
 });
 function LimpiarFormulario() {
-	$('#modal-empleados').modal('hide');
-	$('#formEmpleados').trigger('reset');
-	$('.modal-title').text('Formulario empleado');
-	$('#direccion').text('');
-	opcion = '';
+    $('#modal-empleados').modal('hide');
+    $('#formEmpleados').trigger('reset');
+    $('.modal-title').text('Formulario empleado');
+    $('#direccion').text('');
+    opcion = '';
 };

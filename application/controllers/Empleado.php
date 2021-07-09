@@ -128,4 +128,13 @@ class Empleado extends BaseController
     }
     echo json_encode($respuesta);
   }
+  public function eliminarEmpleado($id_empleado)
+  {
+    $this->Empleado_model->eliminarEmpleado($id_empleado);
+    $respuesta = array(
+      'respuesta' => 'Exitoso',
+      'message' => 'Se elimino al empleado'
+    );
+    echo json_encode($respuesta);
+  }
 }
