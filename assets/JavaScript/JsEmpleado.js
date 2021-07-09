@@ -3,7 +3,7 @@ $(document).ready(function () {
     document.title = 'Sistema Agricola| Empleado';
     var tabla = $('#tablaEmpleados').DataTable({
         responsive: true,
-        dom: "Blfrtip",
+        dom: "Bfrtip",
         ajax: { url: base_url + "Empleado/obtenerEmpleadosTablaEmpleados", dataSrc: "" },
         columns: [
             { data: 'id_empleado', width: '50px' },

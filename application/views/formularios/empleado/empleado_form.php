@@ -26,6 +26,8 @@
                                 <button class="btn btn-success" id='btn-nuevo' type="button" data-toggle="modal" data-target='#modal-empleados'>Agregar</button>
                             </div>
                         </div>
+                        <br>
+                        <br>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
