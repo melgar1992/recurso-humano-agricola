@@ -79,7 +79,7 @@ $(document).ready(function () {
         $('#modal-empleados').modal('show');
         $.ajax({
             type: "POST",
-            url: base_url + "/Empleado/obtenerEmpleadoAjax",
+            url: base_url + "Empleado/obtenerEmpleadoAjax",
             data: {
                 id_empleado: id_empleado
             },
@@ -129,7 +129,7 @@ $(document).ready(function () {
                         tabla.row.add({ "id_empleado": id_empleado, "ci": ci, "nombres": nombres, "apellidos": apellidos, "telefono": telefono }).draw();
                         swal({
                             title: 'Guardar',
-                            text: respuesta['respuesta'],
+                            text: respuesta['message'],
                             type: 'success'
                         });
                         $('#formEmpleados').trigger('reset');
@@ -163,10 +163,10 @@ $(document).ready(function () {
                         apellidos = respuesta['datos']['apellidos'];
                         telefono = respuesta['datos']['telefono'];
                         direccion = respuesta['datos']['direccion'];
-                        tabla.row.add({ "id_empleado": id_empleado, "ci": ci, "nombres": nombres, "apellidos": apellidos, "telefono": telefono }).draw();
+                        tabla.row(fila).data({ "id_empleado": id_empleado, "ci": ci, "nombres": nombres, "apellidos": apellidos, "telefono": telefono }).draw();
                         swal({
-                            title: 'Guardar',
-                            text: respuesta['respuesta'],
+                            title: 'Editado',
+                            text: respuesta['message'],
                             type: 'success'
                         });
                         $('#formEmpleados').trigger('reset');

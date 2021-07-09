@@ -29,5 +29,16 @@ class Empleado_model extends CI_Model
         $this->db->where('id_empleado', $id_empleado);
         return $this->db->get('empleados')->row_array();
     }
-    
+    public function editarEmpleado($id_empleado, $ci, $nombres, $apellidos, $telefono, $direccion)
+    {
+        $datos = array(
+            'ci' => $ci,
+            'nombres' => $nombres,
+            'apellidos' => $apellidos,
+            'telefono' => $telefono,
+            'direccion' => $direccion,
+        );
+        $this->db->where('id_empleado', $id_empleado);
+        $this->db->update('empleados', $datos);
+    }
 }

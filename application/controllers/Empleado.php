@@ -77,26 +77,25 @@ class Empleado extends BaseController
   }
   public function editarEmpleado()
   {
-    $id_empleado = $this->input->post('id_empleado');
-    $ci = $this->input->post('ci');
-    $nombres = $this->input->post('nombres');
-    $apellidos = $this->input->post('apellidos');
-    $telefono = $this->input->post('telefono');
-    $direccion = $this->input->post('direccion');
-    $empleado = $this->Empleado_model->obtenerEmpleadoId($id_empleado);
-    if ($ci == $empleado['ci']) {
-      $is_unique = '';
-    } else {
-      $is_unique = '|is_unique[cliente.CI]';
-    }
-
-
-    $this->form_validation->set_rules('ci', 'ci', 'trim'. $is_unique);
-    $this->form_validation->set_rules('nombres', 'nombres', 'trim|required');
-    $this->form_validation->set_rules('apellidos', 'apellidos', 'trim|required');
-    $this->form_validation->set_rules('telefono', 'telefono', 'trim');
-    $this->form_validation->set_rules('direccion', 'direccion', 'trim');
     try {
+      $id_empleado = $this->input->post('id_empleado');
+      $ci = $this->input->post('ci');
+      $nombres = $this->input->post('nombres');
+      $apellidos = $this->input->post('apellidos');
+      $telefono = $this->input->post('telefono');
+      $direccion = $this->input->post('direccion');
+      $empleado = $this->Empleado_model->obtenerEmpleadoId($id_empleado);
+      if ($ci == $empleado['ci']) {
+        $is_unique = '';
+      } else {
+        $is_unique = '|is_unique[empleados.CI]';
+      }
+      $this->form_validation->set_rules('ci', 'ci', 'trim' . $is_unique);
+      $this->form_validation->set_rules('nombres', 'nombres', 'trim|required');
+      $this->form_validation->set_rules('apellidos', 'apellidos', 'trim|required');
+      $this->form_validation->set_rules('telefono', 'telefono', 'trim');
+      $this->form_validation->set_rules('direccion', 'direccion', 'trim');
+
       if ($this->form_validation->run() === false) {
         $error = form_error('ci');
         $respuesta = array(
@@ -105,7 +104,7 @@ class Empleado extends BaseController
         );
       } else {
 
-        $id_empleado = $this->Empleado_model->ingresarEmpleado($ci, $nombres, $apellidos, $telefono, $direccion);
+        $this->Empleado_model->editarEmpleado($id_empleado, $ci, $nombres, $apellidos, $telefono, $direccion);
         $empleado = $this->Empleado_model->obtenerEmpleadoId($id_empleado);
 
         $respuesta = array(
@@ -118,7 +117,7 @@ class Empleado extends BaseController
             'telefono' => $empleado['telefono'],
             'direccion' => $empleado['direccion'],
           ),
-          'message' => 'Se guardo correctamente',
+          'message' => 'Se edito correctamente',
         );
       }
     } catch (\Throwable $th) {
