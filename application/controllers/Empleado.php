@@ -32,11 +32,11 @@ class Empleado extends BaseController
 
   public function ingresar_empleado()
   {
-    $this->form_validation->set_rules('ci', 'ci', 'trim|is_unique[empleados.ci]');
-    $this->form_validation->set_rules('nombres', 'nombres', 'trim|required');
-    $this->form_validation->set_rules('apellidos', 'apellidos', 'trim|required');
-    $this->form_validation->set_rules('telefono', 'telefono', 'trim');
-    $this->form_validation->set_rules('direccion', 'direccion', 'trim');
+    $this->form_validation->set_rules('ci', 'ci', 'trim|xss_clean|is_unique[empleados.ci]');
+    $this->form_validation->set_rules('nombres', 'nombres', 'trim|xss_clean|required');
+    $this->form_validation->set_rules('apellidos', 'apellidos', 'trim|xss_clean|required');
+    $this->form_validation->set_rules('telefono', 'telefono', 'trim|xss_clean');
+    $this->form_validation->set_rules('direccion', 'direccion', 'trim|xss_clean');
     try {
       if ($this->form_validation->run() === false) {
         $error = form_error('ci');
@@ -91,7 +91,7 @@ class Empleado extends BaseController
     }
 
 
-    $this->form_validation->set_rules('ci', 'ci', 'trim' . $is_unique);
+    $this->form_validation->set_rules('ci', 'ci', 'trim'. $is_unique);
     $this->form_validation->set_rules('nombres', 'nombres', 'trim|required');
     $this->form_validation->set_rules('apellidos', 'apellidos', 'trim|required');
     $this->form_validation->set_rules('telefono', 'telefono', 'trim');
