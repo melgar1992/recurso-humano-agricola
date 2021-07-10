@@ -23,7 +23,7 @@
                                 <li><a><i class="fa fa-edit"></i>Empleados<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="<?php echo base_url(); ?>Empleado">Formulario de empelados</a></li>
-                                        <li><a href="<?php echo base_url(); ?>">Cateogira de visitas</a></li>
+                                        <li><a href="<?php echo base_url(); ?>Cargo">Cargos</a></li>
                                         <li><a href="<?php echo base_url(); ?>">Control del condominio</a></li>
 
                                     </ul>
