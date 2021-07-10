@@ -83,41 +83,60 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label" for="ci">ci
+                        <label class="control-label" for="nombre">Nombre del cargo <span class="required">*</span>
                         </label>
                         <div class="">
-                            <input type="number" id="ci" maxlength="7" oninput="this.value=this.value.slice(0,this.maxLength)" name="ci" class="form-control col-md-7 col-xs-12" placeholder="Número de Carnet de Identidad">
+                            <input type="text" id="nombre" onkeyup="mayus(this);" minlength="0" maxlength="45" name="nombre" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo_pago" class="control-label">Tipo pago *:</label>
+                        <div class="">
+                            <select id="tipo_pago" name="tipo_pago" class="form-control" required>
+                                <option value=""></option>
+                                <option value="Mensual">Mensual</option>
+                                <option value="Hora">Hora</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label" for="nombres">Nombres <span class="required">*</span>
+                        <label for="sueldo" class="control-label">sueldo<span class="required">*</span>
                         </label>
-                        <div class="">
-                            <input type="text" id="nombres" onkeyup="mayus(this);" minlength="0" maxlength="45" name="nombres" required="required" class="form-control col-md-7 col-xs-12">
+                        <div class="has-feedback">
+                            <input id="sueldo" class="form-control has-feedback col-md-7 col-xs-12" type="number" step="0.01" name="sueldo" required="required" placeholder="">
+                            <span class="form-control-feedback right" aria-hidden="true">Bs</span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Hora" class="control-label">Hora<span class="required">*</span>
+                        </label>
+                        <div class="has-feedback">
+                            <input id="Hora" class="form-control col-md-7 col-xs-12" type="number" step="0.01" name="Hora" required="required" placeholder="">
+                            <span class="form-control-feedback right" aria-hidden="true">Bs</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="apellidos">Apellidos <span class="required">*</span>
+                        <label for="hora_extra" class="control-label">hora extra<span class="required">*</span>
                         </label>
-                        <div class="">
-                            <input type="text" minlength="0" onkeyup="mayus(this);" maxlength="45" id="apellidos" name="apellidos" required="required" class="form-control col-md-7 col-xs-12">
+                        <div class="has-feedback">
+                            <input id="hora_extra" class="form-control col-md-7 col-xs-12" type="number" step="0.01" name="hora_extra" required="required" placeholder="">
+                            <span class="form-control-feedback right" aria-hidden="true">Bs</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="telefono" class="control-label">Telefono<span class="required">*</span>
+                        <label for="hora_feriada" class="control-label">hora feriada<span class="required">*</span>
                         </label>
-                        <div class="">
-                            <input id="telefono" maxlength="8" oninput="this.value=this.value.slice(0,this.maxLength)" class="form-control col-md-7 col-xs-12" type="number" name="telefono" required="required" placeholder="77800975-34622503">
+                        <div class="has-feedback">
+                            <input id="hora_feriada" class="form-control col-md-7 col-xs-12" type="number" step="0.01" name="hora_feriada" required="required" placeholder="">
+                            <span class="form-control-feedback right" aria-hidden="true">Bs</span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="direccion" class="control-label">Dirección
-                        </label>
-                        <div class="">
-                            <textarea name="direccion" id="direccion" class="form-control" rows="2" placeholder="Dirección"></textarea>
-                        </div>
-                    </div>
+
+
+
 
                 </div>
                 <br>
