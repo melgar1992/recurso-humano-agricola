@@ -3,6 +3,7 @@ $(document).ready(function () {
     document.title = 'Sistema Agricola| Empleado';
     var tabla = $('#tablaEmpleados').DataTable({
         responsive: true,
+        pageLength: 25,
         dom: "Bfrtip",
         ajax: { url: base_url + "Empleado/obtenerEmpleadosTablaEmpleados", dataSrc: "" },
         columns: [
@@ -20,14 +21,6 @@ $(document).ready(function () {
                 columns: [1, 2, 3, 4],
             }
 
-        },
-        {
-            extend: 'pdfHtml5',
-            title: "Listado de empleados",
-            exportOptions: {
-                columns: [1, 2, 3, 4],
-
-            }
         },
         {
             extend: 'print',

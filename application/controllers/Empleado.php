@@ -67,10 +67,10 @@ class Empleado extends BaseController
           'message' => 'Se guardo correctamente',
         );
       }
-    } catch (\Throwable $th) {
+    } catch (Exception  $th) {
       $respuesta = array(
         'respuesta' => 'Error',
-        'mensaje' => $th,
+        'mensaje' => 'Ocurrio un problema' + $th->getMessage(),
       );
     }
     echo json_encode($respuesta);
@@ -120,10 +120,10 @@ class Empleado extends BaseController
           'message' => 'Se edito correctamente',
         );
       }
-    } catch (\Throwable $th) {
+    } catch (Exception  $th) {
       $respuesta = array(
         'respuesta' => 'Error',
-        'mensaje' => $th,
+        'mensaje' => 'Ocurrio un problema' + $th->getMessage(),
       );
     }
     echo json_encode($respuesta);

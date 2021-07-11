@@ -23,7 +23,7 @@
                     <div class="x_content">
                         <div class="row">
                             <div class="col-md-12 col-lg-12">
-                                <button class="btn btn-success" id='btn-nuevo' type="button" data-toggle="modal" data-target='#modal-empleados'>Agregar</button>
+                                <button class="btn btn-success" id='btn-nuevo' type="button" data-toggle="modal" data-target='#modal-cargo'>Agregar</button>
                             </div>
                         </div>
                         <br>
@@ -31,7 +31,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Empleados registrados</h2>
+                                    <h2>Cargos registrados</h2>
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                         </li>
@@ -51,6 +51,7 @@
                                                     <th>Sueldo Hora</th>
                                                     <th>Hora extra</th>
                                                     <th>Hora feriada</th>
+                                                    <th>Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -70,13 +71,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-empleados">
+<div class="modal fade" id="modal-cargo">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Formulario empleado</h4>
             </div>
-            <form action="" id="formEmpleados">
+            <form action="" id="formCargo">
                 <div class="modal-body">
                     <p>Los campos con * son obligatorios</p>
                     <div class="error_formulario">
@@ -111,10 +112,10 @@
 
 
                     <div class="form-group">
-                        <label for="Hora" class="control-label">Hora<span class="required">*</span>
+                        <label for="sueldo_hora" class="control-label">hora<span class="required">*</span>
                         </label>
                         <div class="has-feedback">
-                            <input id="Hora" class="form-control col-md-7 col-xs-12" type="number" step="0.01" name="Hora" required="required" placeholder="">
+                            <input id="sueldo_hora" class="form-control col-md-7 col-xs-12" type="number" step="0.01" name="sueldo_hora" required="required" placeholder="">
                             <span class="form-control-feedback right" aria-hidden="true">Bs</span>
                         </div>
                     </div>
@@ -134,10 +135,6 @@
                             <span class="form-control-feedback right" aria-hidden="true">Bs</span>
                         </div>
                     </div>
-
-
-
-
                 </div>
                 <br>
                 <div class="modal-footer">

@@ -31,7 +31,6 @@
     <script src="<?php echo base_url(); ?>assets/template/datatables-export/js/vfs_fonts.js"></script>
     <script src="<?php echo base_url(); ?>assets/template/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/template/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="<?php echo base_url(); ?>assets/template/datatables-export/js/pdfmake.min.js"></script>
 
     <!-- Sweet Alert -->
     <script src="<?php echo base_url(); ?>assets/template/sweetalert2/sweetalert2.all.min.js"></script>
