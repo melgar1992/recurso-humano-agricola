@@ -41,4 +41,13 @@ class Cargo_model extends CI_Model
         $this->db->where('id_cargo', $id_cargo);
         $this->db->update('cargo', $datos);
     }
+    public function eliminarCargo($id_cargo)
+    {
+        $datos = array(
+            'nombre' => '',
+            'estado' => '0'
+        );
+        $this->db->where('id_cargo', $id_cargo);
+        $this->db->update('cargo', $datos);
+    }
 }

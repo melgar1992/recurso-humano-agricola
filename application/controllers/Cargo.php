@@ -135,4 +135,13 @@ class Cargo extends BaseController
         }
         echo json_encode($respuesta);
     }
+    public function eliminarCargo($id_cargo)
+    {
+        $this->Cargo_model->eliminarCargo($id_cargo);
+        $respuesta = array(
+            'respuesta' => 'Exitoso',
+            'message' => 'Se elimino al Cargo'
+          );
+          echo json_encode($respuesta);
+    }
 }
