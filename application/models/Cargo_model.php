@@ -28,4 +28,17 @@ class Cargo_model extends CI_Model
         $this->db->insert('cargo', $datos);
         return $this->db->insert_id();
     }
+    public function editarCargo($id_cargo, $nombre, $tipo_pago, $sueldo_mensual, $sueldo_hora, $hora_extra, $hora_feriada)
+    {
+        $datos = array(
+            'nombre' => $nombre,
+            'tipo_pago' => $tipo_pago,
+            'sueldo_mensual' => $sueldo_mensual,
+            'sueldo_hora' => $sueldo_hora,
+            'hora_extra' => $hora_extra,
+            'hora_feriada' => $hora_feriada,
+        );
+        $this->db->where('id_cargo', $id_cargo);
+        $this->db->update('cargo', $datos);
+    }
 }

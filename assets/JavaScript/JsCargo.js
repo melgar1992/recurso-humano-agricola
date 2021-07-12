@@ -3,16 +3,17 @@ $(document).ready(function () {
     document.title = 'Sistema Agricola| Cargo';
     var tabla = $('#tablaEmpleados').DataTable({
         responsive: true,
+        pageLength: 25,
         dom: "Bfrtip",
         ajax: { url: base_url + "Cargo/obtenerCargosAjax", dataSrc: "" },
         columns: [
             { data: 'id_cargo' },
             { data: 'nombre' },
             { data: 'tipo_pago' },
-            { data: 'sueldo_mensual', render: $.fn.dataTable.render.number(',', '.', 2) },
-            { data: 'sueldo_hora', render: $.fn.dataTable.render.number(',', '.', 2) },
-            { data: 'hora_extra', render: $.fn.dataTable.render.number(',', '.', 2) },
-            { data: 'hora_feriada', render: $.fn.dataTable.render.number(',', '.', 2) },
+            { data: 'sueldo_mensual', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') },
+            { data: 'sueldo_hora', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') },
+            { data: 'hora_extra', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') },
+            { data: 'hora_feriada', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') },
             { data: 7 }
         ],
         buttons: [{
@@ -72,6 +73,37 @@ $(document).ready(function () {
         $('#sueldo').val(sueldo.toFixed(2));
 
     });
+    // limpiar al cerrar
+    $('#modal-cargo').on('hidden.bs.modal', function () {
+        LimpiarFormulario();
+    });
+    //Botton editar cargo
+    $(document).on('click', '#btn-editar', function () {
+        fila = $(this).closest('tr');
+        id_cargo = parseInt(fila.find('td:eq(0)').text());
+        $('.modal-title').text('Editar cargo');
+        $('#modal-cargo').modal('show');
+        $.ajax({
+            type: "POST",
+            url: base_url + "Cargo/obtenerCargo",
+            data: {
+                id_cargo: id_cargo
+            },
+            dataType: "json",
+            success: function (respuesta) {
+                $('#nombre').val(respuesta['nombre']);
+                $('#nombres').val(respuesta['nombres']);
+                $("#tipo_pago option:contains(" + respuesta['tipo_pago'] + ")").attr("selected", true);
+                $('#sueldo').val(Number(respuesta['sueldo_mensual']).toFixed(2));
+                $('#sueldo_hora').val(Number(respuesta['sueldo_hora']).toFixed(2));
+                $('#hora_extra').val(Number(respuesta['hora_extra']).toFixed(2));
+                $('#hora_feriada').val(Number(respuesta['hora_feriada']).toFixed(2));
+
+            }
+        });
+        opcion = 'editar';
+
+    });
     //ingresar o editar Cargo
     $('#formCargo').submit(function (e) {
         e.preventDefault();
@@ -105,13 +137,21 @@ $(document).ready(function () {
                         sueldo_hora = respuesta['datos']['sueldo_hora'];
                         hora_extra = respuesta['datos']['hora_extra'];
                         hora_feriada = respuesta['datos']['hora_feriada'];
-                        tabla.row.add({ "id_cargo": id_cargo, "nombre": nombre, tipo_pago: 'tipo_pago', "sueldo_mensual": sueldo_mensual, "sueldo_hora": sueldo_hora, "hora_extra": hora_extra, "hora_feriada": hora_feriada }).draw();
+                        tabla.row.add({
+                            "id_cargo": id_cargo,
+                            "nombre": nombre,
+                            "tipo_pago": tipo_pago,
+                            "sueldo_mensual": sueldo_mensual,
+                            "sueldo_hora": sueldo_hora,
+                            "hora_extra": hora_extra,
+                            "hora_feriada": hora_feriada
+                        }).draw();
                         swal({
                             title: 'Guardar',
                             text: respuesta['message'],
                             type: 'success'
                         });
-                        $('#formCargo').trigger('reset');
+                        LimpiarFormulario();
                     } else {
                         swal({
                             title: 'Error',
@@ -126,29 +166,39 @@ $(document).ready(function () {
                 type: "POST",
                 url: base_url + "Cargo/editarCargo",
                 data: {
-                    id_empleado: id_empleado,
-                    ci: ci,
-                    nombres: nombres,
-                    apellidos: apellidos,
-                    telefono: telefono,
-                    direccion: direccion,
+                    id_cargo: id_cargo,
+                    nombre: nombre,
+                    tipo_pago: tipo_pago,
+                    sueldo: sueldo,
+                    sueldo_hora: sueldo_hora,
+                    hora_extra: hora_extra,
+                    hora_feriada: hora_feriada,
                 },
                 dataType: "json",
                 success: function (respuesta) {
                     if (respuesta['respuesta'] === 'Exitoso') {
-                        id_empleado = respuesta['datos']['id_empleado'];
-                        ci = respuesta['datos']['ci'];
-                        nombres = respuesta['datos']['nombres'];
-                        apellidos = respuesta['datos']['apellidos'];
-                        telefono = respuesta['datos']['telefono'];
-                        direccion = respuesta['datos']['direccion'];
-                        tabla.row(fila).data({ "id_empleado": id_empleado, "ci": ci, "nombres": nombres, "apellidos": apellidos, "telefono": telefono }).draw();
+                        id_cargo = respuesta['datos']['id_cargo'];
+                        nombre = respuesta['datos']['nombre'];
+                        tipo_cargo = respuesta['datos']['tipo_cargo'];
+                        sueldo_mensual = respuesta['datos']['sueldo_mensual'];
+                        sueldo_hora = respuesta['datos']['sueldo_hora'];
+                        hora_extra = respuesta['datos']['hora_extra'];
+                        hora_feriada = respuesta['datos']['hora_feriada'];
+                        tabla.row(fila).data({
+                            "id_cargo": id_cargo,
+                            "nombre": nombre,
+                            "tipo_pago": tipo_pago,
+                            "sueldo_mensual": sueldo_mensual,
+                            "sueldo_hora": sueldo_hora,
+                            "hora_extra": hora_extra,
+                            "hora_feriada": hora_feriada
+                        }).draw();
                         swal({
                             title: 'Editado',
                             text: respuesta['message'],
                             type: 'success'
                         });
-                        $('#formEmpleados').trigger('reset');
+                        LimpiarFormulario();
                     } else {
                         swal({
                             title: 'Error',
@@ -169,3 +219,10 @@ function calculoSueldoMes(sueldo_hora) {
     sueldo = (sueldo_hora * 8) * 30;
     return sueldo;
 }
+function LimpiarFormulario() {
+    $('#modal-cargo').modal('hide');
+    $('.modal-title').text('Formulario cargo');
+    $("#tipo_pago option:selected").removeAttr("selected");
+    $('#formCargo').trigger('reset');
+    opcion = '';
+};
