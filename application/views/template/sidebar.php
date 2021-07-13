@@ -24,7 +24,7 @@
                                     <ul class="nav child_menu">
                                         <li><a href="<?php echo base_url(); ?>Empleado">Formulario de empelados</a></li>
                                         <li><a href="<?php echo base_url(); ?>Cargo">Cargos</a></li>
-                                        <li><a href="<?php echo base_url(); ?>">Control del condominio</a></li>
+                                        <li><a href="<?php echo base_url(); ?>Contrato">Contratos de empleados</a></li>
 
                                     </ul>
                                 </li>
