@@ -23,7 +23,7 @@
                     <div class="x_content">
                         <div class="row">
                             <div class="col-md-12 col-lg-12">
-                                <button class="btn btn-success" id='btn-nuevo' type="button" data-toggle="modal" data-target='#modal-cargo'>Agregar</button>
+                                <button class="btn btn-success" id='btn-nuevo' type="button" data-toggle="modal" data-target='#modal-contrato'>Agregar</button>
                             </div>
                         </div>
                         <br>
@@ -72,13 +72,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-cargo">
+<div class="modal fade" id="modal-contrato">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Formulario empleado</h4>
             </div>
-            <form action="" id="formCargo">
+            <form action="" id="formcontrato">
                 <div class="modal-body">
                     <p>Los campos con * son obligatorios</p>
                     <div class="error_formulario">
