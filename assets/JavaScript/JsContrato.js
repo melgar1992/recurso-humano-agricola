@@ -5,16 +5,17 @@ $(document).ready(function () {
         responsive: true,
         pageLength: 25,
         dom: "Bfrtip",
-        ajax: { url: base_url + "Contrato/obtenerCargosAjax", dataSrc: "" },
+        ajax: { url: base_url + "Contrato/obtenerContratosAjax", dataSrc: "" },
         columns: [
             { data: 'id_contrato', width: '50px' },
-            { data: 'empleado_nombres' + ' ' + 'empleado_apellidos' },
+            { data: 'ci' },
+            {data: 'nombre_completo'},
             { data: 'cargo_nombre' },
-            { data: 'sueldo_mensual' },
-            { data: 'sueldo_hora' },
-            { data: 'hora_extra' },
-            { data: 'hora_feriada', width: '150px' },
-            { data: 5, width: '120px' }
+            { data: 'sueldo_mensual', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') },
+            { data: 'sueldo_hora', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') },
+            { data: 'hora_extra', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') },
+            { data: 'hora_feriada', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') },
+            { data: 8, width: '120px' }
         ],
         buttons: [{
             extend: 'excelHtml5',

@@ -4,7 +4,7 @@ class Contrato_model extends CI_Model
 
     public function obtenerContratos()
     {
-        $this->db->select('co.*, em.nombres as empleado_nombres, em.apellidos as empleado_apellidos, em.ci, em.telefono, em.direccion, 
+        $this->db->select('co.*, concat(em.nombres," " ,em.apellidos) as nombre_completo, em.nombres as empleado_nombres, em.apellidos as empleado_apellidos, em.ci, em.telefono, em.direccion, 
         ca.nombre as cargo_nombre, ca.tipo_pago, ca.sueldo_mensual, ca.sueldo_hora, ca.hora_extra, ca.hora_feriada');
         $this->db->from('contrato co');
         $this->db->join('empleados em', 'em.id_empleado = co.id_empleado');
@@ -14,7 +14,7 @@ class Contrato_model extends CI_Model
     }
     public function obtenerContrato($id_contrato)
     {
-        $this->db->select('co.*, em.nombres as empleado_nombres, em.apellidos as empleado_apellidos, em.ci, em.telefono, em.direccion, 
+        $this->db->select('co.*, concat(em.nombres," " ,em.apellidos) as nombre_completo, em.nombres as empleado_nombres, em.apellidos as empleado_apellidos, em.ci, em.telefono, em.direccion, 
         ca.nombre as cargo_nombre, ca.tipo_pago, ca.sueldo_mensual, ca.sueldo_hora, ca.hora_extra, ca.hora_feriada');
         $this->db->from('contrato co');
         $this->db->join('empleados em', 'em.id_empleado = co.id_empleado');
