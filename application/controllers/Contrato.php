@@ -10,8 +10,16 @@ class Contrato extends BaseController
 
     public function index()
     {
-        $data = array();
+        $data = array(
+            'empleados' => $this->Empleado_model->obtenerEmpleados(),
+            'cargos' => $this->Cargo_model->obtenerCargos(),
+        );
 
         $this->loadView("Contrato", "formularios/contrato/contrato_form", $data);
+    }
+    public function obtenerCargosAjax()
+    {
+        $cargos = $this->Contrato_model->obtenerContratos();
+        echo json_encode($cargos);
     }
 }

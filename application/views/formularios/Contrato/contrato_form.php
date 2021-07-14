@@ -83,59 +83,29 @@
                     <p>Los campos con * son obligatorios</p>
                     <div class="error_formulario">
                     </div>
-
                     <div class="form-group">
-                        <label class="control-label" for="nombre">Nombre del cargo <span class="required">*</span>
-                        </label>
+                        <label for="id_empleado" class="control-label">Empleado *:</label>
                         <div class="">
-                            <input type="text" id="nombre" onkeyup="mayus(this);" minlength="0" maxlength="45" name="nombre" required="required" class="form-control col-md-7 col-xs-12">
+                            <select id="id_empleado" name="id_empleado" class="form-control" required>
+                                <option value=""></option>
+                                <?php foreach ($empleados as $row) : ?>
+                                    <option value="<?php echo $row['id_empleado'] ?>"><?php echo $row['apellidos'] . ' ' . $row['nombres']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="tipo_pago" class="control-label">Tipo pago *:</label>
+                        <label for="id_cargo" class="control-label">Cargo *:</label>
                         <div class="">
-                            <select id="tipo_pago" name="tipo_pago" class="form-control" required>
+                            <select id="id_cargo" name="id_cargo" class="form-control" required>
                                 <option value=""></option>
-                                <option value="Mensual">Mensual</option>
-                                <option value="Hora">Hora</option>
+                                <?php foreach ($cargos as $row) : ?>
+                                    <option value="<?php echo $row['id_cargo'] ?>"><?php echo $row['nombre'] . ' sueldo: ' . $row['sueldo_mensual'] . 'Bs hora: ' . $row['sueldo_hora'] . 'Bs'; ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="sueldo" class="control-label">sueldo<span class="required">*</span>
-                        </label>
-                        <div class="has-feedback">
-                            <input id="sueldo" class="form-control has-feedback col-md-7 col-xs-12" type="number" step="0.01" name="sueldo" required="required" placeholder="">
-                            <span class="form-control-feedback right" aria-hidden="true">Bs</span>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="sueldo_hora" class="control-label">hora<span class="required">*</span>
-                        </label>
-                        <div class="has-feedback">
-                            <input id="sueldo_hora" class="form-control col-md-7 col-xs-12" type="number" step="0.01" name="sueldo_hora" required="required" placeholder="">
-                            <span class="form-control-feedback right" aria-hidden="true">Bs</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="hora_extra" class="control-label">hora extra<span class="required">*</span>
-                        </label>
-                        <div class="has-feedback">
-                            <input id="hora_extra" class="form-control col-md-7 col-xs-12" type="number" step="0.01" name="hora_extra" required="required" placeholder="">
-                            <span class="form-control-feedback right" aria-hidden="true">Bs</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="hora_feriada" class="control-label">hora feriada<span class="required">*</span>
-                        </label>
-                        <div class="has-feedback">
-                            <input id="hora_feriada" class="form-control col-md-7 col-xs-12" type="number" step="0.01" name="hora_feriada" required="required" placeholder="">
-                            <span class="form-control-feedback right" aria-hidden="true">Bs</span>
-                        </div>
-                    </div>
                 </div>
                 <br>
                 <div class="modal-footer">
