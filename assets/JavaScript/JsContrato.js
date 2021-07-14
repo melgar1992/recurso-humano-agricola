@@ -63,6 +63,28 @@ $(document).ready(function () {
     $('#modal-contrato').on('hidden.bs.modal', function () {
         LimpiarFormulario();
     });
+    //Botton editar empleado
+    $(document).on('click', '#btn-editar', function () {
+        fila = $(this).closest('tr');
+        id_contrato = parseInt(fila.find('td:eq(0)').text());
+        LimpiarFormulario()
+        $('.modal-title').text('Editar Contrato');
+        $('#modal-contrato').modal('show');
+        $.ajax({
+            type: "POST",
+            url: base_url + "Contrato/obtenerContrato",
+            data: {
+                id_contrato: id_contrato
+            },
+            dataType: "json",
+            success: function (respuesta) {
+                $("#id_empleado option[value=" + respuesta['id_empleado'] + "]").attr("selected", true);
+                $("#id_cargo option[value=" + respuesta['id_cargo'] + "]").attr("selected", true);
+            }
+        });
+        opcion = 'editar';
+
+    });
     $('#formcontrato').submit(function (e) {
         e.preventDefault();
         id_empleado = $.trim($('#id_empleado').val());
@@ -76,7 +98,6 @@ $(document).ready(function () {
                 data: {
                     id_empleado: id_empleado,
                     id_cargo: id_cargo,
-
                 },
                 dataType: "json",
                 success: function (respuesta) {
@@ -117,30 +138,28 @@ $(document).ready(function () {
         } else {
             $.ajax({
                 type: "POST",
-                url: base_url + "Cargo/editarCargo",
+                url: base_url + "Contrato/editarContrato",
                 data: {
+                    id_contrato: id_contrato,
+                    id_empleado: id_empleado,
                     id_cargo: id_cargo,
-                    nombre: nombre,
-                    tipo_pago: tipo_pago,
-                    sueldo: sueldo,
-                    sueldo_hora: sueldo_hora,
-                    hora_extra: hora_extra,
-                    hora_feriada: hora_feriada,
                 },
                 dataType: "json",
                 success: function (respuesta) {
                     if (respuesta['respuesta'] === 'Exitoso') {
-                        id_cargo = respuesta['datos']['id_cargo'];
-                        nombre = respuesta['datos']['nombre'];
-                        tipo_cargo = respuesta['datos']['tipo_cargo'];
+                        id_contrato = respuesta['datos']['id_contrato'];
+                        ci = respuesta['datos']['ci'];
+                        nombre_completo = respuesta['datos']['nombre_completo'];
+                        cargo_nombre = respuesta['datos']['cargo_nombre'];
                         sueldo_mensual = respuesta['datos']['sueldo_mensual'];
                         sueldo_hora = respuesta['datos']['sueldo_hora'];
                         hora_extra = respuesta['datos']['hora_extra'];
                         hora_feriada = respuesta['datos']['hora_feriada'];
                         tabla.row(fila).data({
-                            "id_cargo": id_cargo,
-                            "nombre": nombre,
-                            "tipo_pago": tipo_pago,
+                            "id_contrato": id_contrato,
+                            "ci": ci,
+                            "nombre_completo": nombre_completo,
+                            "cargo_nombre": cargo_nombre,
                             "sueldo_mensual": sueldo_mensual,
                             "sueldo_hora": sueldo_hora,
                             "hora_extra": hora_extra,
@@ -163,13 +182,58 @@ $(document).ready(function () {
             });
         }
     });
+    //Eliminar Cargo
+    $(document).on('click', '#btn-borrar', function () {
+        Swal.fire({
+            title: 'Esta seguro de elimar?',
+            text: "El Cargo se eliminara, una vez eliminado no se recuperara!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, deseo elimniar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+
+                fila = $(this).closest('tr');
+                id = parseInt(fila.find('td:eq(0)').text());
+
+                $.ajax({
+                    url: base_url + "Contrato/eliminarContrato/" + id,
+                    type: 'POST',
+                    dataType: "json",
+                    success: function (respuesta) {
+                        if (respuesta['respuesta'] === 'Exitoso') {
+                            tabla.row(fila).remove().draw();
+                            swal({
+                                title: 'Eliminado',
+                                text: 'Se borro correctamente',
+                                type: 'success'
+                            });
+                        } else {
+                            swal({
+                                title: 'Error',
+                                text: 'Ocurrio un error al eliminar',
+                                type: 'error'
+                            });
+                        }
+
+                    }
+                })
+
+
+            }
+        })
+
+    })
 });
 
 function LimpiarFormulario() {
     $('#modal-contrato').modal('hide');
     $('.modal-title').text('Formulario contrato');
     $("#id_empleado option:selected").removeAttr("selected");
-    $("#id_empleado option:selected").removeAttr("selected");
+    $("#id_cargo option:selected").removeAttr("selected");
     $('#formcontrato').trigger('reset');
     opcion = '';
 };

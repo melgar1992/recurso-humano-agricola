@@ -27,6 +27,7 @@ class Contrato_model extends CI_Model
         $this->db->select('id_contrato');
         $this->db->where('id_empleado', $id_empleado);
         $this->db->where('id_cargo', $id_cargo);
+        $this->db->where('estado', '1');
         $contrato = $this->db->get('contrato')->row_array();
 
         if (isset($contrato)) {
@@ -40,9 +41,26 @@ class Contrato_model extends CI_Model
         $datos = array(
             'id_empleado' => $id_empleado,
             'id_cargo' => $id_cargo,
-             'estado' => '1',
+            'estado' => '1',
         );
         $this->db->insert('contrato', $datos);
         return $this->db->insert_id();
+    }
+    public function editarContrato($id_contrato, $id_empleado, $id_cargo)
+    {
+        $datos = array(
+            'id_empleado' => $id_empleado,
+            'id_cargo' => $id_cargo,
+        );
+        $this->db->where('id_contrato', $id_contrato);
+        $this->db->update('contrato', $datos);
+    }
+    public function eliminarContrato($id_contrato)
+    {
+        $datos = array(
+            'estado' => '0',
+        );
+        $this->db->where('id_contrato', $id_contrato);
+        $this->db->update('contrato', $datos);
     }
 }
