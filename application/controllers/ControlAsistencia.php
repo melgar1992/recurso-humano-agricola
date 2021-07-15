@@ -11,10 +11,14 @@ class ControlAsistencia extends BaseController
     public function index()
     {
         $data = array(
-            'empleados' => $this->Empleado_model->obtenerEmpleados(),
-            'cargos' => $this->Cargo_model->obtenerCargos(),
+            'contratos' => $this->Contrato_model->obtenerContratosOrdenApellidos(),
         );
 
         $this->loadView("ControlAsistencia", "formularios/control_asistencia/control_asistencia_form", $data);
+    }
+    public function obtenerAsistencias()
+    {
+        $asistencias = $this->Control_asistencia_model->obtenerAsistencias();
+        echo json_encode($asistencias);
     }
 }

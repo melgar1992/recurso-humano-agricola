@@ -41,17 +41,15 @@
                                 <div class="x_content">
 
                                     <div class="card-box table-responsive">
-                                        <table class="table table-striped table-bordered nowrap" id="tablaEmpleados" style="width:100%">
+                                        <table class="table table-striped table-bordered nowrap" id="tablaAsistencia" style="width:100%">
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Ci</th>
                                                     <th>Empleado</th>
-                                                    <th>Contrato</th>
-                                                    <th>Sueldo mensual</th>
-                                                    <th>Sueldo Hora</th>
-                                                    <th>Hora extra</th>
-                                                    <th>Hora feriada</th>
+                                                    <th>Cargo</th>
+                                                    <th>Fecha Hora entrada</th>
+                                                    <th>Fecha Hora salida</th>
+                                                    <th>Observaciones</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -84,25 +82,37 @@
                     <div class="error_formulario">
                     </div>
                     <div class="form-group">
-                        <label for="id_empleado" class="control-label">Empleado *:</label>
+                        <label for="id_contrato" class="control-label">Empleado contrato *:</label>
                         <div class="">
-                            <select id="id_empleado" name="id_empleado" class="form-control" required>
+                            <select id="id_contrato" name="id_contrato" class="form-control" required>
                                 <option value=""></option>
-                                <?php foreach ($empleados as $row) : ?>
-                                    <option value="<?php echo $row['id_empleado'] ?>"><?php echo $row['apellidos'] . ' ' . $row['nombres']; ?></option>
+                                <?php foreach ($contratos as $row) : ?>
+                                    <option value="<?php echo $row['id_contrato'] ?>"><?php echo $row['nombre_completo']
+                                                                                            . ' Cargo: ' . $row['cargo_nombre']
+                                                                                            . ' Hora: ' . $row['sueldo_hora'] . ' Bs'; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="id_cargo" class="control-label">Cargo *:</label>
+                        <label class="control-label" for="fecha_hora_ingreso">Fecha hora ingreso <span class="required">*</span>
+                        </label>
                         <div class="">
-                            <select id="id_cargo" name="id_cargo" class="form-control" required>
-                                <option value=""></option>
-                                <?php foreach ($cargos as $row) : ?>
-                                    <option value="<?php echo $row['id_cargo'] ?>"><?php echo $row['nombre'] . ' sueldo: ' . $row['sueldo_mensual'] . 'Bs hora: ' . $row['sueldo_hora'] . 'Bs'; ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                            <input type="datetime-local" id="fecha_hora_ingreso" name="fecha_hora_ingreso" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="fecha_hora_salida">Fecha hora salida <span class="required">*</span>
+                        </label>
+                        <div class="">
+                            <input type="datetime-local" id="fecha_hora_salida" name="fecha_hora_salida" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="observaciones" class="control-label">Observaciones
+                        </label>
+                        <div class="">
+                            <textarea name="observaciones" id="observaciones" class="form-control" rows="2" placeholder="Dirección"></textarea>
                         </div>
                     </div>
 
