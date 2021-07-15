@@ -30,7 +30,7 @@
                                 </li>
                                 <li><a><i class="fa fa-arrows-h"></i>Asistencia<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="<?php echo base_url(); ?>">Control de asistencia</a></li>
+                                        <li><a href="<?php echo base_url(); ?>ControlAsistencia">Control de asistencia</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-users"></i>Usuarios <span class="fa fa-chevron-down"></span></a>
