@@ -39,13 +39,16 @@ class Contrato_model extends CI_Model
     }
     public function existeContrato($id_empleado, $id_cargo)
     {
-        $this->db->select('id_contrato');
-        $this->db->where('id_empleado', $id_empleado);
-        $this->db->where('id_cargo', $id_cargo);
+        $this->db->select('co.id_contrato');
+        $this->db->from('contrato co');
+        $this->db->join('empleados em', 'em.id_empleado = co.id_empleado');
+        $this->db->join('cargo ca', 'ca.id_cargo = co.id_cargo');
+        $this->db->where('co.id_empleado', $id_empleado);
+        $this->db->where('co.id_cargo', $id_cargo);
         $this->db->where('co.estado', '1');
         $this->db->where('ca.estado', '1');
         $this->db->where('em.estado', '1');
-        $contrato = $this->db->get('contrato')->row_array();
+        $contrato = $this->db->get()->row_array();
 
         if (isset($contrato)) {
             return true;
