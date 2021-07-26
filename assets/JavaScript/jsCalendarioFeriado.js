@@ -1,6 +1,6 @@
 $(document).ready(function () {
     opcion = '';
-    document.title = 'Sistema Agricola| Cargo';
+    document.title = 'Sistema Agricola| Feriado';
     var tabla = $('#tablaEmpleados').DataTable({
         responsive: true,
         pageLength: 25,
@@ -36,4 +36,134 @@ $(document).ready(function () {
             "sProcesing": "Procesando...",
         }
     });
+    //ingresar o editar Cargo
+    $('#formulario').submit(function (e) {
+        e.preventDefault();
+        nombre = $.trim($('#nombre').val());
+        feriado = $.trim($('#feriado').val());
+         $('#modal-form').modal('hide');
+
+        if (opcion != 'editar') {
+            $.ajax({
+                type: "POST",
+                url: base_url + "Calendario/ingresarFeriado",
+                data: {
+                    nombre: nombre,
+                    feriado: feriado,
+                },
+                dataType: "json",
+                success: function (respuesta) {
+                    if (respuesta['respuesta'] === 'Exitoso') {
+                        id_calendario = respuesta['datos']['id_calendario'];
+                        nombre = respuesta['datos']['nombre'];
+                        feriado = respuesta['datos']['feriado'];
+                        tabla.row.add({
+                            "id_calendario": id_calendario,
+                            "nombre": nombre,
+                            "feriado": feriado,
+                        }).draw();
+                        swal({
+                            title: 'Guardar',
+                            text: respuesta['message'],
+                            type: 'success'
+                        });
+                        LimpiarFormulario();
+                    } else {
+                        swal({
+                            title: 'Error',
+                            text: respuesta['mensaje'],
+                            type: 'error'
+                        });
+                    }
+                }
+            });
+        } else {
+            $.ajax({
+                type: "POST",
+                url: base_url + "Cargo/editarCargo",
+                data: {
+                    id_calendario: id_calendario,
+                    nombre: nombre,
+                    feriado: feriado,
+                },
+                dataType: "json",
+                success: function (respuesta) {
+                    if (respuesta['respuesta'] === 'Exitoso') {
+                        id_calendario = respuesta['datos']['id_calendario'];
+                        nombre = respuesta['datos']['nombre'];
+                        feriado = respuesta['datos']['feriado'];
+                        tabla.row(fila).data({
+                            "id_calendario": id_calendario,
+                            "nombre": nombre,
+                            "feriado": feriado,
+                        }).draw();
+                        swal({
+                            title: 'Editado',
+                            text: respuesta['message'],
+                            type: 'success'
+                        });
+                        LimpiarFormulario();
+                    } else {
+                        swal({
+                            title: 'Error',
+                            text: respuesta['mensaje'],
+                            type: 'error'
+                        });
+                    }
+                }
+            });
+        }
+    });
+    //Eliminar feriado
+    $(document).on('click', '#btn-borrar', function () {
+        Swal.fire({
+            title: 'Esta seguro de elimar?',
+            text: "El Feriado se eliminara, una vez eliminado no se recuperara!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, deseo elimniar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+
+                fila = $(this).closest('tr');
+                id = parseInt(fila.find('td:eq(0)').text());
+
+                $.ajax({
+                    url: base_url + "Cargo/eliminarCargo/" + id,
+                    type: 'POST',
+                    dataType: "json",
+                    success: function (respuesta) {
+                        if (respuesta['respuesta'] === 'Exitoso') {
+                            tabla.row(fila).remove().draw();
+                            swal({
+                                title: 'Eliminado',
+                                text: 'Se borro correctamente',
+                                type: 'success'
+                            });
+                        } else {
+                            swal({
+                                title: 'Error',
+                                text: 'Ocurrio un error al eliminar',
+                                type: 'error'
+                            });
+                        }
+
+                    }
+                })
+
+
+            }
+        })
+
+    })
 });
+function LimpiarFormulario() {
+    $('#modal-form').modal('hide');
+    $('.modal-title').text('Formulario Feriado');
+    $("#feriado option:selected").removeAttr("selected");
+    $('#formulario').trigger('reset');
+    opcion = '';
+};
