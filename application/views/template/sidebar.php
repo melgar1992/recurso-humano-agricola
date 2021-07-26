@@ -28,6 +28,11 @@
 
                                     </ul>
                                 </li>
+                                <li><a><i class="fa fa-calendar"></i>Calendario<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="<?php echo base_url(); ?>Calendario/calendarioFeriadoForm">Feriados</a></li>
+                                    </ul>
+                                </li>
                                 <li><a><i class="fa fa-arrows-h"></i>Asistencia<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="<?php echo base_url(); ?>ControlAsistencia">Control de asistencia</a></li>
