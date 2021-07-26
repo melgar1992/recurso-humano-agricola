@@ -68,7 +68,7 @@ class Contrato extends BaseController
     public function editarContrato()
     {
 
-        $this->form_validation->set_rules('id_empleado', 'id_empleado', 'trim|xss_clean|is_unique[empleados.ci]');
+        $this->form_validation->set_rules('id_empleado', 'id_empleado', 'trim|xss_clean');
         $this->form_validation->set_rules('id_cargo', 'id_cargo', 'trim|xss_clean|required');
         $id_contrato = $this->input->post('id_contrato');
         $id_empleado = $this->input->post('id_empleado');

@@ -22,5 +22,13 @@ class Calendario_model extends CI_Model
         $this->db->insert('calendario', $datos);
         return $this->db->insert_id();
     }
-
+    public function editarFeriado($id_calendario, $feriado, $nombre)
+    {
+        $datos = array(
+            'feriado' => $feriado,
+            'nombre' => $nombre,
+        );
+        $this->db->where('id_calendario', $id_calendario);
+        $this->db->update('calendario', $datos);
+    }
 }

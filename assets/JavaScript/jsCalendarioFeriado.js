@@ -36,6 +36,32 @@ $(document).ready(function () {
             "sProcesing": "Procesando...",
         }
     });
+      // limpiar al cerrar
+      $('#modal-form').on('hidden.bs.modal', function () {
+        LimpiarFormulario();
+    });
+     //Botton editar cargo
+     $(document).on('click', '#btn-editar', function () {
+        fila = $(this).closest('tr');
+        id_calendario = parseInt(fila.find('td:eq(0)').text());
+        $('.modal-title').text('Editar Feriado');
+        $('#modal-form').modal('show');
+        $.ajax({
+            type: "POST",
+            url: base_url + "Calendario/obtenerFeriadoAjax",
+            data: {
+                id_calendario: id_calendario
+            },
+            dataType: "json",
+            success: function (respuesta) {
+                $('#nombre').val(respuesta['nombre']);
+                $('#feriado').val(respuesta['feriado']);
+
+            }
+        });
+        opcion = 'editar';
+
+    });
     //ingresar o editar Cargo
     $('#formulario').submit(function (e) {
         e.preventDefault();
@@ -80,7 +106,7 @@ $(document).ready(function () {
         } else {
             $.ajax({
                 type: "POST",
-                url: base_url + "Cargo/editarCargo",
+                url: base_url + "Calendario/editarFeriado",
                 data: {
                     id_calendario: id_calendario,
                     nombre: nombre,
@@ -163,7 +189,6 @@ $(document).ready(function () {
 function LimpiarFormulario() {
     $('#modal-form').modal('hide');
     $('.modal-title').text('Formulario Feriado');
-    $("#feriado option:selected").removeAttr("selected");
     $('#formulario').trigger('reset');
     opcion = '';
 };
