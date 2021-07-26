@@ -158,7 +158,7 @@ $(document).ready(function () {
                 id = parseInt(fila.find('td:eq(0)').text());
 
                 $.ajax({
-                    url: base_url + "Cargo/eliminarCargo/" + id,
+                    url: base_url + "Calendario/eliminarFeriado/" + id,
                     type: 'POST',
                     dataType: "json",
                     success: function (respuesta) {

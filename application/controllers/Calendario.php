@@ -91,4 +91,13 @@ class Calendario extends BaseController
         }
         echo json_encode($respuesta);
     }
+    public function eliminarFeriado($id_calendario)
+    {
+        $this->Calendario_model->eliminarFeriado($id_calendario);
+        $respuesta = array(
+            'respuesta' => 'Exitoso',
+            'message' => 'Se elimino al empleado'
+        );
+        echo json_encode($respuesta);
+    }
 }

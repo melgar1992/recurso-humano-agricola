@@ -31,4 +31,9 @@ class Calendario_model extends CI_Model
         $this->db->where('id_calendario', $id_calendario);
         $this->db->update('calendario', $datos);
     }
+    public function eliminarFeriado($id_calendario)
+    {
+        $this->db->where('id_calendario', $id_calendario);
+        $this->db->delete('calendario');
+    }
 }
