@@ -62,7 +62,7 @@ $(document).ready(function () {
         opcion = 'editar';
 
     });
-    //ingresar o editar Cargo
+    //ingresar o editar Feriado
     $('#formulario').submit(function (e) {
         e.preventDefault();
         nombre = $.trim($('#nombre').val());

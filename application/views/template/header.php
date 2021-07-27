@@ -24,4 +24,7 @@
   <!-- DataTables-->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/template/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/template/datatables.net-responsive-bs/css/responsive.bootstrap.min.css">
+  <!-- icheck-->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/template/iCheck/skins/flat/green.css">
+
 </head>

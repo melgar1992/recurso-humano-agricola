@@ -100,9 +100,8 @@ class Usuario_model extends CI_Model
 
     public function obtenerRoles()
     {
-        $this->db->select('r.id_roles, r.nombre, r.descripcion, p.*');
-        $this->db->from('roles r');
-        $this->db->join('permisos p', 'p.id_permisos = r.id_permisos');
+        $this->db->select('*');
+        $this->db->from('roles ');
         return $this->db->get()->result_array();
     }
     public function obtenerNombresDeColumnasRoles()

@@ -157,5 +157,10 @@ class Usuarios extends BaseController
         );
         $this->loadView('Roles', 'formularios/roles/roles_form', $data);
     }
+    public function obtenerRolesAjax()
+    {
+        $roles = $this->Usuario_model->obtenerRoles();
+        echo json_encode($roles);
+    }
 
 }

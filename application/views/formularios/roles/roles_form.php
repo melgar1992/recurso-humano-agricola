@@ -41,7 +41,7 @@
                                 <div class="x_content">
 
                                     <div class="card-box table-responsive">
-                                        <table class="table table-striped table-bordered nowrap" id="tablaEmpleados" style="width:100%">
+                                        <table class="table table-striped table-bordered nowrap" id="tablaRoles" style="width:100%">
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
@@ -83,22 +83,23 @@
                         <label class="control-label" for="nombre">Nombre del roll<span class="required">*</span>
                         </label>
                         <div class="">
-                            <input type="text" id="nombre" onkeyup="mayus(this);" minlength="0" maxlength="45" name="nombre" required="required" class="form-control col-md-7 col-xs-12">
+                            <input type="text" id="nombre" onkeyup="mayus(this);" minlength="0" maxlength="45" name="nombre" required="required" placeholder="Administrador" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="descripcion">Descripcion del roll</span>
+                        <label for="descripcion" class="control-label">Descripcion
                         </label>
                         <div class="">
-                            <input type="text" id="descripcion" onkeyup="mayus(this);" minlength="0" maxlength="100" name="descripcion" class="form-control col-md-7 col-xs-12">
+                            <textarea name="descripcion" id="descripcion" class="form-control" rows="2" placeholder="Administrador total del sistema"></textarea>
                         </div>
                     </div>
+                    <label for="">Permisos del sistema</label>
                     <?php foreach ($nombreRoles as $row) : ?>
-                        <?php if ($row == 'id_roles' || $row == 'id_permisos' || $row == 'nombre' || $row == 'descripcion') continue; ?>
+                        <?php if ($row == 'id_roles' || $row == 'nombre' || $row == 'descripcion') continue; ?>
                         <div class="form-group">
-                            <div class="checkbox">
+                            <div class="ICheck">
                                 <label>
-                                    <input type="checkbox" class="flat" checked="checked"> <?php echo $row; ?>
+                                    <input type="checkbox" class="flat" value="<?php echo $row; ?>" name="<?php echo $row; ?>" id="<?php echo $row; ?>"> <?php echo $row; ?>
                                 </label>
                             </div>
                         </div>
