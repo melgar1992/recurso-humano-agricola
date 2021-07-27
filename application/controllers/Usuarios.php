@@ -162,5 +162,9 @@ class Usuarios extends BaseController
         $roles = $this->Usuario_model->obtenerRoles();
         echo json_encode($roles);
     }
+    public function guardarRol()
+    {
+        # code...
+    }
 
 }

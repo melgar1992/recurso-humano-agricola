@@ -109,7 +109,7 @@
                 <br>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger pull-left" id="btn-cerrar" data-dismiss="modal">Cerrar</button>
-                    <button class="btn btn-primary pull-right" type="reset">Borrar</button>
+                    <button class="btn btn-primary pull-right" id="bt-reset-form" type="reset">Borrar</button>
                     <button type="submit" class="btn btn-success pull-right" id="btn-guardar">Guardar</button>
                 </div>
             </form>

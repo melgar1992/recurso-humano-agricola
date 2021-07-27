@@ -36,6 +36,18 @@ $(document).ready(function () {
             "sProcesing": "Procesando...",
         }
     });
+    // limpiar al borrar
+    $('#bt-reset-form').on('click', function () {
+        $("#dashboard").iCheck("uncheck");
+        $("#empleados").iCheck("uncheck");
+        $("#calendario").iCheck("uncheck");
+        $("#asistencias").iCheck("uncheck");
+        $("#pago").iCheck("uncheck");
+        $("#usuarios").iCheck("uncheck");
+        $('.modal-title').text('Formulario Rol');
+        $('#formulario').trigger('reset');
+        opcion = '';
+    });
      // limpiar al cerrar
      $('#modal-form').on('hidden.bs.modal', function () {
         LimpiarFormulario();
@@ -58,10 +70,16 @@ $(document).ready(function () {
         if (opcion != 'editar') {
             $.ajax({
                 type: "POST",
-                url: base_url + "Calendario/ingresarFeriado",
+                url: base_url + "Usuarios/guardarRol",
                 data: {
                     nombre: nombre,
-                    feriado: feriado,
+                    descripcion: descripcion,
+                    dashboard: dashboard,
+                    empleados: empleados,
+                    calendario: calendario,
+                    asistencias: asistencias,
+                    pago: pago,
+                    usuarios: usuarios,
                 },
                 dataType: "json",
                 success: function (respuesta) {
@@ -129,7 +147,13 @@ $(document).ready(function () {
 });
 function LimpiarFormulario() {
     $('#modal-form').modal('hide');
-    $('.modal-title').text('Formulario Feriado');
+    $("#dashboard").iCheck("uncheck");
+    $("#empleados").iCheck("uncheck");
+    $("#calendario").iCheck("uncheck");
+    $("#asistencias").iCheck("uncheck");
+    $("#pago").iCheck("uncheck");
+    $("#usuarios").iCheck("uncheck");
+    $('.modal-title').text('Formulario Rol');
     $('#formulario').trigger('reset');
     opcion = '';
 };
