@@ -4,7 +4,7 @@ class Usuario_model extends CI_Model
 
     public function login($username, $password)
     {
-        $this->db->select('usuarios.*, roles.nombre as rol');
+        $this->db->select('usuarios.*, roles.*');
         $this->db->where("username", $username);
         // $this->db->where("password", $password);
         $this->db->where("estado", "1");
@@ -21,26 +21,12 @@ class Usuario_model extends CI_Model
     }
     public function getUsuarios()
     {
-        if ($this->session->userdata('rol') === 'administrador total') {
-            $this->db->select('u.*, r.nombre as tiporol, r.descripcion');
-            $this->db->from('usuarios u');
-            $this->db->join('roles r', 'r.id_roles = u.id_roles');
-            $this->db->where('u.estado', '1');
-            $this->db->where('r.estado', '1');
-            $resultado = $this->db->get();
-
-            return $resultado->result();
-        } else {
-            $this->db->select('u.*, r.nombre as tiporol, r.descripcion');
-            $this->db->from('usuarios u');
-            $this->db->join('roles r', 'r.id_roles = u.id_roles');
-            $this->db->where('u.estado', '1');
-            $this->db->where('r.estado', '1');
-            $this->db->where_not_in('r.nombre', 'administrador total');
-            $resultado = $this->db->get();
-
-            return $resultado->result();
-        }
+        $this->db->select('u.*, concat(u.apellidos," " ,u.nombres) as nombre_completo, r.*');
+        $this->db->from('usuarios u');
+        $this->db->join('roles r', 'r.id_roles = u.id_roles');
+        $this->db->where('u.estado', '1');
+        $this->db->where('r.estado', '1');
+        return $this->db->get()->result_array();
     }
     public function validarCi($ci)
     {
@@ -148,7 +134,6 @@ class Usuario_model extends CI_Model
         );
         $this->db->where('id_roles', $id_roles);
         $this->db->update('roles', $data);
-
     }
     public function eliminarRol($id_roles)
     {

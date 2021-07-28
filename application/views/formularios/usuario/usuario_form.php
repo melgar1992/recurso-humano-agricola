@@ -41,12 +41,15 @@
                                 <div class="x_content">
 
                                     <div class="card-box table-responsive">
-                                        <table class="table table-striped table-bordered nowrap" id="tablaEmpleados" style="width:100%">
+                                        <table class="table table-striped table-bordered nowrap" id="tablaUsuarios" style="width:100%">
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Fecha</th>
-                                                    <th>Descripcion</th>
+                                                    <th>Nombre</th>
+                                                    <th>CI</th>
+                                                    <th>Rol</th>
+                                                    <th>Nombre usuario</th>
+                                                    <th>Telefono</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -71,7 +74,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Formulario Feriado</h4>
+                <h4 class="modal-title">Formulario Usuario</h4>
             </div>
             <form action="" id="formulario">
                 <div class="modal-body">
@@ -79,17 +82,56 @@
                     <div class="error_formulario">
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="nombre">Descripcion<span class="required">*</span>
+                        <label class="control-label" for="ci">ci<span class="required">*</span>
                         </label>
                         <div class="">
-                            <input type="text" id="nombre" onkeyup="mayus(this);" minlength="0" maxlength="45" name="nombre" required="required" class="form-control col-md-7 col-xs-12">
+                            <input type="number" id="ci" maxlength="7" oninput="this.value=this.value.slice(0,this.maxLength)" name="ci" class="form-control col-md-7 col-xs-12" placeholder="Número de Carnet de Identidad">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="feriado" class="control-label">Fecha<span class="required">*</span>
+                        <label class="control-label" for="nombres">Nombres <span class="required">*</span>
                         </label>
-                        <div>
-                            <input id="feriado" class="form-control col-md-7 col-xs-12" type="date" name="feriado" required="required" placeholder="">
+                        <div class="">
+                            <input type="text" id="nombres" onkeyup="mayus(this);" minlength="0" maxlength="45" name="nombres" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="apellidos">Apellidos <span class="required">*</span>
+                        </label>
+                        <div class="">
+                            <input type="text" minlength="0" onkeyup="mayus(this);" maxlength="45" id="apellidos" name="apellidos" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="username">Nombre usuario <span class="required">*</span>
+                        </label>
+                        <div class="">
+                            <input type="text" minlength="0" maxlength="45" id="username" name="username" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="password">Contraseña <span class="required">*</span>
+                        </label>
+                        <div class="">
+                            <input type="password" minlength="0" maxlength="45" id="password" name="password" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_roles" class="control-label">Rol *:</label>
+                        <div class="">
+                            <select id="id_roles" name="id_roles" class="form-control" required>
+                                <option value=""></option>
+                                <?php foreach ($roles as $row) : ?>
+                                    <option value="<?php echo $row['id_roles'] ?>"><?php echo $row['nombre']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono" class="control-label">Telefono<span class="required">*</span>
+                        </label>
+                        <div class="">
+                            <input id="telefono" maxlength="8" oninput="this.value=this.value.slice(0,this.maxLength)" class="form-control col-md-7 col-xs-12" type="number" name="telefono" required="required" placeholder="77800975-34622503">
                         </div>
                     </div>
 

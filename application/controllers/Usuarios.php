@@ -12,11 +12,15 @@ class Usuarios extends BaseController
     {
 
         $data = array(
-            'Usuarios' => $this->Usuario_model->getUsuarios(),
+            'roles' => $this->Usuario_model->obtenerRoles(),
         );
-        $this->loadView('Usuarios', '/forms/formularios/usuarios/list', $data);
+        $this->loadView('Usuarios', 'formularios/usuario/usuario_form', $data);
     }
-
+    public function obtenerUsuariosAjax()
+    {
+        $usuarios = $this->Usuario_model->getUsuarios();
+        echo json_encode($usuarios);
+    }
     public function guardarUsuario()
     {
         $nombres = $this->input->post('nombre');

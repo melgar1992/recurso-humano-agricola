@@ -156,7 +156,6 @@ $(document).ready(function () {
 
                 fila = $(this).closest('tr');
                 id = parseInt(fila.find('td:eq(0)').text());
-
                 $.ajax({
                     url: base_url + "Calendario/eliminarFeriado/" + id,
                     type: 'POST',

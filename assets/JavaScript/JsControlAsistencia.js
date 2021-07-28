@@ -69,7 +69,14 @@ $(document).ready(function () {
         fecha_hora_salida = $.trim($('#fecha_hora_salida').val());
         observaciones = $.trim($('#observaciones').val());
         $('#modal-asistencia').modal('hide');
-
+        if (fecha_hora_salida < fecha_hora_ingreso) {
+            swal({
+                title: 'Error',
+                text: 'La hora de salida no puede ser antes de la ingreso',
+                type: 'error'
+            });
+            break;
+        }
         if (opcion != 'editar') {
             $.ajax({
                 type: "POST",
