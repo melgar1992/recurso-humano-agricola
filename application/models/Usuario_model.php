@@ -133,6 +133,30 @@ class Usuario_model extends CI_Model
         );
         $this->db->insert('roles', $data);
         return $this->db->insert_id();
+    }
+    public function editarRol($id_roles, $nombre, $descripcion, $dashboard, $empleados, $calendario, $asistencias, $pago, $usuarios)
+    {
+        $data = array(
+            'nombre' => $nombre,
+            'descripcion' => $descripcion,
+            'dashboard' => $dashboard,
+            'empleados' => $empleados,
+            'calendario' => $calendario,
+            'asistencias' => $asistencias,
+            'usuarios' => $usuarios,
+            'pago' => $pago,
+        );
+        $this->db->where('id_roles', $id_roles);
+        $this->db->update('roles', $data);
 
+    }
+    public function eliminarRol($id_roles)
+    {
+        $data = array(
+            'estado' => '0',
+            'nombre' => '',
+        );
+        $this->db->where('id_roles', $id_roles);
+        $this->db->update('roles', $data);
     }
 }

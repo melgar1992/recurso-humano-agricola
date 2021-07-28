@@ -146,22 +146,28 @@ $(document).ready(function () {
         } else {
             $.ajax({
                 type: "POST",
-                url: base_url + "Calendario/editarFeriado",
+                url: base_url + "Usuarios/editarRol",
                 data: {
-                    id_calendario: id_calendario,
+                    id_roles: id_roles,
                     nombre: nombre,
-                    feriado: feriado,
+                    descripcion: descripcion,
+                    dashboard: dashboard,
+                    empleados: empleados,
+                    calendario: calendario,
+                    asistencias: asistencias,
+                    pago: pago,
+                    usuarios: usuarios,
                 },
                 dataType: "json",
                 success: function (respuesta) {
                     if (respuesta['respuesta'] === 'Exitoso') {
-                        id_calendario = respuesta['datos']['id_calendario'];
+                        id_roles = respuesta['datos']['id_roles'];
                         nombre = respuesta['datos']['nombre'];
-                        feriado = respuesta['datos']['feriado'];
+                        descripcion = respuesta['datos']['descripcion'];
                         tabla.row(fila).data({
-                            "id_calendario": id_calendario,
+                            "id_roles": id_roles,
                             "nombre": nombre,
-                            "feriado": feriado,
+                            "descripcion": descripcion,
                         }).draw();
                         swal({
                             title: 'Editado',
@@ -180,6 +186,50 @@ $(document).ready(function () {
             });
         }
     });
+    $(document).on('click', '#btn-borrar', function () {
+        Swal.fire({
+            title: 'Esta seguro de elimar?',
+            text: "El rol se eliminara, una vez eliminado no se recuperara, tambien los usuarios con este roll no podran entrar!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, deseo elimniar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+
+                fila = $(this).closest('tr');
+                id = parseInt(fila.find('td:eq(0)').text());
+
+                $.ajax({
+                    url: base_url + "Usuarios/eliminarRol/" + id,
+                    type: 'POST',
+                    dataType: "json",
+                    success: function (respuesta) {
+                        if (respuesta['respuesta'] === 'Exitoso') {
+                            tabla.row(fila).remove().draw();
+                            swal({
+                                title: 'Eliminado',
+                                text: 'Se borro correctamente',
+                                type: 'success'
+                            });
+                        } else {
+                            swal({
+                                title: 'Error',
+                                text: 'Ocurrio un error al eliminar',
+                                type: 'error'
+                            });
+                        }
+
+                    }
+                })
+
+
+            }
+        })
+
+    })
 });
 function LimpiarFormulario() {
     $('#modal-form').modal('hide');

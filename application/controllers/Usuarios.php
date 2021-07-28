@@ -207,4 +207,56 @@ class Usuarios extends BaseController
         }
         echo json_encode($respuesta);
     }
+    public function editarRol()
+    {
+        $id_roles = $this->input->post('id_roles');
+        $nombre = $this->input->post('nombre');
+        $descripcion = $this->input->post('descripcion');
+        $dashboard = $this->input->post('dashboard');
+        $empleados = $this->input->post('empleados');
+        $calendario = $this->input->post('calendario');
+        $asistencias = $this->input->post('asistencias');
+        $pago = $this->input->post('pago');
+        $usuarios = $this->input->post('usuarios');
+
+        $rol = $this->Usuario_model->obtenerRol($id_roles);
+        if ($nombre == $rol['nombre']) {
+            $is_unique = '';
+        } else {
+            $is_unique = '|is_unique[roles.nombre]';
+        }
+        $this->form_validation->set_rules('nombre', 'nombre', 'trim|xss_clean|required' . $is_unique);
+        $this->form_validation->set_rules('descripcion', 'descripcion', 'trim|xss_clean|required');
+        try {
+            if ($this->form_validation->run() === false) {
+                $respuesta = array(
+                    'respuesta' => 'Error',
+                    'mensaje' => 'Ocurrio un problema al validar los datos o el nombre ya existe',
+                );
+            } else {
+                $this->Usuario_model->editarRol($id_roles, $nombre, $descripcion, $dashboard, $empleados, $calendario, $asistencias, $pago, $usuarios);
+                $rol = $this->Usuario_model->obtenerRol($id_roles);
+                $respuesta = array(
+                    'respuesta' => 'Exitoso',
+                    'datos' => $rol,
+                    'message' => 'Se edito correctamente',
+                );
+            }
+        } catch (Exception  $th) {
+            $respuesta = array(
+                'respuesta' => 'Error',
+                'mensaje' => 'Ocurrio un problema' + $th->getMessage(),
+            );
+        }
+        echo json_encode($respuesta);
+    }
+    public function eliminarRol($id_roles)
+    {
+        $this->Usuario_model->eliminarRol($id_roles);
+        $respuesta = array(
+            'respuesta' => 'Exitoso',
+            'message' => 'Se elimino al empleado'
+        );
+        echo json_encode($respuesta);
+    }
 }
