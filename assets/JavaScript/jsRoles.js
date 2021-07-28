@@ -11,7 +11,7 @@ $(document).ready(function () {
             { data: 'descripcion' },
             { data: 4 }
         ],
-           "order": [
+        "order": [
             [0, "desc"]
         ],
         "columnDefs": [{
@@ -37,7 +37,8 @@ $(document).ready(function () {
         }
     });
     // limpiar al borrar
-    $('#bt-reset-form').on('click', function () {
+    $('#bt-reset-form').on('click', function (e) {
+        e.preventDefault();
         $("#dashboard").iCheck("uncheck");
         $("#empleados").iCheck("uncheck");
         $("#calendario").iCheck("uncheck");
@@ -48,9 +49,38 @@ $(document).ready(function () {
         $('#formulario').trigger('reset');
         opcion = '';
     });
-     // limpiar al cerrar
-     $('#modal-form').on('hidden.bs.modal', function () {
+    // limpiar al cerrar
+    $('#modal-form').on('hidden.bs.modal', function () {
         LimpiarFormulario();
+    });
+    //Botton editar Roll
+    $(document).on('click', '#btn-editar', function () {
+        fila = $(this).closest('tr');
+        id_roles = parseInt(fila.find('td:eq(0)').text());
+        $('.modal-title').text('Editar Rol');
+        $('#modal-form').modal('show');
+        $.ajax({
+            type: "POST",
+            url: base_url + "Usuarios/obtenerRolAjax",
+            data: {
+                id_roles: id_roles
+            },
+            dataType: "json",
+            success: function (respuesta) {
+                $('#nombre').val(respuesta['nombre']);
+                $('#descripcion').text(respuesta['descripcion']);
+                (respuesta['dashboard'] === '1') ? $("#dashboard").iCheck("check") : $("#dashboard").iCheck("uncheck");
+                (respuesta['empleados'] === '1') ? $("#empleados").iCheck("check") : $("#empleados").iCheck("uncheck");
+                (respuesta['calendario'] === '1') ? $("#calendario").iCheck("check") : $("#calendario").iCheck("uncheck");
+                (respuesta['asistencias'] === '1') ? $("#asistencias").iCheck("check") : $("#asistencias").iCheck("uncheck");
+                (respuesta['pago'] === '1') ? $("#pago").iCheck("check") : $("#pago").iCheck("uncheck");
+                (respuesta['usuarios'] === '1') ? $("#usuarios").iCheck("check") : $("#usuarios").iCheck("uncheck");
+
+
+            }
+        });
+        opcion = 'editar';
+
     });
     //ingresar o editar Rol
     $('#formulario').submit(function (e) {
@@ -64,8 +94,14 @@ $(document).ready(function () {
         pago = $.trim($('#pago').prop('checked'));
         usuarios = $.trim($('#usuarios').prop('checked'));
 
+        (dashboard === 'true') ? dashboard = '1' : dashboard = '0';
+        (empleados === 'true') ? empleados = '1' : empleados = '0';
+        (calendario === 'true') ? calendario = '1' : calendario = '0';
+        (asistencias === 'true') ? asistencias = '1' : asistencias = '0';
+        (pago === 'true') ? pago = '1' : pago = '0';
+        (usuarios === 'true') ? usuarios = '1' : usuarios = '0';
 
-         $('#modal-form').modal('hide');
+        $('#modal-form').modal('hide');
 
         if (opcion != 'editar') {
             $.ajax({
@@ -84,13 +120,13 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (respuesta) {
                     if (respuesta['respuesta'] === 'Exitoso') {
-                        id_calendario = respuesta['datos']['id_calendario'];
+                        id_roles = respuesta['datos']['id_roles'];
                         nombre = respuesta['datos']['nombre'];
-                        feriado = respuesta['datos']['feriado'];
+                        descripcion = respuesta['datos']['descripcion'];
                         tabla.row.add({
-                            "id_calendario": id_calendario,
+                            "id_roles": id_roles,
                             "nombre": nombre,
-                            "feriado": feriado,
+                            "descripcion": descripcion,
                         }).draw();
                         swal({
                             title: 'Guardar',

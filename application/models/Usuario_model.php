@@ -26,6 +26,7 @@ class Usuario_model extends CI_Model
             $this->db->from('usuarios u');
             $this->db->join('roles r', 'r.id_roles = u.id_roles');
             $this->db->where('u.estado', '1');
+            $this->db->where('r.estado', '1');
             $resultado = $this->db->get();
 
             return $resultado->result();
@@ -34,6 +35,7 @@ class Usuario_model extends CI_Model
             $this->db->from('usuarios u');
             $this->db->join('roles r', 'r.id_roles = u.id_roles');
             $this->db->where('u.estado', '1');
+            $this->db->where('r.estado', '1');
             $this->db->where_not_in('r.nombre', 'administrador total');
             $resultado = $this->db->get();
 
@@ -102,10 +104,35 @@ class Usuario_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('roles ');
+        $this->db->where('estado', '1');
         return $this->db->get()->result_array();
     }
     public function obtenerNombresDeColumnasRoles()
     {
         return $this->db->list_fields('roles');
+    }
+    public function obtenerRol($id_roles)
+    {
+        $this->db->select('*');
+        $this->db->from('roles ');
+        $this->db->where('id_roles', $id_roles);
+        return $this->db->get()->row_array();
+    }
+    public function ingresarRoll($nombre, $descripcion, $dashboard, $empleados, $calendario, $asistencias, $pago, $usuarios)
+    {
+        $data = array(
+            'nombre' => $nombre,
+            'descripcion' => $descripcion,
+            'dashboard' => $dashboard,
+            'empleados' => $empleados,
+            'calendario' => $calendario,
+            'asistencias' => $asistencias,
+            'usuarios' => $usuarios,
+            'pago' => $pago,
+            'estado' => '1',
+        );
+        $this->db->insert('roles', $data);
+        return $this->db->insert_id();
+
     }
 }

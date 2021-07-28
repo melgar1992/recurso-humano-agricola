@@ -95,7 +95,7 @@
                     </div>
                     <label for="">Permisos del sistema</label>
                     <?php foreach ($nombreRoles as $row) : ?>
-                        <?php if ($row == 'id_roles' || $row == 'nombre' || $row == 'descripcion') continue; ?>
+                        <?php if ($row == 'id_roles' || $row == 'nombre' || $row == 'descripcion' || $row == 'estado') continue; ?>
                         <div class="form-group">
                             <div class="ICheck">
                                 <label>

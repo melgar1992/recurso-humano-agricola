@@ -66,7 +66,7 @@ class Usuarios extends BaseController
             $this->index();
         }
     }
-    
+
     public function editar($id_usuario)
     {
         $data = array(
@@ -75,7 +75,7 @@ class Usuarios extends BaseController
 
         $this->loadView('Usuarios', '/forms/formularios/usuarios/editar', $data);
     }
-    
+
     public function actualizarUsuario()
     {
         $id_usuarios = $this->input->post('id_usuarios');
@@ -129,7 +129,6 @@ class Usuarios extends BaseController
             }
             if ($this->Usuario_model->actualizar($id_usuarios, $roles, $datos)) {
                 redirect(base_url() . "Formularios/Usuarios");
-
             } else {
                 $this->session->set_flashdata("error", "No se pudo actualizar la informacion");
                 redirect(base_url() . "forms/formularios/usuarios/editar" . $id_usuarios);
@@ -141,9 +140,9 @@ class Usuarios extends BaseController
     public function borrar($id_usuarios)
     {
         $datos = array(
-            'estado' => '0' ,
-            'fecha_salida' => date('Y-m-d') ,
-     );
+            'estado' => '0',
+            'fecha_salida' => date('Y-m-d'),
+        );
         $this->Usuario_model->borrar($id_usuarios, $datos);
         echo 'Formularios/Usuarios';
     }
@@ -162,9 +161,50 @@ class Usuarios extends BaseController
         $roles = $this->Usuario_model->obtenerRoles();
         echo json_encode($roles);
     }
+    public function obtenerRolAjax()
+    {
+        $id_roles = $this->input->post('id_roles');
+        $rol = $this->Usuario_model->obtenerRol($id_roles);
+        echo json_encode($rol);
+    }
     public function guardarRol()
     {
-        # code...
-    }
+        $nombre = $this->input->post('nombre');
+        $descripcion = $this->input->post('descripcion');
+        $dashboard = $this->input->post('dashboard');
+        $empleados = $this->input->post('empleados');
+        $calendario = $this->input->post('calendario');
+        $asistencias = $this->input->post('asistencias');
+        $pago = $this->input->post('pago');
+        $usuarios = $this->input->post('usuarios');
 
+
+        $this->form_validation->set_rules('nombre', 'nombre', 'trim|xss_clean|required|is_unique[roles.nombre]');
+        $this->form_validation->set_rules('descripcion', 'descripcion', 'trim|xss_clean|required');
+
+
+
+        try {
+            if ($this->form_validation->run() === false) {
+                $respuesta = array(
+                    'respuesta' => 'Error',
+                    'mensaje' => 'Ocurrio un problema al validar los datos o nombre del roll ya existe!',
+                );
+            } else {
+                $id_roles = $this->Usuario_model->ingresarRoll($nombre, $descripcion, $dashboard, $empleados, $calendario, $asistencias, $pago, $usuarios);
+                $rol = $this->Usuario_model->obtenerRol($id_roles);
+                $respuesta = array(
+                    'respuesta' => 'Exitoso',
+                    'datos' => $rol,
+                    'message' => 'Se guardo correctamente',
+                );
+            }
+        } catch (Exception  $th) {
+            $respuesta = array(
+                'respuesta' => 'Error',
+                'mensaje' => 'Ocurrio un problema' + $th->getMessage(),
+            );
+        }
+        echo json_encode($respuesta);
+    }
 }
