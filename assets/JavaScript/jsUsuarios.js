@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     opcion = '';
     document.title = 'Sistema Agricola| Usuario';
     var tabla = $('#tablaUsuarios').DataTable({
@@ -12,8 +12,7 @@ $(document).ready(function() {
             { data: 'nombre' },
             { data: 'username' },
             { data: 'telefono' },
-
-            { data: 3 }
+            { data: 6 }
         ],
         "order": [
             [0, "desc"]
@@ -40,5 +39,150 @@ $(document).ready(function() {
             "sProcesing": "Procesando...",
         }
     });
+      // limpiar al cerrar
+      $('#modal-form').on('hidden.bs.modal', function () {
+        LimpiarFormulario();
+    });
+     //B
+    //Botton editar cargo
+    $(document).on('click', '#btn-editar', function () {
+        fila = $(this).closest('tr');
+        id_usuario = parseInt(fila.find('td:eq(0)').text());
+        $('.modal-title').text('Editar Usuario');
+        $('#modal-form').modal('show');
+        $.ajax({
+            type: "POST",
+            url: base_url + "Usuarios/obtenerUsuario",
+            data: {
+                id_usuario: id_usuario
+            },
+            dataType: "json",
+            success: function (respuesta) {
+                $('#ci').val(respuesta['ci']);
+                $('#nombres').val(respuesta['nombres']);
+                $('#apellidos').val(respuesta['apellidos']);
+                $('#username').val(respuesta['username']);
+                $('#nombre').val(respuesta['nombre']);
+                $('#password').attr('placeholder','Cambiar nueva contraseña o no llenar para no cambiar')
+                $("#id_roles option[value=" + respuesta['id_roles'] + "]").attr("selected", true);
+                $('#telefono').val(respuesta['telefono']);
 
+            }
+        });
+        opcion = 'editar';
+
+    });
+    //ingresar o editar Usuario
+    $('#formulario').submit(function (e) {
+        e.preventDefault();
+        ci = $.trim($('#ci').val());
+        nombres = $.trim($('#nombres').val());
+        apellidos = $.trim($('#apellidos').val());
+        username = $.trim($('#username').val());
+        password = $.trim($('#password').val());
+        id_roles = $.trim($('#id_roles').val());
+        telefono = $.trim($('#telefono').val());
+        $('#modal-form').modal('hide');
+
+        if (opcion != 'editar') {
+            $.ajax({
+                type: "POST",
+                url: base_url + "Usuarios/ingresarUsuario",
+                data: {
+                    ci: ci,
+                    nombres: nombres,
+                    apellidos: apellidos,
+                    username: username,
+                    password: password,
+                    id_roles: id_roles,
+                    telefono: telefono,
+                },
+                dataType: "json",
+                success: function (respuesta) {
+                    if (respuesta['respuesta'] === 'Exitoso') {
+                        id_usuario = respuesta['datos']['id_usuario'];
+                        nombre_completo = respuesta['datos']['nombre_completo'];
+                        ci = respuesta['datos']['ci'];
+                        nombre = respuesta['datos']['nombre'];
+                        username = respuesta['datos']['username'];
+                        telefono = respuesta['datos']['telefono'];
+                        tabla.row.add({
+                            "id_usuario": id_usuario,
+                            "nombre_completo": nombre_completo,
+                            "ci": ci,
+                            "nombre": nombre,
+                            "username": username,
+                            "telefono": telefono,
+                        }).draw();
+                        swal({
+                            title: 'Guardar',
+                            text: respuesta['message'],
+                            type: 'success'
+                        });
+                        LimpiarFormulario();
+                    } else {
+                        swal({
+                            title: 'Error',
+                            text: respuesta['mensaje'],
+                            type: 'error'
+                        });
+                    }
+                }
+            });
+        } else {
+            $.ajax({
+                type: "POST",
+                url: base_url + "Calendario/editarFeriado",
+                data: {
+                    id_usuario: id_usuario,
+                    ci: ci,
+                    nombres: nombres,
+                    apellidos: apellidos,
+                    username: username,
+                    password: password,
+                    id_roles: id_roles,
+                    telefono: telefono,
+                },
+                dataType: "json",
+                success: function (respuesta) {
+                    if (respuesta['respuesta'] === 'Exitoso') {
+                        id_usuario = respuesta['datos']['id_usuario'];
+                        nombre_completo = respuesta['datos']['nombre_completo'];
+                        ci = respuesta['datos']['ci'];
+                        nombre = respuesta['datos']['nombre'];
+                        username = respuesta['datos']['username'];
+                        telefono = respuesta['datos']['telefono'];
+                        tabla.row(fila).data({
+                            "id_usuario": id_usuario,
+                            "nombre_completo": nombre_completo,
+                            "ci": ci,
+                            "nombre": nombre,
+                            "username": username,
+                            "telefono": telefono,
+                        }).draw();
+                        swal({
+                            title: 'Editado',
+                            text: respuesta['message'],
+                            type: 'success'
+                        });
+                        LimpiarFormulario();
+                    } else {
+                        swal({
+                            title: 'Error',
+                            text: respuesta['mensaje'],
+                            type: 'error'
+                        });
+                    }
+                }
+            });
+        }
+    });
 })
+function LimpiarFormulario() {
+    $('#modal-form').modal('hide');
+    $('.modal-title').text('Formulario Usuario');
+    $("#id_roles option:selected").removeAttr("selected");
+    $("#password").removeAttr("placeholder");
+    $('#formulario').trigger('reset');
+    opcion = '';
+};

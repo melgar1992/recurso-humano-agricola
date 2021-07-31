@@ -85,7 +85,7 @@
                         <label class="control-label" for="ci">ci<span class="required">*</span>
                         </label>
                         <div class="">
-                            <input type="number" id="ci" maxlength="7" oninput="this.value=this.value.slice(0,this.maxLength)" name="ci" class="form-control col-md-7 col-xs-12" placeholder="Número de Carnet de Identidad">
+                            <input type="number" id="ci" maxlength="7" oninput="this.value=this.value.slice(0,this.maxLength)" name="ci" required="required" class="form-control col-md-7 col-xs-12" placeholder="Número de Carnet de Identidad">
                         </div>
                     </div>
                     <div class="form-group">
@@ -113,7 +113,7 @@
                         <label class="control-label" for="password">Contraseña <span class="required">*</span>
                         </label>
                         <div class="">
-                            <input type="password" minlength="0" maxlength="45" id="password" name="password" required="required" class="form-control col-md-7 col-xs-12">
+                            <input type="password" minlength="6" maxlength="45" id="password" name="password" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="form-group">

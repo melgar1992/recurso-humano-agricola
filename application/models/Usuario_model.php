@@ -28,39 +28,20 @@ class Usuario_model extends CI_Model
         $this->db->where('r.estado', '1');
         return $this->db->get()->result_array();
     }
-    public function validarCi($ci)
+
+    public function guardarUsuario($datosUsuario)
     {
-        $this->db->select('u.estado, u.carnet_identidad');
-        $this->db->from('usuarios u');
-        $this->db->where('u.carnet_identidad', $ci);
-        $this->db->where('u.estado', '1');
-
-        $resultado = $this->db->get();
-
-        $row = $resultado->row();
-
-        if (isset($row)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-    public function guardarUsuario($datosUsuario, $rol)
-    {
-        $this->db->where('nombre', $rol);
-        $resultado = $this->db->get('roles')->row();
-
-        $datosUsuario['id_roles'] = $resultado->id_roles;
-
-        return $this->db->insert('usuarios', $datosUsuario);
+        $this->db->insert('usuarios', $datosUsuario);
+        return $this->db->insert_id();
     }
     public function getUsuario($id_usuario)
     {
-        $this->db->select('u.*, r.nombre as tiporol');
+        $this->db->select('u.*, concat(u.apellidos," " ,u.nombres) as nombre_completo, r.*');
         $this->db->from('usuarios u');
         $this->db->join('roles r', 'r.id_roles = u.id_roles');
         $this->db->where('u.estado', '1');
-        $this->db->where('u.id_usuarios', $id_usuario);
+        $this->db->where('r.estado', '1');
+        $this->db->where('u.id_usuario', $id_usuario);
         $resultado = $this->db->get()->row();
 
         if (isset($resultado)) {
