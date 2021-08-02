@@ -65,7 +65,6 @@ class Usuarios extends BaseController
                     'datos' => $usuario,
                     'mensaje' => 'Se guardo correctamente',
                 );
-
             }
         } catch (Exception  $th) {
             $respuesta = array(
@@ -85,68 +84,72 @@ class Usuarios extends BaseController
 
     public function actualizarUsuario()
     {
-        $id_usuarios = $this->input->post('id_usuarios');
-        $nombres = $this->input->post('nombre');
+        $id_usuario = $this->input->post('id_usuario');
+        $id_roles = $this->input->post('id_roles');
+        $nombres = $this->input->post('nombres');
         $apellidos = $this->input->post('apellidos');
         $ci = $this->input->post('ci');
         $telefono = $this->input->post('telefono');
-        $nombre_usuario = $this->input->post('nombre_usuario');
-        $contrasena = $this->input->post('contrasena');
-        $fecha_ingreso = $this->input->post('fecha_ingreso');
-        $roles = $this->input->post('roles');
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
+        $telefono = $this->input->post('telefono');
 
-        $usuario_actual = $this->Usuario_model->getUsuario($id_usuarios);
+        $usuario_actual = $this->Usuario_model->getUsuario($id_usuario);
 
-        $this->form_validation->set_rules("nombre", "Nombre", "required");
-        $this->form_validation->set_rules("apellidos", "Apellidos", "required");
-        if ($ci == $usuario_actual->carnet_identidad) {
+        if ($username == $usuario_actual['username']) {
+            $is_uniqueUsername = '';
         } else {
-            $this->form_validation->set_rules(
-                'ci',
-                'ci',
-                array(
-                    'required',
-                    array('validarCi', array($this->Usuario_model, 'validarCi'))
-                ),
-                array('validarCi' => 'Carnet de identidad ya esta siendo ocupado')
-            );
-        }
-        if ($nombre_usuario == $usuario_actual->username) {
-        } else {
-            $this->form_validation->set_rules("nombre_usuario", "nombre_usuario", "required|is_unique[usuarios.username]");
+            $is_uniqueUsername = '|is_unique[usuarios.username]';
         }
 
-
+        $this->form_validation->set_rules("nombres", "nombres", "required");
+        $this->form_validation->set_rules("apellidos", "apellidos", "required");
+        $this->form_validation->set_rules("ci", "ci", "required");
         $this->form_validation->set_rules("telefono", "telefono", "required");
-        $this->form_validation->set_rules("fecha_ingreso", "fecha_ingreso", "required");
-        $this->form_validation->set_rules('roles', 'roles', 'trim|required');
-
-        if ($this->form_validation->run()) {
-            $datos = array(
-                'nombres' => $nombres,
-                'apellidos' => $apellidos,
-                'carnet_identidad' => $ci,
-                'telefono' => $telefono,
-                'username' => $nombre_usuario,
-                'fecha_ingreso' => $fecha_ingreso,
-                'estado' => '1',
-            );
-            if ($contrasena != '') {
-                $datos['password'] = $this->encryption->encrypt($contrasena);
-            }
-            if ($this->Usuario_model->actualizar($id_usuarios, $roles, $datos)) {
-                redirect(base_url() . "Formularios/Usuarios");
+        $this->form_validation->set_rules("username", "username", "required" . $is_uniqueUsername);
+        $this->form_validation->set_rules("password', 'password', 'required");
+        $this->form_validation->set_rules('id_roles', 'id_roles', 'required');
+        try {
+            if ($this->form_validation->run()) {
+                $datos = array(
+                    'id_roles' => $id_roles,
+                    'nombres' => $nombres,
+                    'apellidos' => $apellidos,
+                    'ci' => $ci,
+                    'telefono' => $telefono,
+                    'username' => $username,
+                    'estado' => '1',
+                );
+                if ($password != '') {
+                    $datos['password'] = $this->encryption->encrypt($password);
+                }
+                if ($this->Usuario_model->actualizar($id_usuario, $datos)) {
+                    $usuario = $this->Usuario_model->getUsuario($id_usuario);
+                    $respuesta = array(
+                        'respuesta' => 'Exitoso',
+                        'datos' => $usuario,
+                        'mensaje' => 'Se guardo correctamente',
+                    );
+                } else {
+                }
             } else {
-                $this->session->set_flashdata("error", "No se pudo actualizar la informacion");
-                redirect(base_url() . "forms/formularios/usuarios/editar" . $id_usuarios);
+                $respuesta = array(
+                    'respuesta' => 'Error',
+                    'mensaje' => 'Ocurrio un problema al validar los datos o el nombre del usuario ya existe!',
+                );
             }
-        } else {
-
+        } catch (Exception  $th) {
+            $respuesta = array(
+                'respuesta' => 'Error',
+                'mensaje' => 'Ocurrio un problema' + $th->getMessage(),
+            );
         }
+        echo json_encode($respuesta);
     }
     public function borrar($id_usuarios)
     {
         $datos = array(
+            'username' => '',
             'estado' => '0',
             'fecha_salida' => date('Y-m-d'),
         );

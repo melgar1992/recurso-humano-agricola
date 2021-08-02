@@ -49,6 +49,7 @@ $(document).ready(function () {
         fila = $(this).closest('tr');
         id_usuario = parseInt(fila.find('td:eq(0)').text());
         $('.modal-title').text('Editar Usuario');
+        $('#password').removeAttr('required');
         $('#modal-form').modal('show');
         $.ajax({
             type: "POST",
@@ -132,7 +133,7 @@ $(document).ready(function () {
         } else {
             $.ajax({
                 type: "POST",
-                url: base_url + "Calendario/editarFeriado",
+                url: base_url + "Usuarios/actualizarUsuario",
                 data: {
                     id_usuario: id_usuario,
                     ci: ci,
@@ -183,6 +184,7 @@ function LimpiarFormulario() {
     $('.modal-title').text('Formulario Usuario');
     $("#id_roles option:selected").removeAttr("selected");
     $("#password").removeAttr("placeholder");
+    $("#password").prop('required',true);
     $('#formulario').trigger('reset');
     opcion = '';
 };
