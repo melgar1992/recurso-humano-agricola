@@ -33,16 +33,18 @@ class BaseController extends CI_Controller
 			$data = array(
 				'id_usuarios' => $res->id_usuarios,
 				'nombres' => $res->nombres,
-				'rol' => $res->rol,
+				'permisos' => array(
+					'dashboard' => $res->dashboard,
+					'empleados' => $res->empleados,
+					'calendario' => $res->calendario,
+					'asistencias' => $res->asistencias,
+					'pago' => $res->pago,
+					'usuarios' => $res->usuarios,
+				),
 				'login' => true,
 			);
-			if ($res->rol != 'guardia') {
-				$this->session->set_userdata($data);
-				redirect(base_url() . '');
-			} else {
-				$this->session->set_userdata($data);
-				redirect(base_url() . 'Formularios/Control');
-			}
+			$this->session->set_userdata($data);
+			redirect(base_url() . '');
 		}
 	}
 	public function logout()

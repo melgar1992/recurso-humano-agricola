@@ -14,42 +14,61 @@
 
                             <h3>General</h3>
                             <ul class="nav side-menu">
-                                <li><a><i class="fa fa-bar-chart"></i> Dashboard <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="<?php echo base_url() ?>">Dashboard principal</a></li>
+                                <?php if ($this->session->userdata('permisos')['dashboard'] == '1') : ?>
 
-                                    </ul>
-                                </li>
-                                <li><a><i class="fa fa-edit"></i>Empleados<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="<?php echo base_url(); ?>Empleado">Empelados</a></li>
-                                        <li><a href="<?php echo base_url(); ?>Cargo">Cargos</a></li>
-                                        <li><a href="<?php echo base_url(); ?>Contrato">Contratos de empleados</a></li>
+                                    <li><a><i class="fa fa-bar-chart"></i> Dashboard <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="<?php echo base_url() ?>">Dashboard principal</a></li>
 
-                                    </ul>
-                                </li>
-                                <li><a><i class="fa fa-calendar"></i>Calendario<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="<?php echo base_url(); ?>Calendario/calendarioFeriadoForm">Feriados</a></li>
-                                    </ul>
-                                </li>
-                                <li><a><i class="fa fa-arrows-h"></i>Asistencia<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="<?php echo base_url(); ?>ControlAsistencia">Control de asistencia</a></li>
-                                    </ul>
-                                </li>
-                                <li><a><i class="fa fa-money"></i>Pagos <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="<?php echo base_url(); ?>Usuarios">Pagos</a></li>
-                                    </ul>
-                                </li>
-                                <li><a><i class="fa fa-users"></i>Usuarios <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="<?php echo base_url(); ?>Usuarios">Usuarios</a></li>
-                                        <li><a href="<?php echo base_url(); ?>Usuarios/Roles">Roles</a></li>
+                                        </ul>
+                                    </li>
+                                <?php endif; ?>
+                                <?php if ($this->session->userdata('permisos')['empleados'] == '1') : ?>
 
-                                    </ul>
-                                </li>
+                                    <li><a><i class="fa fa-edit"></i>Empleados<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="<?php echo base_url(); ?>Empleado">Empelados</a></li>
+                                            <li><a href="<?php echo base_url(); ?>Cargo">Cargos</a></li>
+                                            <li><a href="<?php echo base_url(); ?>Contrato">Contratos de empleados</a></li>
+
+                                        </ul>
+                                    </li>
+                                <?php endif; ?>
+                                <?php if ($this->session->userdata('permisos')['calendario'] == '1') : ?>
+
+                                    <li><a><i class="fa fa-calendar"></i>Calendario<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="<?php echo base_url(); ?>Calendario/calendarioFeriadoForm">Feriados</a></li>
+                                        </ul>
+                                    </li>
+                                <?php endif; ?>
+                                <?php if ($this->session->userdata('permisos')['asistencias'] == '1') : ?>
+
+                                    <li><a><i class="fa fa-arrows-h"></i>Asistencia<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="<?php echo base_url(); ?>ControlAsistencia">Control de asistencia</a></li>
+                                        </ul>
+                                    </li>
+                                <?php endif; ?>
+                                <?php if ($this->session->userdata('permisos')['pago'] == '1') : ?>
+
+                                    <li><a><i class="fa fa-money"></i>Pagos <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="<?php echo base_url(); ?>Usuarios">Pagos</a></li>
+                                        </ul>
+                                    </li>
+                                <?php endif; ?>
+                                <?php if ($this->session->userdata('permisos')['usuarios'] == '1') : ?>
+
+                                    <li><a><i class="fa fa-users"></i>Usuarios <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="<?php echo base_url(); ?>Usuarios">Usuarios</a></li>
+                                            <li><a href="<?php echo base_url(); ?>Usuarios/Roles">Roles</a></li>
+
+                                        </ul>
+                                    </li>
+                                <?php endif; ?>
+
                             </ul>
 
                         </div>

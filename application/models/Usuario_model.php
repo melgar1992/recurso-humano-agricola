@@ -6,15 +6,11 @@ class Usuario_model extends CI_Model
     {
         $this->db->select('usuarios.*, roles.*');
         $this->db->where("username", $username);
-        // $this->db->where("password", $password);
-        $this->db->where("estado", "1");
+        $this->db->where("usuarios.estado", "1");
         $this->db->join('roles', 'roles.id_roles = usuarios.id_roles');
-
-
-        $resultado = $this->db->get("usuarios");
-        $res2 = $resultado->row();
-        if ($resultado->num_rows() > 0 && $this->encryption->decrypt($res2->password) == $password) {
-            return  $resultado->row();
+        $resultado = $this->db->get("usuarios")->row();
+        if (isset($resultado) && $this->encryption->decrypt($resultado->password) == $password) {
+            return  $resultado;
         } else {
             return false;
         }

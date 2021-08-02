@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<?php
+if (!$this->session->userdata('login')) {
+  redirect(base_url() . 'inicio');
+}
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
