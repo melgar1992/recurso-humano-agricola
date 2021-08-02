@@ -178,6 +178,50 @@ $(document).ready(function () {
             });
         }
     });
+    //Eliminar Usuario
+    $(document).on('click', '#btn-borrar', function () {
+        Swal.fire({
+            title: 'Esta seguro de elimar?',
+            text: "El Usuario se eliminara, una vez eliminado no se recuperara!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, deseo elimniar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+
+                fila = $(this).closest('tr');
+                id = parseInt(fila.find('td:eq(0)').text());
+                $.ajax({
+                    url: base_url + "Usuarios/borrar/" + id,
+                    type: 'POST',
+                    dataType: "json",
+                    success: function (respuesta) {
+                        if (respuesta['respuesta'] === 'Exitoso') {
+                            tabla.row(fila).remove().draw();
+                            swal({
+                                title: 'Eliminado',
+                                text: 'Se borro correctamente',
+                                type: 'success'
+                            });
+                        } else {
+                            swal({
+                                title: 'Error',
+                                text: 'Ocurrio un error al eliminar',
+                                type: 'error'
+                            });
+                        }
+
+                    }
+                })
+
+
+            }
+        })
+
+    })
 })
 function LimpiarFormulario() {
     $('#modal-form').modal('hide');

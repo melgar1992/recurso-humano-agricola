@@ -44,7 +44,7 @@ class Usuarios extends BaseController
             if ($this->form_validation->run() === false) {
                 $respuesta = array(
                     'respuesta' => 'Error',
-                    'mensaje' => 'Ocurrio un problema al validar los datos',
+                    'mensaje' => 'Ocurrio un problema al validar los datos, o el usuario ya existe!',
                 );
             } else {
                 $datosUsuario = array(
@@ -154,7 +154,11 @@ class Usuarios extends BaseController
             'fecha_salida' => date('Y-m-d'),
         );
         $this->Usuario_model->borrar($id_usuarios, $datos);
-        echo 'Formularios/Usuarios';
+        $respuesta = array(
+            'respuesta' => 'Exitoso',
+            'message' => 'Se elimino el usuario'
+          );
+          echo json_encode($respuesta);
     }
 
     // Roles de usuarios
