@@ -21,19 +21,25 @@ class ControlAsistencia extends BaseController
         $asistencias = $this->Control_asistencia_model->obtenerAsistencias();
         echo json_encode($asistencias);
     }
+    public function obtenerAsistenciaAjax()
+    {
+        $id_control_asistencia = $this->input->post('id_control_asistencia');
+        $asistencia = $this->Control_asistencia_model->obtenerAsistencia($id_control_asistencia);
+        echo json_encode($asistencia);
+    }
     public function ingresar_asistencia()
     {
         $this->form_validation->set_rules('id_contrato', 'id_contrato', 'trim|xss_clean|required');
-        $this->form_validation->set_rules('fecha_hora_ingreso', 'fecha_hora_ingreso', 'trim|xss_clean|required');
-        $this->form_validation->set_rules('fecha_hora_salida', 'fecha_hora_salida', 'trim|xss_clean|required');
+        $this->form_validation->set_rules('fecha_hora_ingreso', 'fecha_hora_ingreso', 'trim|xss_clean');
+        $this->form_validation->set_rules('fecha_hora_salida', 'fecha_hora_salida', 'trim|xss_clean');
         $this->form_validation->set_rules('observaciones', 'observaciones', 'trim|xss_clean');
 
         $id_contrato = $this->input->post('id_contrato');
+        $id_usuario = $this->session->userdata('id_usuario');
         $fecha_hora_ingreso = $this->input->post('fecha_hora_ingreso');
         $fecha_hora_salida = $this->input->post('fecha_hora_salida');
         $observaciones = $this->input->post('observaciones');
         $ultima_edicion = date('Y-m-d H:i:s');
-        $feriado = 0;
 
         try {
             if ($this->form_validation->run() === false) {
@@ -42,18 +48,27 @@ class ControlAsistencia extends BaseController
                     'mensaje' => 'Ocurrio un problema al validar los datos',
                 );
             } else {
-                if ($this->Contrato_model->existeContrato()) {
-                    $respuesta = array(
-                        'respuesta' => 'Error',
-                        'mensaje' => 'El contrato con este empleado ya existe!',
+                $existeAsistenciaEntreTiempo = $this->Control_asistencia_model->existeAsistenciaEntreTiempo($id_contrato, $fecha_hora_ingreso, $fecha_hora_salida);
+                if ($existeAsistenciaEntreTiempo['respuesta'] == false) {
+                    $datos = array(
+                        'id_contrato' => $id_contrato,
+                        'id_usuario' => $id_usuario,
+                        'fecha_hora_ingreso' => $fecha_hora_ingreso,
+                        'fecha_hora_salida' => $fecha_hora_salida,
+                        'observaciones' => $observaciones,
+                        'ultima_edicion' => $ultima_edicion,
                     );
-                } else {
-                    $id_contrato = $this->Contrato_model->ingresarContrato();
-                    $contrato = $this->Contrato_model->obtenerContrato($id_contrato);
+                    $id_control_asistencia = $this->Control_asistencia_model->ingresarControl($datos);
+                    $asistencia = $this->Control_asistencia_model->obtenerAsistencia($id_control_asistencia);
                     $respuesta = array(
                         'respuesta' => 'Exitoso',
-                        'datos' => $contrato,
+                        'datos' => $asistencia,
                         'message' => 'Se guardo correctamente',
+                    );
+                } else {
+                    $respuesta = array(
+                        'respuesta' => 'Error',
+                        'mensaje' => $existeAsistenciaEntreTiempo['mensaje'],
                     );
                 }
             }

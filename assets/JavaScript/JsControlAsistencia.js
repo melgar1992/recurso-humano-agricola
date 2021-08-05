@@ -61,110 +61,138 @@ $(document).ready(function () {
     $('#modal-asistencia').on('hidden.bs.modal', function () {
         LimpiarFormulario();
     });
+    //Botton editar cargo
+    $(document).on('click', '#btn-editar', function () {
+        fila = $(this).closest('tr');
+        id_control_asistencia = parseInt(fila.find('td:eq(0)').text());
+        $('.modal-title').text('Editar Asistencia');
+        $('#modal-asistencia').modal('show');
+        $.ajax({
+            type: "POST",
+            url: base_url + "ControlAsistencia/obtenerAsistenciaAjax",
+            data: {
+                id_control_asistencia: id_control_asistencia
+            },
+            dataType: "json",
+            success: function (respuesta) {
+                fecha_hora_ingreso = respuesta['fecha_hora_ingreso'];
+                fecha_hora_salida = respuesta['fecha_hora_salida'];
+                fecha_hora_ingreso = fecha_hora_ingreso.replace(/ /, 'T');
+                fecha_hora_salida = fecha_hora_salida.replace(/ /, 'T');
 
+                $("#id_contrato option[value=" + respuesta['id_contrato'] + "]").attr("selected", true);
+                $('#fecha_hora_ingreso').val(fecha_hora_ingreso);
+                $('#fecha_hora_salida').val(fecha_hora_salida);
+                $('#observaciones').text(respuesta['observaciones']);
+
+            }
+        });
+        opcion = 'editar';
+
+    });
     $('#formasistencia').submit(function (e) {
         e.preventDefault();
         id_contrato = $.trim($('#id_contrato').val());
         fecha_hora_ingreso = $.trim($('#fecha_hora_ingreso').val());
         fecha_hora_salida = $.trim($('#fecha_hora_salida').val());
         observaciones = $.trim($('#observaciones').val());
-        $('#modal-asistencia').modal('hide');
-        if (fecha_hora_salida < fecha_hora_ingreso) {
+        if (fecha_hora_salida <= fecha_hora_ingreso) {
             swal({
                 title: 'Error',
                 text: 'La hora de salida no puede ser antes de la ingreso',
                 type: 'error'
             });
-            break;
+
         }
-        if (opcion != 'editar') {
-            $.ajax({
-                type: "POST",
-                url: base_url + "ControlAsistencia/ingresar_asistencia",
-                data: {
-                    id_contrato: id_contrato,
-                    fecha_hora_ingreso: fecha_hora_ingreso,
-                    fecha_hora_salida: fecha_hora_salida,
-                    observaciones: observaciones,
-                },
-                dataType: "json",
-                success: function (respuesta) {
-                    if (respuesta['respuesta'] === 'Exitoso') {
-                        id_control_asistencia = respuesta['datos']['id_control_asistencia'];
-                        nombre_completo = respuesta['datos']['nombre_completo'];
-                        cargo_nombre = respuesta['datos']['cargo_nombre'];
-                        observaciones = respuesta['datos']['observaciones'];
-                        fecha_hora_ingreso = respuesta['datos']['fecha_hora_ingreso'];
-                        fecha_hora_salida = respuesta['datos']['fecha_hora_salida'];
-                        tabla.row.add({
-                            "id_control_asistencia": id_control_asistencia,
-                            "nombre_completo": nombre_completo,
-                            "cargo_nombre": cargo_nombre,
-                            "fecha_hora_ingreso": fecha_hora_ingreso,
-                            "fecha_hora_salida": fecha_hora_salida,
-                            "observaciones": observaciones,
-                        }).draw();
-                        swal({
-                            title: 'Guardar',
-                            text: respuesta['message'],
-                            type: 'success'
-                        });
-                        LimpiarFormulario();
-                    } else {
-                        swal({
-                            title: 'Error',
-                            text: respuesta['mensaje'],
-                            type: 'error'
-                        });
+        else {
+            $('#modal-asistencia').modal('hide');
+            if (opcion != 'editar') {
+                $.ajax({
+                    type: "POST",
+                    url: base_url + "ControlAsistencia/ingresar_asistencia",
+                    data: {
+                        id_contrato: id_contrato,
+                        fecha_hora_ingreso: fecha_hora_ingreso,
+                        fecha_hora_salida: fecha_hora_salida,
+                        observaciones: observaciones,
+                    },
+                    dataType: "json",
+                    success: function (respuesta) {
+                        if (respuesta['respuesta'] === 'Exitoso') {
+                            id_control_asistencia = respuesta['datos']['id_control_asistencia'];
+                            nombre_completo = respuesta['datos']['nombre_completo'];
+                            cargo_nombre = respuesta['datos']['cargo_nombre'];
+                            observaciones = respuesta['datos']['observaciones'];
+                            fecha_hora_ingreso = respuesta['datos']['fecha_hora_ingreso'];
+                            fecha_hora_salida = respuesta['datos']['fecha_hora_salida'];
+                            tabla.row.add({
+                                "id_control_asistencia": id_control_asistencia,
+                                "nombre_completo": nombre_completo,
+                                "cargo_nombre": cargo_nombre,
+                                "fecha_hora_ingreso": fecha_hora_ingreso,
+                                "fecha_hora_salida": fecha_hora_salida,
+                                "observaciones": observaciones,
+                            }).draw();
+                            swal({
+                                title: 'Guardar',
+                                text: respuesta['message'],
+                                type: 'success'
+                            });
+                            LimpiarFormulario();
+                        } else {
+                            swal({
+                                title: 'Error',
+                                text: respuesta['mensaje'],
+                                type: 'error'
+                            });
+                        }
                     }
-                }
-            });
-        } else {
-            $.ajax({
-                type: "POST",
-                url: base_url + "Contrato/editarContrato",
-                data: {
-                    id_contrato: id_contrato,
-                    id_empleado: id_empleado,
-                    id_cargo: id_cargo,
-                },
-                dataType: "json",
-                success: function (respuesta) {
-                    if (respuesta['respuesta'] === 'Exitoso') {
-                        id_contrato = respuesta['datos']['id_contrato'];
-                        ci = respuesta['datos']['ci'];
-                        nombre_completo = respuesta['datos']['nombre_completo'];
-                        cargo_nombre = respuesta['datos']['cargo_nombre'];
-                        sueldo_mensual = respuesta['datos']['sueldo_mensual'];
-                        sueldo_hora = respuesta['datos']['sueldo_hora'];
-                        hora_extra = respuesta['datos']['hora_extra'];
-                        hora_feriada = respuesta['datos']['hora_feriada'];
-                        tabla.row(fila).data({
-                            "id_contrato": id_contrato,
-                            "ci": ci,
-                            "nombre_completo": nombre_completo,
-                            "cargo_nombre": cargo_nombre,
-                            "sueldo_mensual": sueldo_mensual,
-                            "sueldo_hora": sueldo_hora,
-                            "hora_extra": hora_extra,
-                            "hora_feriada": hora_feriada
-                        }).draw();
-                        swal({
-                            title: 'Editado',
-                            text: respuesta['message'],
-                            type: 'success'
-                        });
-                        LimpiarFormulario();
-                    } else {
-                        swal({
-                            title: 'Error',
-                            text: respuesta['mensaje'],
-                            type: 'error'
-                        });
+                });
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: base_url + "ControlAsistencia/editarContrato",
+                    data: {
+                        id_contrato: id_contrato,
+                        fecha_hora_ingreso: fecha_hora_ingreso,
+                        fecha_hora_salida: fecha_hora_salida,
+                        observaciones: observaciones,
+                    },
+                    dataType: "json",
+                    success: function (respuesta) {
+                        if (respuesta['respuesta'] === 'Exitoso') {
+                            id_control_asistencia = respuesta['datos']['id_control_asistencia'];
+                            nombre_completo = respuesta['datos']['nombre_completo'];
+                            cargo_nombre = respuesta['datos']['cargo_nombre'];
+                            observaciones = respuesta['datos']['observaciones'];
+                            fecha_hora_ingreso = respuesta['datos']['fecha_hora_ingreso'];
+                            fecha_hora_salida = respuesta['datos']['fecha_hora_salida'];
+                            tabla.row(fila).data({
+                                "id_control_asistencia": id_control_asistencia,
+                                "nombre_completo": nombre_completo,
+                                "cargo_nombre": cargo_nombre,
+                                "fecha_hora_ingreso": fecha_hora_ingreso,
+                                "fecha_hora_salida": fecha_hora_salida,
+                                "observaciones": observaciones,
+                            }).draw();
+                            swal({
+                                title: 'Editado',
+                                text: respuesta['message'],
+                                type: 'success'
+                            });
+                            LimpiarFormulario();
+                        } else {
+                            swal({
+                                title: 'Error',
+                                text: respuesta['mensaje'],
+                                type: 'error'
+                            });
+                        }
                     }
-                }
-            });
+                });
+            }
         }
+
     });
 });
 function LimpiarFormulario() {

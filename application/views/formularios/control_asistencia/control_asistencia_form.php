@@ -39,7 +39,6 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
-
                                     <div class="card-box table-responsive">
                                         <table class="table table-striped table-bordered nowrap" id="tablaAsistencia" style="width:100%">
                                             <thead>
@@ -112,7 +111,7 @@
                         <label for="observaciones" class="control-label">Observaciones
                         </label>
                         <div class="">
-                            <textarea name="observaciones" id="observaciones" class="form-control" rows="2" placeholder="Dirección"></textarea>
+                            <textarea name="observaciones" id="observaciones" class="form-control" rows="2" placeholder="Observaciones en el trabajo"></textarea>
                         </div>
                     </div>
 

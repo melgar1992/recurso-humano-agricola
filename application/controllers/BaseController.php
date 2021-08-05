@@ -31,7 +31,7 @@ class BaseController extends CI_Controller
 		} else {
 
 			$data = array(
-				'id_usuarios' => $res->id_usuarios,
+				'id_usuario' => $res->id_usuario,
 				'nombres' => $res->nombres,
 				'permisos' => array(
 					'dashboard' => $res->dashboard,

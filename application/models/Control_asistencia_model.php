@@ -22,7 +22,7 @@ class Control_asistencia_model extends CI_Model
         $this->db->join('empleados em', 'em.id_empleado = co.id_empleado');
         $this->db->join('cargo ca', 'ca.id_cargo = co.id_cargo');
         $this->db->where('coa.id_control_asistencia', $id_control_asistencia);
-        return $this->db->get()->row_array()();
+        return $this->db->get()->row_array();
     }
     public function existeAsistenciaEntreTiempo($id_contrato, $fecha_hora_ingreso, $fecha_hora_salida)
     {
@@ -30,9 +30,14 @@ class Control_asistencia_model extends CI_Model
         $this->db->select('*');
         $this->db->from('control_asistencia');
         $this->db->where('id_contrato', $id_contrato);
-        $this->db->where("fecha_hora_ingreso BETWEEN $fecha_hora_ingreso AND $fecha_hora_salida", NULL, FALSE);
-        $this->db->or_where("fecha_hora_salida BETWEEN $fecha_hora_ingreso AND $fecha_hora_salida", NULL, FALSE);
-        $resultadoEntreHora = $this->db->get()->result_array();
+        $this->db->where("fecha_hora_ingreso BETWEEN '$fecha_hora_ingreso' AND '$fecha_hora_salida'", NULL, FALSE);
+        $resultadoEntreHoraIngreso = $this->db->get()->result_array();
+
+        $this->db->select('*');
+        $this->db->from('control_asistencia');
+        $this->db->where('id_contrato', $id_contrato);
+        $this->db->where("fecha_hora_salida BETWEEN '$fecha_hora_ingreso' AND '$fecha_hora_salida'", NULL, FALSE);
+        $resultadoEntreHoraSalida = $this->db->get()->result_array();
 
         $this->db->select('*');
         $this->db->from('control_asistencia');
@@ -41,7 +46,9 @@ class Control_asistencia_model extends CI_Model
         $this->db->where("fecha_hora_salida >=", $fecha_hora_salida);
         $resultadoDentroHora = $this->db->get()->result_array();
 
-        if (isset($resultadoEntreHora) || isset($resultadoDentroHora)) {
+
+
+        if (count($resultadoEntreHoraIngreso) > 0 || count($resultadoDentroHora) > 0 || count($resultadoEntreHoraSalida) > 0) {
             $respuesta = array(
                 'respuesta' => true,
                 'mensaje' => 'El Contrato del empleado sigue trabajando entre los tiempos!!'
@@ -54,5 +61,10 @@ class Control_asistencia_model extends CI_Model
             );
             return $respuesta;
         }
+    }
+    public function ingresarControl($datos)
+    {
+        $this->db->insert('control_asistencia', $datos);
+        return $this->db->insert_id();
     }
 }
