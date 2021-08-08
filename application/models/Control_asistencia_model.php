@@ -62,9 +62,81 @@ class Control_asistencia_model extends CI_Model
             return $respuesta;
         }
     }
+    public function verificarEntreHoraIngreso($id_contrato, $fecha_hora_ingreso, $fecha_hora_salida)
+    {
+        $this->db->select('*');
+        $this->db->from('control_asistencia');
+        $this->db->where('id_contrato', $id_contrato);
+        $this->db->where("fecha_hora_ingreso BETWEEN '$fecha_hora_ingreso' AND '$fecha_hora_salida'", NULL, FALSE);
+        $resultadoEntreHoraIngreso = $this->db->get()->result_array();
+
+        if (count($resultadoEntreHoraIngreso) > 0) {
+            $respuesta = array(
+                'respuesta' => true,
+                'mensaje' => 'El Contrato del empleado sigue trabajando entre los tiempos!!'
+            );
+            return $respuesta;
+        } else {
+            $respuesta = array(
+                'respuesta' => false,
+                'mensaje' => ''
+            );
+            return $respuesta;
+        }
+    }
+    public function verificarEntreHoraSalida($id_contrato, $fecha_hora_ingreso, $fecha_hora_salida)
+    {
+        $this->db->select('*');
+        $this->db->from('control_asistencia');
+        $this->db->where('id_contrato', $id_contrato);
+        $this->db->where("fecha_hora_salida BETWEEN '$fecha_hora_ingreso' AND '$fecha_hora_salida'", NULL, FALSE);
+        $resultadoEntreHoraSalida = $this->db->get()->result_array();
+
+        if (count($resultadoEntreHoraSalida) > 0) {
+            $respuesta = array(
+                'respuesta' => true,
+                'mensaje' => 'El Contrato del empleado sigue trabajando entre los tiempos!!'
+            );
+            return $respuesta;
+        } else {
+            $respuesta = array(
+                'respuesta' => false,
+                'mensaje' => ''
+            );
+            return $respuesta;
+        }
+    }
+    public function verificarDentroHorario($id_contrato, $fecha_hora_ingreso, $fecha_hora_salida)
+    {
+        $this->db->select('*');
+        $this->db->from('control_asistencia');
+        $this->db->where('id_contrato', $id_contrato);
+        $this->db->where("fecha_hora_ingreso <=", $fecha_hora_ingreso);
+        $this->db->where("fecha_hora_salida >=", $fecha_hora_salida);
+        $resultadoDentroHora = $this->db->get()->result_array();
+
+        if (count($resultadoDentroHora) > 0) {
+            $respuesta = array(
+                'respuesta' => true,
+                'mensaje' => 'El Contrato del empleado sigue trabajando entre los tiempos!!'
+            );
+            return $respuesta;
+        } else {
+            $respuesta = array(
+                'respuesta' => false,
+                'mensaje' => ''
+            );
+            return $respuesta;
+        }
+    }
     public function ingresarControl($datos)
     {
         $this->db->insert('control_asistencia', $datos);
         return $this->db->insert_id();
+    }
+    public function editarControl($id_control_asistencia, $datos)
+    {
+        $this->db->where('id_control_asistencia', $id_control_asistencia);
+        $this->db->update('control_asistencia', $datos);
     }
 }

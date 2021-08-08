@@ -105,7 +105,6 @@ $(document).ready(function () {
 
         }
         else {
-            $('#modal-asistencia').modal('hide');
             if (opcion != 'editar') {
                 $.ajax({
                     type: "POST",
@@ -151,8 +150,9 @@ $(document).ready(function () {
             } else {
                 $.ajax({
                     type: "POST",
-                    url: base_url + "ControlAsistencia/editarContrato",
+                    url: base_url + "ControlAsistencia/editar_asistencia",
                     data: {
+                        id_control_asistencia: id_control_asistencia,
                         id_contrato: id_contrato,
                         fecha_hora_ingreso: fecha_hora_ingreso,
                         fecha_hora_salida: fecha_hora_salida,
