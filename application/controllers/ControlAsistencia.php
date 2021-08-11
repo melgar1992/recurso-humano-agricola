@@ -142,7 +142,7 @@ class ControlAsistencia extends BaseController
                             'observaciones' => $observaciones,
                             'ultima_edicion' => $ultima_edicion,
                         );
-                        $id_control_asistencia = $this->Control_asistencia_model->editarControl($id_control_asistencia, $datos);
+                        $this->Control_asistencia_model->editarControl($id_control_asistencia, $datos);
                         $asistencia = $this->Control_asistencia_model->obtenerAsistencia($id_control_asistencia);
                         $respuesta = array(
                             'respuesta' => 'Exitoso',
@@ -156,10 +156,29 @@ class ControlAsistencia extends BaseController
                         );
                     }
                 } else {
-                    $respuesta = array(
-                        'respuesta' => 'Error',
-                        'mensaje' => 'No entro a ninguno!!!',
-                    );
+                    $existeAsistenciaEntreTiempo = $this->Control_asistencia_model->existeAsistenciaEntreTiempoExceptoId($id_control_asistencia, $id_contrato, $fecha_hora_ingreso, $fecha_hora_salida);
+                    if ($existeAsistenciaEntreTiempo['respuesta'] == false) {
+                        $datos = array(
+                            'id_contrato' => $id_contrato,
+                            'id_usuario' => $id_usuario,
+                            'fecha_hora_ingreso' => $fecha_hora_ingreso,
+                            'fecha_hora_salida' => $fecha_hora_salida,
+                            'observaciones' => $observaciones,
+                            'ultima_edicion' => $ultima_edicion,
+                        );
+                        $this->Control_asistencia_model->editarControl($id_control_asistencia, $datos);
+                        $asistencia = $this->Control_asistencia_model->obtenerAsistencia($id_control_asistencia);
+                        $respuesta = array(
+                            'respuesta' => 'Exitoso',
+                            'datos' => $asistencia,
+                            'message' => 'Se guardo correctamente',
+                        );
+                    } else {
+                        $respuesta = array(
+                            'respuesta' => 'Error',
+                            'mensaje' => $existeAsistenciaEntreTiempo['mensaje'],
+                        );
+                    }
                 }
             }
         } catch (Exception  $th) {

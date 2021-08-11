@@ -62,6 +62,46 @@ class Control_asistencia_model extends CI_Model
             return $respuesta;
         }
     }
+    public function existeAsistenciaEntreTiempoExceptoId($id_control_asistencia, $id_contrato, $fecha_hora_ingreso, $fecha_hora_salida)
+    {
+        $this->db->select('*');
+        $this->db->from('control_asistencia');
+        $this->db->where_not_in('id_control_asistencia', $id_control_asistencia);
+        $this->db->where('id_contrato', $id_contrato);
+        $this->db->where("fecha_hora_ingreso BETWEEN '$fecha_hora_ingreso' AND '$fecha_hora_salida'", NULL, FALSE);
+        $resultadoEntreHoraIngreso = $this->db->get()->result_array();
+
+        $this->db->select('*');
+        $this->db->from('control_asistencia');
+        $this->db->where_not_in('id_control_asistencia', $id_control_asistencia);
+        $this->db->where('id_contrato', $id_contrato);
+        $this->db->where("fecha_hora_salida BETWEEN '$fecha_hora_ingreso' AND '$fecha_hora_salida'", NULL, FALSE);
+        $resultadoEntreHoraSalida = $this->db->get()->result_array();
+
+        $this->db->select('*');
+        $this->db->from('control_asistencia');
+        $this->db->where_not_in('id_control_asistencia', $id_control_asistencia);
+        $this->db->where('id_contrato', $id_contrato);
+        $this->db->where("fecha_hora_ingreso <=", $fecha_hora_ingreso);
+        $this->db->where("fecha_hora_salida >=", $fecha_hora_salida);
+        $resultadoDentroHora = $this->db->get()->result_array();
+
+
+
+        if (count($resultadoEntreHoraIngreso) > 0 || count($resultadoDentroHora) > 0 || count($resultadoEntreHoraSalida) > 0) {
+            $respuesta = array(
+                'respuesta' => true,
+                'mensaje' => 'El Contrato del empleado sigue trabajando entre los tiempos!!'
+            );
+            return $respuesta;
+        } else {
+            $respuesta = array(
+                'respuesta' => false,
+                'mensaje' => ''
+            );
+            return $respuesta;
+        }
+    }
     public function verificarEntreHoraIngreso($id_contrato, $fecha_hora_ingreso, $fecha_hora_salida)
     {
         $this->db->select('*');
