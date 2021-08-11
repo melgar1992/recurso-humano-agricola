@@ -189,8 +189,13 @@ class ControlAsistencia extends BaseController
         }
         echo json_encode($respuesta);
     }
-    public function verificarHoraIngreso($fecha_actual_ingreso, $fecha_nueva_ingreso, $fecha_nueva_salida)
+    public function eliminar($id_control_asistencia)
     {
-        # code...
+        $this->Control_asistencia_model->eliminar($id_control_asistencia);
+        $respuesta = array(
+            'respuesta' => 'Exitoso',
+            'message' => 'Se elimino la asistencia'
+        );
+        echo json_encode($respuesta);
     }
 }

@@ -179,4 +179,9 @@ class Control_asistencia_model extends CI_Model
         $this->db->where('id_control_asistencia', $id_control_asistencia);
         $this->db->update('control_asistencia', $datos);
     }
+    public function eliminar($id_control_asistencia)
+    {
+        $this->db->where('id_control_asistencia', $id_control_asistencia);
+        $this->db->delete('control_asistencia');
+    }
 }
