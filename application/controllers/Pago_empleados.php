@@ -19,6 +19,12 @@ class Pago_empleados extends BaseController
     $pagos = $this->Pago_empleado_model->obtenerPagosEmpleados();
     echo json_encode($pagos);
   }
+  public function obtenerPagoEmpleadoAjax()
+  {
+    $id_pagos_empleados = $this->input->post('id_pagos_empleados');
+    $pago = $this->Pago_empleado_model->obtenerPagoEmpleado($id_pagos_empleados);
+    echo json_encode($pago);
+  }
   public function ingresarPagoEmpleado()
   {
     $id_contrato = $this->input->post('id_contrato');

@@ -61,6 +61,30 @@ $(document).ready(function () {
      $('#modal-form').on('hidden.bs.modal', function () {
         LimpiarFormulario();
     });
+    //Botton editar empleado
+    $(document).on('click', '#btn-editar', function () {
+        fila = $(this).closest('tr');
+        id_pagos_empleados = parseInt(fila.find('td:eq(0)').text());
+        LimpiarFormulario()
+        $('.modal-title').text('Editar pago');
+        $('#modal-form').modal('show');
+        $.ajax({
+            type: "POST",
+            url: base_url + "Pago_empleados/obtenerPagoEmpleadoAjax",
+            data: {
+                id_pagos_empleados: id_pagos_empleados
+            },
+            dataType: "json",
+            success: function (respuesta) {
+                $("#id_contrato option[value=" + respuesta['id_contrato'] + "]").attr("selected", true);
+                $('#haber').val(Number(respuesta['haber']).toFixed(2));
+                $('#detalle').text(respuesta['detalle']);
+                $('#fecha').val(respuesta['fecha']);
+            }
+        });
+        opcion = 'editar';
+
+    });
     //ingresar o editar Feriado
     $('#formulario').submit(function (e) {
         e.preventDefault();
