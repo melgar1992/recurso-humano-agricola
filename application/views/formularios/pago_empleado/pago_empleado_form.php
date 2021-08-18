@@ -2,7 +2,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Feriados</h3>
+                <h3>Pagos de empleados</h3>
             </div>
         </div>
         <br>
@@ -11,7 +11,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Tabla de Feriados</h2>
+                        <h2>Tabla de pagos</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -31,7 +31,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Feriados registrados</h2>
+                                    <h2>Pagos registrados</h2>
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                         </li>
@@ -41,12 +41,15 @@
                                 <div class="x_content">
 
                                     <div class="card-box table-responsive">
-                                        <table class="table table-striped table-bordered nowrap" id="tablaEmpleados" style="width:100%">
+                                        <table class="table table-striped table-bordered nowrap" id="tabla" style="width:100%">
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
                                                     <th>Fecha</th>
-                                                    <th>Descripcion</th>
+                                                    <th>Empleado</th>
+                                                    <th>Contrato</th>
+                                                    <th>Detalle</th>
+                                                    <th>Pago</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -71,26 +74,44 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Formulario Feriado</h4>
+                <h4 class="modal-title">Formulario pago de empleados</h4>
             </div>
             <form action="" id="formulario">
                 <div class="modal-body">
                     <p>Los campos con * son obligatorios</p>
-                    <div class="error_formulario">
-                    </div>
-
                     <div class="form-group">
-                        <label class="control-label" for="nombre">Descripcion<span class="required">*</span>
-                        </label>
+                        <label for="id_contrato" class="control-label">Empleado contrato *:</label>
                         <div class="">
-                            <input type="text" id="nombre" onkeyup="mayus(this);" minlength="0" maxlength="45" name="nombre" required="required" class="form-control col-md-7 col-xs-12">
+                            <select id="id_contrato" name="id_contrato" class="form-control" required>
+                                <option value=""></option>
+                                <?php foreach ($contratos as $row) : ?>
+                                    <option value="<?php echo $row['id_contrato'] ?>"><?php echo $row['nombre_completo']
+                                                                                            . ' Cargo: ' . $row['cargo_nombre']
+                                                                                            . ' Hora: ' . $row['sueldo_hora'] . ' Bs'; ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="feriado" class="control-label">Fecha<span class="required">*</span>
+                        <label for="haber" class="control-label">Pago<span class="required">*</span>
+                        </label>
+                        <div class="has-feedback">
+                            <input id="haber" class="form-control col-md-7 col-xs-12" type="number" step="0.01" name="haber" required="required" placeholder="">
+                            <span class="form-control-feedback right" aria-hidden="true">Bs</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="detalle" class="control-label">Detalle
+                        </label>
+                        <div class="">
+                            <textarea name="detalle" id="detalle" class="form-control" rows="2" placeholder="detalle de pago"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha" class="control-label">Fecha<span class="required">*</span>
                         </label>
                         <div>
-                            <input id="feriado" class="form-control col-md-7 col-xs-12" type="date" name="feriado" required="required" placeholder="">
+                            <input id="fecha" class="form-control col-md-7 col-xs-12" type="date" name="fecha" required="required" placeholder="">
                         </div>
                     </div>
 
