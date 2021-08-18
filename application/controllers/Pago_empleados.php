@@ -104,4 +104,13 @@ class Pago_empleados extends BaseController
     }
     echo json_encode($respuesta);
   }
+  public function eliminarPagoEmpleado($id_pagos_empleados)
+  {
+    $this->Pago_empleado_model->eliminarPago($id_pagos_empleados);
+    $respuesta = array(
+      'respuesta' => 'Exitoso',
+      'message' => 'Se elimino al empleado'
+    );
+    echo json_encode($respuesta);
+  }
 }

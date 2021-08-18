@@ -32,7 +32,12 @@ class Pago_empleado_model extends CI_Model
     }
     public function editarPagoEmpleado($id_pagos_empleados, $datos)
     {
-        $this->db->update('pagos_empleados', $datos);
         $this->db->where('id_pagos_empleados', $id_pagos_empleados);
+        $this->db->update('pagos_empleados', $datos);
+    }
+    public function eliminarPago($id_pagos_empleados)
+    {
+        $this->db->where('id_pagos_empleados', $id_pagos_empleados);
+        $this->db->delete('pagos_empleados');
     }
 }
