@@ -141,22 +141,32 @@ $(document).ready(function () {
         } else {
             $.ajax({
                 type: "POST",
-                url: base_url + "Calendario/editarFeriado",
+                url: base_url + "Pago_empleados/editarPagoEmpleado",
                 data: {
-                    id_calendario: id_calendario,
-                    nombre: nombre,
-                    feriado: feriado,
+                    id_pagos_empleados: id_pagos_empleados,
+                    id_contrato: id_contrato,
+                    haber: haber,
+                    detalle: detalle,
+                    fecha: fecha,
                 },
                 dataType: "json",
                 success: function (respuesta) {
                     if (respuesta['respuesta'] === 'Exitoso') {
-                        id_calendario = respuesta['datos']['id_calendario'];
-                        nombre = respuesta['datos']['nombre'];
-                        feriado = respuesta['datos']['feriado'];
+                        id_pagos_empleados = respuesta['datos']['id_pagos_empleados'];
+                        id_contrato = respuesta['datos']['id_contrato'];
+                        nombre_completo = respuesta['datos']['nombre_completo'];
+                        cargo_nombre = respuesta['datos']['cargo_nombre'];
+                        haber = respuesta['datos']['haber'];
+                        detalle = respuesta['datos']['detalle'];
+                        fecha = respuesta['datos']['fecha'];
                         tabla.row(fila).data({
-                            "id_calendario": id_calendario,
-                            "nombre": nombre,
-                            "feriado": feriado,
+                            "id_pagos_empleados": id_pagos_empleados,
+                            "id_contrato": id_contrato,
+                            "nombre_completo": nombre_completo,
+                            "cargo_nombre": cargo_nombre,
+                            "haber": haber,
+                            "detalle": detalle,
+                            "fecha": fecha,
                         }).draw();
                         swal({
                             title: 'Editado',

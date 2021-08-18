@@ -64,4 +64,44 @@ class Pago_empleados extends BaseController
     }
     echo json_encode($respuesta);
   }
+  public function editarPagoEmpleado()
+  {
+    $id_pagos_empleados = $this->input->post('id_pagos_empleados');
+    $id_contrato = $this->input->post('id_contrato');
+    $haber = $this->input->post('haber');
+    $detalle = $this->input->post('detalle');
+    $fecha = $this->input->post('fecha');
+
+    $this->form_validation->set_rules('id_contrato', 'id_contrato', 'trim|xss_clean|required');
+    $this->form_validation->set_rules('haber', 'haber', 'trim|xss_clean|required');
+    $this->form_validation->set_rules('fecha', 'fecha', 'trim|xss_clean|required');
+    try {
+      if ($this->form_validation->run() === false) {
+        $respuesta = array(
+          'respuesta' => 'Error',
+          'mensaje' => 'Ocurrio un problema al validar los datos',
+        );
+      } else {
+        $datos = array(
+          'id_contrato' => $id_contrato,
+          'haber' => $haber,
+          'detalle' => $detalle,
+          'fecha' => $fecha,
+        );
+        $this->Pago_empleado_model->editarPagoEmpleado($id_pagos_empleados, $datos);
+        $pagoEmpleado = $this->Pago_empleado_model->obtenerPagoEmpleado($id_pagos_empleados);
+        $respuesta = array(
+          'respuesta' => 'Exitoso',
+          'datos' => $pagoEmpleado,
+          'message' => 'Se guardo correctamente',
+        );
+      }
+    } catch (Exception  $th) {
+      $respuesta = array(
+        'respuesta' => 'Error',
+        'mensaje' => 'Ocurrio un problema' + $th->getMessage(),
+      );
+    }
+    echo json_encode($respuesta);
+  }
 }

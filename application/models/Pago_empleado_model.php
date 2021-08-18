@@ -30,4 +30,9 @@ class Pago_empleado_model extends CI_Model
         $this->db->insert('pagos_empleados', $datos);
         return $this->db->insert_id();
     }
+    public function editarPagoEmpleado($id_pagos_empleados, $datos)
+    {
+        $this->db->update('pagos_empleados', $datos);
+        $this->db->where('id_pagos_empleados', $id_pagos_empleados);
+    }
 }
