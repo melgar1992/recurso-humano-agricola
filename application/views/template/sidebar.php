@@ -55,7 +55,7 @@
                                     <li><a><i class="fa fa-money"></i>Pagos <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li><a href="<?php echo base_url(); ?>Pago_empleados/pago_empleado">Pagos</a></li>
-                                            <li><a href="<?php echo base_url(); ?>Usuarios">Agregar ingreso empleado directo</a></li>
+                                            <li><a href="<?php echo base_url(); ?>Pago_empleados/ingreso_directo_form">Agregar ingreso empleado directo</a></li>
                                         </ul>
                                     </li>
                                 <?php endif; ?>

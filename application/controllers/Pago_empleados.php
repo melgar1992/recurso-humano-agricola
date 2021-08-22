@@ -14,6 +14,14 @@ class Pago_empleados extends BaseController
 
     $this->loadView("Pago_empleado", "formularios/pago_empleado/pago_empleado_form", $data);
   }
+  public function ingreso_directo_form()
+  {
+
+    $data = array(
+    );
+
+    $this->loadView("", "formularios/pago_empleado/ingreso_directo_form", $data);
+  }
   public function obtenerPagosAjax()
   {
     $pagos = $this->Pago_empleado_model->obtenerPagosEmpleados();
