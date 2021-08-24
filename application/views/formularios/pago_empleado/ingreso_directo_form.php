@@ -49,6 +49,7 @@
                                                     <th>Empleado</th>
                                                     <th>Contrato</th>
                                                     <th>Detalle</th>
+                                                    <th>Horas</th>
                                                     <th>Pago</th>
                                                     <th>Acciones</th>
                                                 </tr>
@@ -93,10 +94,18 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="haber" class="control-label">Pago<span class="required">*</span>
+                        <label for="hora_trabajo" class="control-label">Horas Trabajadas<span class="required">*</span>
                         </label>
                         <div class="has-feedback">
-                            <input id="haber" class="form-control col-md-7 col-xs-12" type="number" step="0.01" name="haber" required="required" placeholder="">
+                            <input id="hora_trabajo" class="form-control col-md-7 col-xs-12" type="number" step="0.01" name="hora_trabajo" placeholder="">
+                            <span class="form-control-feedback right" aria-hidden="true">Hr</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="debe" class="control-label">Ingreso del empleado<span class="required">*</span>
+                        </label>
+                        <div class="has-feedback">
+                            <input id="debe" class="form-control col-md-7 col-xs-12" type="number" step="0.01" name="debe" required="required" placeholder="">
                             <span class="form-control-feedback right" aria-hidden="true">Bs</span>
                         </div>
                     </div>

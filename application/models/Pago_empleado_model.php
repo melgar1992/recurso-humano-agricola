@@ -14,6 +14,19 @@ class Pago_empleado_model extends CI_Model
 
         return $this->db->get()->result_array();
     }
+    public function obtenerIngresosEmpleados()
+    {
+        $this->db->select('pe.*, concat(em.nombres," " ,em.apellidos) as nombre_completo, em.nombres as empleado_nombres, em.apellidos as empleado_apellidos, em.ci, em.telefono, em.direccion,
+        ca.nombre as cargo_nombre, ca.tipo_pago, ca.sueldo_mensual, ca.sueldo_hora, ca.hora_extra, ca.hora_feriada');
+        $this->db->from('pagos_empleados pe');
+        $this->db->join('contrato c', 'c.id_contrato = pe.id_contrato');
+        $this->db->join('empleados em', 'em.id_empleado = c.id_empleado');
+        $this->db->join('cargo ca', 'ca.id_cargo = c.id_cargo');
+        $this->db->where('debe !=', 'null');
+        $this->db->limit(200);
+
+        return $this->db->get()->result_array();
+    }
     public function obtenerPagoEmpleado($id_pagos_empleados)
     {
         $this->db->select('pe.*, concat(em.nombres," " ,em.apellidos) as nombre_completo, em.nombres as empleado_nombres, em.apellidos as empleado_apellidos, em.ci, em.telefono, em.direccion,
