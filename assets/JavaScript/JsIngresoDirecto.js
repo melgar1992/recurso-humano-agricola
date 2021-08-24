@@ -1,6 +1,6 @@
 $(document).ready(function () {
     opcion = '';
-    document.title = 'Sistema Agricola| Pago Empleados';
+    document.title = 'Sistema Agricola| Ingreso Empleados';
     var tabla = $('#tabla').DataTable({
         responsive: true,
         pageLength: 25,
@@ -78,7 +78,8 @@ $(document).ready(function () {
             dataType: "json",
             success: function (respuesta) {
                 $("#id_contrato option[value=" + respuesta['id_contrato'] + "]").attr("selected", true);
-                $('#haber').val(Number(respuesta['haber']).toFixed(2));
+                $('#hora_trabajo').val(Number(respuesta['hora_trabajo']).toFixed(2));
+                $('#debe').val(Number(respuesta['debe']).toFixed(2));
                 $('#detalle').text(respuesta['detalle']);
                 $('#fecha').val(respuesta['fecha']);
             }
@@ -146,11 +147,12 @@ $(document).ready(function () {
         } else {
             $.ajax({
                 type: "POST",
-                url: base_url + "Pago_empleados/editarPagoEmpleado",
+                url: base_url + "Pago_empleados/editarIngresoEmpleado",
                 data: {
                     id_pagos_empleados: id_pagos_empleados,
                     id_contrato: id_contrato,
-                    haber: haber,
+                    hora_trabajo: hora_trabajo,
+                    debe: debe,
                     detalle: detalle,
                     fecha: fecha,
                 },
@@ -161,7 +163,8 @@ $(document).ready(function () {
                         id_contrato = respuesta['datos']['id_contrato'];
                         nombre_completo = respuesta['datos']['nombre_completo'];
                         cargo_nombre = respuesta['datos']['cargo_nombre'];
-                        haber = respuesta['datos']['haber'];
+                        hora_trabajo = respuesta['datos']['hora_trabajo'];
+                        debe = respuesta['datos']['debe'];
                         detalle = respuesta['datos']['detalle'];
                         fecha = respuesta['datos']['fecha'];
                         tabla.row(fila).data({
@@ -169,7 +172,8 @@ $(document).ready(function () {
                             "id_contrato": id_contrato,
                             "nombre_completo": nombre_completo,
                             "cargo_nombre": cargo_nombre,
-                            "haber": haber,
+                            "hora_trabajo": hora_trabajo,
+                            "debe": debe,
                             "detalle": detalle,
                             "fecha": fecha,
                         }).draw();
@@ -238,7 +242,7 @@ $(document).ready(function () {
 });
 function LimpiarFormulario() {
     $('#modal-form').modal('hide');
-    $('.modal-title').text('Formulario pago de empleados');
+    $('.modal-title').text('Formulario ingreso de empleados');
     $("#id_contrato option:selected").removeAttr("selected");
     $('#formulario').trigger('reset');
     opcion = '';
