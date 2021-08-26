@@ -4,7 +4,8 @@ class Control_asistencia_model extends CI_Model
 
     public function obtenerAsistencias()
     {
-        $this->db->select('coa.*, concat(em.apellidos," " ,em.nombres) as nombre_completo, em.nombres as empleado_nombres, em.apellidos as empleado_apellidos, em.ci, em.telefono, em.direccion, 
+        $this->db->select('coa.*, TIMEDIFF(coa.fecha_hora_salida, coa.fecha_hora_ingreso) as hora_trabajadas,
+        concat(em.apellidos," " ,em.nombres) as nombre_completo, em.nombres as empleado_nombres, em.apellidos as empleado_apellidos, em.ci, em.telefono, em.direccion, 
         ca.nombre as cargo_nombre, ca.tipo_pago, ca.sueldo_mensual, ca.sueldo_hora, ca.hora_extra, ca.hora_feriada');
         $this->db->from('control_asistencia coa');
         $this->db->join('contrato co', 'co.id_contrato = coa.id_contrato');
@@ -15,7 +16,8 @@ class Control_asistencia_model extends CI_Model
     }
     public function obtenerAsistencia($id_control_asistencia)
     {
-        $this->db->select('coa.*, concat(em.apellidos," " ,em.nombres) as nombre_completo, em.nombres as empleado_nombres, em.apellidos as empleado_apellidos, em.ci, em.telefono, em.direccion, 
+        $this->db->select('coa.*, TIMEDIFF(coa.fecha_hora_salida, coa.fecha_hora_ingreso) as hora_trabajadas,
+        concat(em.apellidos," " ,em.nombres) as nombre_completo, em.nombres as empleado_nombres, em.apellidos as empleado_apellidos, em.ci, em.telefono, em.direccion, 
         ca.nombre as cargo_nombre, ca.tipo_pago, ca.sueldo_mensual, ca.sueldo_hora, ca.hora_extra, ca.hora_feriada');
         $this->db->from('control_asistencia coa');
         $this->db->join('contrato co', 'co.id_contrato = coa.id_contrato');
