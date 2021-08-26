@@ -41,6 +41,7 @@ class Calendario extends BaseController
             } else {
                 $id_calendario = $this->Calendario_model->ingresarFeriado($feriado, $nombre);
                 $feriado = $this->Calendario_model->obtenerFeriadosId($id_calendario);
+                $this->Control_asistencia_model->actualizarFeriado($feriado);
                 $respuesta = array(
                     'respuesta' => 'Exitoso',
                     'datos' => $feriado,
@@ -76,6 +77,7 @@ class Calendario extends BaseController
                 );
             } else {
                 $this->Calendario_model->editarFeriado($id_calendario, $feriado, $nombre);
+                $this->Control_asistencia_model->actualizarFeriado($feriado);
                 $calendarioFeriado = $this->Calendario_model->obtenerFeriadosId($id_calendario);
                 $respuesta = array(
                     'respuesta' => 'Exitoso',
