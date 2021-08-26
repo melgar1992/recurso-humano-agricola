@@ -194,4 +194,12 @@ class Control_asistencia_model extends CI_Model
         $this->db->where('date(fecha_hora_ingreso)', $fecha);
         $this->db->update('control_asistencia', $datos);
     }
+    public function borrarFeriado($fecha)
+    {
+        $datos = array(
+            'feriado' => '0',
+        );
+        $this->db->where('date(fecha_hora_ingreso)', $fecha);
+        $this->db->update('control_asistencia', $datos);
+    }
 }

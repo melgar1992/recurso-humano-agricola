@@ -40,8 +40,8 @@ class Calendario extends BaseController
                 );
             } else {
                 $id_calendario = $this->Calendario_model->ingresarFeriado($feriado, $nombre);
-                $feriado = $this->Calendario_model->obtenerFeriadosId($id_calendario);
                 $this->Control_asistencia_model->actualizarFeriado($feriado);
+                $feriado = $this->Calendario_model->obtenerFeriadosId($id_calendario);
                 $respuesta = array(
                     'respuesta' => 'Exitoso',
                     'datos' => $feriado,
@@ -61,8 +61,8 @@ class Calendario extends BaseController
         $id_calendario = $this->input->post('id_calendario');
         $feriado = $this->input->post('feriado');
         $nombre = $this->input->post('nombre');
-        $calendarioFeriado = $this->Calendario_model->obtenerFeriadosId($id_calendario);
-        if ($feriado == $calendarioFeriado['feriado']) {
+        $calendarioAntiguo = $this->Calendario_model->obtenerFeriadosId($id_calendario);
+        if ($feriado == $calendarioAntiguo['feriado']) {
             $is_unique = '';
         } else {
             $is_unique = '|is_unique[calendario.feriado]';
@@ -77,6 +77,7 @@ class Calendario extends BaseController
                 );
             } else {
                 $this->Calendario_model->editarFeriado($id_calendario, $feriado, $nombre);
+                $this->Control_asistencia_model->borrarFeriado($calendarioAntiguo['feriado']);
                 $this->Control_asistencia_model->actualizarFeriado($feriado);
                 $calendarioFeriado = $this->Calendario_model->obtenerFeriadosId($id_calendario);
                 $respuesta = array(
@@ -95,6 +96,8 @@ class Calendario extends BaseController
     }
     public function eliminarFeriado($id_calendario)
     {
+        $calendarioFeriado = $this->Calendario_model->obtenerFeriadosId($id_calendario);
+        $this->Control_asistencia_model->borrarFeriado($calendarioFeriado['feriado']);
         $this->Calendario_model->eliminarFeriado($id_calendario);
         $respuesta = array(
             'respuesta' => 'Exitoso',
