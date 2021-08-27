@@ -19,7 +19,7 @@ $(document).ready(function () {
             extend: 'excelHtml5',
             title: "Listado de empleados",
             exportOptions: {
-                columns: [1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5],
             }
 
         },
@@ -27,7 +27,7 @@ $(document).ready(function () {
             extend: 'print',
             title: "Listado de empleados",
             exportOptions: {
-                columns: [1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5],
 
             }
         }

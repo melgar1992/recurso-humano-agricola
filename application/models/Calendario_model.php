@@ -13,6 +13,12 @@ class Calendario_model extends CI_Model
         $this->db->where('id_calendario', $id_calendario);
         return $this->db->get('calendario')->row_array();
     }
+    public function obtenerFeriadoFecha($fecha)
+    {
+        $this->db->select('*');
+        $this->db->where('feriado', $fecha);
+        return $this->db->get('calendario')->row_array();
+    }
     public function ingresarFeriado($feriado, $nombre)
     {
         $datos = array(

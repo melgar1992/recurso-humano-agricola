@@ -40,7 +40,9 @@ class ControlAsistencia extends BaseController
         $fecha_hora_salida = $this->input->post('fecha_hora_salida');
         $observaciones = $this->input->post('observaciones');
         $ultima_edicion = date('Y-m-d H:i:s');
-
+        $fecha = date('Y-m-d', strtotime($fecha_hora_ingreso));
+        $calendario = $this->Calendario_model->obtenerFeriadoFecha($fecha);
+        (isset($calendario)) ? $feriado = '1' : $feriado = '0';
         try {
             if ($this->form_validation->run() === false) {
                 $respuesta = array(
@@ -55,6 +57,7 @@ class ControlAsistencia extends BaseController
                         'id_usuario' => $id_usuario,
                         'fecha_hora_ingreso' => $fecha_hora_ingreso,
                         'fecha_hora_salida' => $fecha_hora_salida,
+                        'feriado' => $feriado,
                         'observaciones' => $observaciones,
                         'ultima_edicion' => $ultima_edicion,
                     );
@@ -99,6 +102,11 @@ class ControlAsistencia extends BaseController
         $fecha_hora_ingreso = str_replace('T', ' ', $fecha_hora_ingreso);
         $fecha_hora_salida = str_replace('T', ' ', $fecha_hora_salida);
 
+        $fecha = date('Y-m-d', strtotime($fecha_hora_ingreso));
+        $calendario = $this->Calendario_model->obtenerFeriadoFecha($fecha);
+        (isset($calendario)) ? $feriado = '1' : $feriado = '0';
+
+
         $fecha_hora_ingreso = date('Y-m-d H:i', strtotime($fecha_hora_ingreso));
         $fecha_hora_salida = date('Y-m-d H:i', strtotime($fecha_hora_salida));
 
@@ -121,6 +129,7 @@ class ControlAsistencia extends BaseController
                         'id_usuario' => $id_usuario,
                         'fecha_hora_ingreso' => $fecha_hora_ingreso,
                         'fecha_hora_salida' => $fecha_hora_salida,
+                        'feriado' => $feriado,
                         'observaciones' => $observaciones,
                         'ultima_edicion' => $ultima_edicion,
                     );
@@ -139,6 +148,7 @@ class ControlAsistencia extends BaseController
                             'id_usuario' => $id_usuario,
                             'fecha_hora_ingreso' => $fecha_hora_ingreso,
                             'fecha_hora_salida' => $fecha_hora_salida,
+                            'feriado' => $feriado,
                             'observaciones' => $observaciones,
                             'ultima_edicion' => $ultima_edicion,
                         );
@@ -163,6 +173,7 @@ class ControlAsistencia extends BaseController
                             'id_usuario' => $id_usuario,
                             'fecha_hora_ingreso' => $fecha_hora_ingreso,
                             'fecha_hora_salida' => $fecha_hora_salida,
+                            'feriado' => $feriado,
                             'observaciones' => $observaciones,
                             'ultima_edicion' => $ultima_edicion,
                         );
