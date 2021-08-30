@@ -133,9 +133,9 @@
                                         <div class="x_content">
                                             <form action="" id="reporte-contrato">
                                                 <div class="form-group">
-                                                    <label for="camion" class="col-md-1 col-xs-12 control-label text-right">Contrato: </label>
+                                                    <label for="id_contrato" class="col-md-1 col-xs-12 control-label text-right">Contrato: </label>
                                                     <div class="col-md-2 col-xs-12">
-                                                        <select name="camion" id="camion" class="form-control" required>
+                                                        <select name="id_contrato" id="id_contrato" class="form-control" required>
                                                             <option value=""></option>
                                                             <?php foreach ($contratos as $row) : ?>
                                                                 <option value="<?php echo $row['id_contrato'] ?>"><?php echo $row['nombre_completo']
@@ -153,7 +153,7 @@
                                                         <input type="date" name="fechaFin" id="fechaFin" class="form-control" required>
                                                     </div>
                                                     <div class="col-md-2 col-xs-12">
-                                                        <button type="submit" class="btn btn-block btn-success">Generar</button>
+                                                        <button type="submit" data-toggle="modal" data-target="#modal-detalle" class="btn btn-block btn-success">Generar</button>
                                                     </div>
                                                 </div>
                                                 <br></br>
