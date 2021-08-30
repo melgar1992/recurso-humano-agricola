@@ -12,12 +12,12 @@ class Dashboard extends BaseController
 
   public function index()
   {
-                 
+
     $data = array(
-    
+      'contratos' => $this->Contrato_model->obtenerContratosOrdenApellidos(),
+
     );
 
     $this->loadView("Dashboard", "dashboards/dashboard", $data);
   }
-  
 }
