@@ -113,4 +113,12 @@
 
         </table>
     </div>
+
+</div>
+<br>
+<hr>
+<div class="row">
+    <div class="col-xs-12 text-left">
+        <h4>Balance : <?php echo (($ingresosAsistenciaContrato['totalGanado'] + $sumIngresoDirecto) - $pagosContratoDirecto) ?> Bs</h4><br>
+    </div>
 </div>

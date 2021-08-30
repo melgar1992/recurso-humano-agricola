@@ -73,12 +73,12 @@
                                             <li class="nav-item">
                                                 <a class="nav-link" id="ControlAsistencia-tab" data-toggle="tab" href="#ControlAsistencia" role="tab" aria-controls="ControlAsistencia" aria-selected="true">Control Asistencia</a>
                                             </li>
-                                            <li class="nav-item">
+                                            <!-- <li class="nav-item">
                                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-                                            </li>
+                                            </li> -->
                                         </ul>
                                         <div class="tab-content" id="myTabContent">
                                             <div class="tab-pane fade show" id="ControlAsistencia" role="tabpanel" aria-labelledby="ControlAsistencia-tab">
