@@ -51,4 +51,31 @@ $(document).ready(function () {
             "sProcesing": "Procesando...",
         }
     });
+    $(document).on('submit', '#reporte-contrato', function (e) {
+		e.preventDefault();
+		ID_camion = $.trim($('#camion').val());
+		fechaIni = $.trim($('#fechaIni').val());
+		fechaFin = $.trim($('#fechaFin').val());
+		if (fechaIni < fechaFin) {
+			$.ajax({
+				type: "POST",
+				url: base_url + "/Dashboard/reporteContrato",
+				data: {
+					ID_camion: ID_camion,
+					fechaIni: fechaIni,
+					fechaFin: fechaFin,
+				},
+				dataType: "json",
+				success: function (respuesta) {
+                    $('#modal-detalle .modal-body').html(response);
+				}
+			});
+		} else {
+			swal({
+				title: 'Error de fecha',
+				text: 'La fecha inicial no puede ser mayor que la final',
+				type: 'error'
+			});
+		}
+	});
 });

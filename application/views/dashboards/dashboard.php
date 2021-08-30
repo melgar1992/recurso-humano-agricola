@@ -131,7 +131,7 @@
                                             <div class="clearfix"></div>
                                         </div>
                                         <div class="x_content">
-                                            <form action="" id="reporte-camion">
+                                            <form action="" id="reporte-contrato">
                                                 <div class="form-group">
                                                     <label for="camion" class="col-md-1 col-xs-12 control-label text-right">Contrato: </label>
                                                     <div class="col-md-2 col-xs-12">
@@ -170,3 +170,23 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal-detalle">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Reporte</h4>
+            </div>
+            <div class="modal-body ui-front">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary btn-print"><span class="fa fa-print">Imprimir</span></button>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+<!-- /.modal -->
