@@ -27,7 +27,9 @@ class Dashboard extends BaseController
     $fechaFin = $this->input->post('fechaFin');
 
     $datos['contrato'] = $this->Contrato_model->obtenerContrato($id_contrato);
-    $datos['ingresosContrato'] = $this->Reporte_model->obtenerIngresosContratoEntreFecha($id_contrato, $fechaIni, $fechaFin);
+    $datos['ingresosAsistenciaContrato'] = $this->Reporte_model->obtenerIngresosContratoEntreFecha($id_contrato, $fechaIni, $fechaFin);
+    $datos['ingresosDirectoContrato'] = $this->Reporte_model->obtenerIngresosDirectoEntreFecha($id_contrato, $fechaIni, $fechaFin);
+    $datos['pagosContrato'] = $this->Reporte_model->obtenerpagosEntreFecha($id_contrato, $fechaIni, $fechaFin);
 		$this->load->view('reportes/reporteContrato', $datos);
 
   }

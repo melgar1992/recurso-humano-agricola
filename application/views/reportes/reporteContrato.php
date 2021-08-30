@@ -4,6 +4,11 @@
         Nombre : <?php echo $contrato['nombre_completo']; ?> <br>
         CI : <?php echo $contrato['ci']; ?><br>
         Fecha : <?php echo date('Y-m-d'); ?><br>
+        Cargo : <?php echo $contrato['cargo_nombre']; ?><br>
+        Horas normales : <?php echo $contrato['sueldo_hora']; ?> Bs<br>
+        Horas Extras : <?php echo $contrato['hora_extra']; ?> Bs<br>
+        Hora Feriado : <?php echo $contrato['hora_feriada']; ?> Bs<br>
+
     </div>
 </div>
 <br>
@@ -13,22 +18,43 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th width="20%">Detalle</th>
-                    <th width="60%">Horas</th>
-                    <th width="20%">Ingresos Bs</th>
+                    <th COLSPAN="3">
+                        <h4><BR>Ingresos</h4>
+                    </th>
+                </tr>
+                <tr>
+                    <th width=>Detalle</th>
+                    <th width=>Horas</th>
+                    <th width=>Ingresos Bs</th>
 
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td>Horas Trabajadas</td>
+                    <td><?php echo $ingresosAsistenciaContrato['horaNormal'] ?></td>
+                    <td ALIGN="center"><?php echo number_format($ingresosAsistenciaContrato['TotalHoraNormal'], 2) ?> Bs</td>
+                </tr>
+                <tr>
+                    <td>Horas Extras</td>
+                    <td><?php echo $ingresosAsistenciaContrato['horaExtras'] ?></td>
+                    <td ALIGN="center"><?php echo number_format($ingresosAsistenciaContrato['TotalHoraExtra'], 2) ?> Bs</td>
+                </tr>
+                <tr>
+                    <td>Horas Feriados</td>
+                    <td><?php echo $ingresosAsistenciaContrato['horaFeriado'] ?></td>
+                    <td ALIGN="center"><?php echo number_format($ingresosAsistenciaContrato['TotalHoraFeriado'], 2) ?> Bs</td>
+                </tr>
                 <?php
-                if (count($pago_empleado) > 0) {
-                    foreach ($pago_empleado as $row) {
-                        $fecha = new DateTime($row['Fecha']);
+                $sumIngresoDirecto = 0;
+                if (count($ingresosDirectoContrato) > 0) {
+                    foreach ($ingresosDirectoContrato as $row) {
+                        $sumIngresoDirecto = $sumIngresoDirecto +  number_format($row['debe']);
                 ?>
                         <tr>
-                            <td><?php echo date_format($fecha, 'Y-M-d') ?></td>
-                            <td><?php echo $row['Descripcion'] ?></td>
-                            <td ALIGN="center"><?php echo number_format($row['Monto'], 2) ?></td>
+                            <td><?php echo $row['detalle'] ?></td>
+                            <td><?php echo $row['hora_trabajo'] ?></td>
+                            <td ALIGN="center"><?php echo number_format($row['debe'], 2) ?> Bs</td>
 
                         </tr>
                 <?php }
@@ -39,7 +65,49 @@
             <tfoot>
                 <tr>
                     <td colspan="2">Total de Ingresos</td>
-                    <td><?php ?> Bs</td>
+                    <td ALIGN="center"><?php echo number_format(($ingresosAsistenciaContrato['totalGanado'] + $sumIngresoDirecto), 2) ?> Bs</td>
+                </tr>
+            </tfoot>
+
+        </table>
+    </div>
+    <div class="col-lg-6 col-md-6 col-xs-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th COLSPAN="3">
+                        <h4>Egresos</h4>
+                    </th>
+                </tr>
+                <tr>
+                    <th width=>Detalle</th>
+                    <th width=>fecha</th>
+                    <th width=>Egreso Bs</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $pagosContratoDirecto = 0;
+                if (count($pagosContrato) > 0) {
+                    foreach ($pagosContrato as $row) {
+                        $pagosContratoDirecto = $pagosContratoDirecto +  $row['haber'];
+                ?>
+                        <tr>
+                            <td><?php echo $row['detalle'] ?></td>
+                            <td><?php echo $row['fecha'] ?></td>
+                            <td ALIGN="center"><?php echo number_format($row['haber'], 2) ?> Bs</td>
+
+                        </tr>
+                <?php }
+                }
+
+                ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">Total de Egresos</td>
+                    <td ALIGN="center"><?php echo number_format(($pagosContratoDirecto), 2) ?> Bs</td>
                 </tr>
             </tfoot>
 
