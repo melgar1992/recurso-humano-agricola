@@ -46,67 +46,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-sm-12  ">
-                                <div class="x_panel">
-                                    <div class="x_title">
-                                        <h2><i class="fa fa-bars"></i> Tablas de informacion general </h2>
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                            </li>
-                                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                            </li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="x_content">
-                                        <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="ControlAsistencia-tab" data-toggle="tab" href="#ControlAsistencia" role="tab" aria-controls="ControlAsistencia" aria-selected="true">Control Asistencia</a>
-                                            </li>
-                                            <!-- <li class="nav-item">
-                                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-                                            </li> -->
-                                        </ul>
-                                        <div class="tab-content" id="myTabContent">
-                                            <div class="tab-pane fade show" id="ControlAsistencia" role="tabpanel" aria-labelledby="ControlAsistencia-tab">
-                                                <div class="x_content">
-                                                    <div>
-                                                        <table id="tablaDetalleAsistencia" class="table table-bordered jambo_table" style="width:100%">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>ID</th>
-                                                                    <th>Empleado</th>
-                                                                    <th>Cargo</th>
-                                                                    <th>Fecha Hora entrada</th>
-                                                                    <th>Fecha Hora salida</th>
-                                                                    <th>Horas trabajadas</th>
-                                                                    <th>Observaciones</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            </tbody>
-                                                            <tfoot>
-                                                            </tfoot>
-                                                        </table>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class=" tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                                Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                                                booth letterpress, commodo enim craft beer mlkshk aliquip
-                                            </div>
-                                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                                xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                                                booth letterpress, commodo enim craft beer mlkshk
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="x_panel">
@@ -159,7 +98,71 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><i class="fa fa-bars"></i> Tablas de informacion general </h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" id="ControlAsistencia-tab" data-toggle="tab" href="#ControlAsistencia" role="tab" aria-controls="ControlAsistencia" aria-selected="true">Control Asistencia</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                                            </li> -->
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show" id="ControlAsistencia" role="tabpanel" aria-labelledby="ControlAsistencia-tab">
+                            <div class="x_content">
+                                <div class="card-box table-responsive">
+                                    <table id="tablaDetalleAsistencia" class="table table-bordered jambo_table" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Empleado</th>
+                                                <th>Cargo</th>
+                                                <th>Fecha Hora entrada</th>
+                                                <th>Fecha Hora salida</th>
+                                                <th>Horas trabajadas</th>
+                                                <th>Observaciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot>
+                                        </tfoot>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class=" tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                                Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                                                booth letterpress, commodo enim craft beer mlkshk aliquip
+                                            </div>
+                                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                                xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                                                booth letterpress, commodo enim craft beer mlkshk
+                                            </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <div class="modal fade" id="modal-detalle">
     <div class="modal-dialog modal-lg">
