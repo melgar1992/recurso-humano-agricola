@@ -39,7 +39,7 @@
     <!-- Jquery Print, sirve para imprimir -->
     <script src="<?php echo base_url(); ?>assets/template/jquery-print/jquery.print.js"></script>
     <!-- iCheck -->
-    <script src="<?php echo base_url(); ?>assets/template/iCheck/iCheck.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/template/iCheck/icheck.min.js"></script>
 
     <input type="hidden" value="<?php echo base_url() ?>" id="base_url">
  
