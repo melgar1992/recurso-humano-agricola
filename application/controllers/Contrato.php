@@ -15,7 +15,7 @@ class Contrato extends BaseController
             'cargos' => $this->Cargo_model->obtenerCargos(),
         );
 
-        $this->loadView("Contrato", "formularios/contrato/contrato_form", $data);
+        $this->loadView("Contrato", "formularios/Contrato/contrato_form", $data);
     }
     public function obtenerContratosAjax()
     {
