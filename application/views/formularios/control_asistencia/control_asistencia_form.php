@@ -88,7 +88,7 @@
                                 <?php foreach ($contratos as $row) : ?>
                                     <option value="<?php echo $row['id_contrato'] ?>"><?php echo $row['nombre_completo']
                                                                                             . ' Cargo: ' . $row['cargo_nombre']
-                                                                                            . ' Hora: ' . $row['sueldo_hora'] . ' Bs'; ?></option>
+                                                                                            ; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>

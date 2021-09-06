@@ -27,7 +27,7 @@
 
                                     <li><a><i class="fa fa-edit"></i>Empleados<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
-                                            <li><a href="<?php echo base_url(); ?>Empleado">Empelados</a></li>
+                                            <li><a href="<?php echo base_url(); ?>Empleado">Empleados</a></li>
                                             <li><a href="<?php echo base_url(); ?>Cargo">Cargos</a></li>
                                             <li><a href="<?php echo base_url(); ?>Contrato">Contratos de empleados</a></li>
 
