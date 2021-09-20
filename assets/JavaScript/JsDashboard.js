@@ -51,6 +51,12 @@ $(document).ready(function () {
             "sProcesing": "Procesando...",
         }
     });
+    $(document).on('click', '.btn-print', function () {
+
+		$("#modal-detalle .modal-body").print({
+			title: 'Reporte',
+		});
+	});
     $(document).on('submit', '#reporte-contrato', function (e) {
         e.preventDefault();
         id_contrato = $.trim($('#id_contrato').val());

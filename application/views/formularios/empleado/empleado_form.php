@@ -85,7 +85,7 @@
                         <label class="control-label" for="ci">ci
                         </label>
                         <div class="">
-                            <input type="number" id="ci" maxlength="7" oninput="this.value=this.value.slice(0,this.maxLength)" name="ci" class="form-control col-md-7 col-xs-12" placeholder="Número de Carnet de Identidad">
+                            <input type="number" id="ci" maxlength="8" oninput="this.value=this.value.slice(0,this.maxLength)" name="ci" class="form-control col-md-7 col-xs-12" placeholder="Número de Carnet de Identidad">
                         </div>
                     </div>
 
