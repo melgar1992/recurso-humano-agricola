@@ -49,7 +49,7 @@
                 $sumIngresoDirecto = 0;
                 if (count($ingresosDirectoContrato) > 0) {
                     foreach ($ingresosDirectoContrato as $row) {
-                        $sumIngresoDirecto = $sumIngresoDirecto +  number_format($row['debe']);
+                        $sumIngresoDirecto = $sumIngresoDirecto +  $row['debe'];
                 ?>
                         <tr>
                             <td><?php echo $row['detalle'] ?></td>
