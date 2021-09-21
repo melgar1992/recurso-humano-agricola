@@ -14,12 +14,12 @@
 <br>
 </br>
 <div class="row">
-    <div class="col-lg-6 col-md-6 col-xs-12">
+    <div class="col-lg-6 col-md-6 col-xs-6">
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th COLSPAN="3">
-                        <h4><BR>Ingresos</h4>
+                        <h4>Ingresos</h4>
                     </th>
                 </tr>
                 <tr>
@@ -71,7 +71,7 @@
 
         </table>
     </div>
-    <div class="col-lg-6 col-md-6 col-xs-12">
+    <div class="col-lg-6 col-md-6 col-xs-6">
         <table class="table table-bordered">
             <thead>
                 <tr>
