@@ -48,6 +48,8 @@
                                                     <th>Ci</th>
                                                     <th>Empleado</th>
                                                     <th>Contrato</th>
+                                                    <th>Ingreso</th>
+                                                    <th>Salida</th>
                                                     <th>Sueldo mensual</th>
                                                     <th>Sueldo Hora</th>
                                                     <th>Hora extra</th>
@@ -103,6 +105,20 @@
                                     <option value="<?php echo $row['id_cargo'] ?>"><?php echo $row['nombre'] . ' sueldo: ' . $row['sueldo_mensual'] . 'Bs hora: ' . $row['sueldo_hora'] . 'Bs'; ?></option>
                                 <?php endforeach; ?>
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="fecha_inicio">Fecha ingreso <span class="required">*</span>
+                        </label>
+                        <div class="">
+                            <input type="date" id="fecha_inicio" name="fecha_inicio" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="fecha_fin">Fecha salida <span class="required">*</span>
+                        </label>
+                        <div class="">
+                            <input type="date" id="fecha_fin" name="fecha_fin" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
 

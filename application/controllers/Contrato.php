@@ -25,15 +25,20 @@ class Contrato extends BaseController
     public function obtenerContrato()
     {
         $id_contrato = $this->input->post('id_contrato');;
-        $cargo = $this->Contrato_model->obtenerContrato($id_contrato);
-        echo json_encode($cargo);
+        $contrato = $this->Contrato_model->obtenerContrato($id_contrato);
+        echo json_encode($contrato);
     }
     public function ingresar_contrato()
     {
         $this->form_validation->set_rules('id_empleado', 'id_empleado', 'trim|xss_clean|is_unique[empleados.ci]');
         $this->form_validation->set_rules('id_cargo', 'id_cargo', 'trim|xss_clean|required');
+        $this->form_validation->set_rules('fecha_inicio', 'fecha_inicio', 'trim|xss_clean|required');
+        $this->form_validation->set_rules('fecha_fin', 'fecha_fin', 'trim|xss_clean|required');
         $id_empleado = $this->input->post('id_empleado');
         $id_cargo = $this->input->post('id_cargo');
+        $fecha_inicio = $this->input->post('fecha_inicio');
+        $fecha_fin = $this->input->post('fecha_fin');
+
         try {
             if ($this->form_validation->run() === false) {
                 $respuesta = array(
@@ -47,7 +52,7 @@ class Contrato extends BaseController
                         'mensaje' => 'El contrato con este empleado ya existe!',
                     );
                 } else {
-                    $id_contrato = $this->Contrato_model->ingresarContrato($id_empleado, $id_cargo);
+                    $id_contrato = $this->Contrato_model->ingresarContrato($id_empleado, $id_cargo, $fecha_inicio, $fecha_fin);
                     $contrato = $this->Contrato_model->obtenerContrato($id_contrato);
                     $respuesta = array(
                         'respuesta' => 'Exitoso',
@@ -70,9 +75,13 @@ class Contrato extends BaseController
 
         $this->form_validation->set_rules('id_empleado', 'id_empleado', 'trim|xss_clean');
         $this->form_validation->set_rules('id_cargo', 'id_cargo', 'trim|xss_clean|required');
+        $this->form_validation->set_rules('fecha_inicio', 'fecha_inicio', 'trim|xss_clean|required');
+        $this->form_validation->set_rules('fecha_fin', 'fecha_fin', 'trim|xss_clean|required');
         $id_contrato = $this->input->post('id_contrato');
         $id_empleado = $this->input->post('id_empleado');
         $id_cargo = $this->input->post('id_cargo');
+        $fecha_inicio = $this->input->post('fecha_inicio');
+        $fecha_fin = $this->input->post('fecha_fin');
         try {
             if ($this->form_validation->run() === false) {
                 $respuesta = array(
@@ -86,7 +95,7 @@ class Contrato extends BaseController
                         'mensaje' => 'El contrato con este empleado ya existe!',
                     );
                 } else {
-                    $this->Contrato_model->editarContrato($id_contrato, $id_empleado, $id_cargo);
+                    $this->Contrato_model->editarContrato($id_contrato, $id_empleado, $id_cargo, $fecha_inicio, $fecha_fin);
                     $contrato = $this->Contrato_model->obtenerContrato($id_contrato);
                     $respuesta = array(
                         'respuesta' => 'Exitoso',

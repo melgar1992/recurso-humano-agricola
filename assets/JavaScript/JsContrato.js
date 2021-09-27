@@ -2,7 +2,6 @@ $(document).ready(function () {
     opcion = '';
     document.title = 'Sistema Agricola| Contrato';
     var tabla = $('#tablaEmpleados').DataTable({
-        responsive: true,
         pageLength: 25,
         dom: "Bfrtip",
         ajax: { url: base_url + "Contrato/obtenerContratosAjax", dataSrc: "" },
@@ -11,11 +10,13 @@ $(document).ready(function () {
             { data: 'ci' },
             { data: 'nombre_completo' },
             { data: 'cargo_nombre' },
+            { data: 'fecha_inicio' },
+            { data: 'fecha_fin' },
             { data: 'sueldo_mensual', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') },
             { data: 'sueldo_hora', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') },
             { data: 'hora_extra', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') },
             { data: 'hora_feriada', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') },
-            { data: 8, width: '120px' }
+            { data: 10}
         ],
         buttons: [{
             extend: 'excelHtml5',
@@ -80,6 +81,9 @@ $(document).ready(function () {
             success: function (respuesta) {
                 $("#id_empleado option[value=" + respuesta['id_empleado'] + "]").attr("selected", true);
                 $("#id_cargo option[value=" + respuesta['id_cargo'] + "]").attr("selected", true);
+                $('#fecha_inicio').val(respuesta['fecha_inicio']);
+                $('#fecha_fin').val(respuesta['fecha_fin']);
+
             }
         });
         opcion = 'editar';
@@ -89,6 +93,8 @@ $(document).ready(function () {
         e.preventDefault();
         id_empleado = $.trim($('#id_empleado').val());
         id_cargo = $.trim($('#id_cargo').val());
+        fecha_inicio = $.trim($('#fecha_inicio').val());
+        fecha_fin = $.trim($('#fecha_fin').val());
         $('#modal-cargo').modal('hide');
 
         if (opcion != 'editar') {
@@ -98,6 +104,9 @@ $(document).ready(function () {
                 data: {
                     id_empleado: id_empleado,
                     id_cargo: id_cargo,
+                    fecha_inicio: fecha_inicio,
+                    fecha_fin: fecha_fin,
+
                 },
                 dataType: "json",
                 success: function (respuesta) {
@@ -106,6 +115,8 @@ $(document).ready(function () {
                         ci = respuesta['datos']['ci'];
                         nombre_completo = respuesta['datos']['nombre_completo'];
                         cargo_nombre = respuesta['datos']['cargo_nombre'];
+                        fecha_inicio = respuesta['datos']['fecha_inicio'];
+                        fecha_fin = respuesta['datos']['fecha_fin'];
                         sueldo_mensual = respuesta['datos']['sueldo_mensual'];
                         sueldo_hora = respuesta['datos']['sueldo_hora'];
                         hora_extra = respuesta['datos']['hora_extra'];
@@ -115,6 +126,8 @@ $(document).ready(function () {
                             "ci": ci,
                             "nombre_completo": nombre_completo,
                             "cargo_nombre": cargo_nombre,
+                            "fecha_inicio": fecha_inicio,
+                            "fecha_fin": fecha_fin,
                             "sueldo_mensual": sueldo_mensual,
                             "sueldo_hora": sueldo_hora,
                             "hora_extra": hora_extra,
@@ -143,6 +156,8 @@ $(document).ready(function () {
                     id_contrato: id_contrato,
                     id_empleado: id_empleado,
                     id_cargo: id_cargo,
+                    fecha_inicio: fecha_inicio,
+                    fecha_fin: fecha_fin,
                 },
                 dataType: "json",
                 success: function (respuesta) {
@@ -151,6 +166,8 @@ $(document).ready(function () {
                         ci = respuesta['datos']['ci'];
                         nombre_completo = respuesta['datos']['nombre_completo'];
                         cargo_nombre = respuesta['datos']['cargo_nombre'];
+                        fecha_inicio = respuesta['datos']['fecha_inicio'];
+                        fecha_fin = respuesta['datos']['fecha_fin'];
                         sueldo_mensual = respuesta['datos']['sueldo_mensual'];
                         sueldo_hora = respuesta['datos']['sueldo_hora'];
                         hora_extra = respuesta['datos']['hora_extra'];
@@ -160,6 +177,8 @@ $(document).ready(function () {
                             "ci": ci,
                             "nombre_completo": nombre_completo,
                             "cargo_nombre": cargo_nombre,
+                            "fecha_inicio": fecha_inicio,
+                            "fecha_fin": fecha_fin,
                             "sueldo_mensual": sueldo_mensual,
                             "sueldo_hora": sueldo_hora,
                             "hora_extra": hora_extra,
