@@ -16,9 +16,22 @@ class ControlAsistencia extends BaseController
 
         $this->loadView("ControlAsistencia", "formularios/control_asistencia/control_asistencia_form", $data);
     }
+    public function faltasEmpleados()
+    {
+        $data = array(
+            'contratos' => $this->Contrato_model->obtenerContratosOrdenApellidos(),
+        );
+
+        $this->loadView("FaltasEmpleados", "formularios/control_asistencia/falta_form", $data);
+    }
     public function obtenerAsistencias()
     {
         $asistencias = $this->Control_asistencia_model->obtenerAsistencias();
+        echo json_encode($asistencias);
+    }
+    public function obtenerFaltas()
+    {
+        $asistencias = $this->Control_asistencia_model->obtenerFaltas();
         echo json_encode($asistencias);
     }
     public function obtenerAsistenciaAjax()
@@ -60,6 +73,8 @@ class ControlAsistencia extends BaseController
                         'feriado' => $feriado,
                         'observaciones' => $observaciones,
                         'ultima_edicion' => $ultima_edicion,
+                        'falta' => '0',
+
                     );
                     $id_control_asistencia = $this->Control_asistencia_model->ingresarControl($datos);
                     $asistencia = $this->Control_asistencia_model->obtenerAsistencia($id_control_asistencia);
@@ -74,6 +89,93 @@ class ControlAsistencia extends BaseController
                         'mensaje' => $existeAsistenciaEntreTiempo['mensaje'],
                     );
                 }
+            }
+        } catch (Exception  $th) {
+            $respuesta = array(
+                'respuesta' => 'Error',
+                'mensaje' => 'Ocurrio un problema' + $th->getMessage(),
+            );
+        }
+        echo json_encode($respuesta);
+    }
+    public function ingresarFalta()
+    {
+        $this->form_validation->set_rules('id_contrato', 'id_contrato', 'trim|xss_clean|required');
+        $this->form_validation->set_rules('fecha_falta', 'fecha_falta', 'trim|xss_clean');
+        $this->form_validation->set_rules('observaciones', 'observaciones', 'trim|xss_clean');
+
+        $id_contrato = $this->input->post('id_contrato');
+        $id_usuario = $this->session->userdata('id_usuario');
+        $fecha_falta = $this->input->post('fecha_falta');
+        $observaciones = $this->input->post('observaciones');
+        $ultima_edicion = date('Y-m-d H:i:s');
+        try {
+            if ($this->form_validation->run() === false) {
+                $respuesta = array(
+                    'respuesta' => 'Error',
+                    'mensaje' => 'Ocurrio un problema al validar los datos',
+                );
+            } else {
+
+                $datos = array(
+                    'id_contrato' => $id_contrato,
+                    'id_usuario' => $id_usuario,
+                    'fecha_falta' => $fecha_falta,
+                    'observaciones' => $observaciones,
+                    'ultima_edicion' => $ultima_edicion,
+                    'falta' => '1',
+                );
+                $id_control_asistencia = $this->Control_asistencia_model->ingresarControl($datos);
+                $asistencia = $this->Control_asistencia_model->obtenerAsistencia($id_control_asistencia);
+                $respuesta = array(
+                    'respuesta' => 'Exitoso',
+                    'datos' => $asistencia,
+                    'message' => 'Se guardo correctamente',
+                );
+            }
+        } catch (Exception  $th) {
+            $respuesta = array(
+                'respuesta' => 'Error',
+                'mensaje' => 'Ocurrio un problema' + $th->getMessage(),
+            );
+        }
+        echo json_encode($respuesta);
+    }
+    public function editarFalta()
+    {
+        $this->form_validation->set_rules('id_contrato', 'id_contrato', 'trim|xss_clean|required');
+        $this->form_validation->set_rules('fecha_falta', 'fecha_falta', 'trim|xss_clean');
+        $this->form_validation->set_rules('observaciones', 'observaciones', 'trim|xss_clean');
+
+        $id_control_asistencia = $this->input->post('id_control_asistencia');
+        $id_contrato = $this->input->post('id_contrato');
+        $id_usuario = $this->session->userdata('id_usuario');
+        $fecha_falta = $this->input->post('fecha_falta');
+        $observaciones = $this->input->post('observaciones');
+        $ultima_edicion = date('Y-m-d H:i:s');
+        try {
+            if ($this->form_validation->run() === false) {
+                $respuesta = array(
+                    'respuesta' => 'Error',
+                    'mensaje' => 'Ocurrio un problema al validar los datos',
+                );
+            } else {
+
+                $datos = array(
+                    'id_contrato' => $id_contrato,
+                    'id_usuario' => $id_usuario,
+                    'fecha_falta' => $fecha_falta,
+                    'observaciones' => $observaciones,
+                    'ultima_edicion' => $ultima_edicion,
+                    'falta' => '1',
+                );
+                $this->Control_asistencia_model->editarControl($id_control_asistencia, $datos);
+                $asistencia = $this->Control_asistencia_model->obtenerAsistencia($id_control_asistencia);
+                $respuesta = array(
+                    'respuesta' => 'Exitoso',
+                    'datos' => $asistencia,
+                    'message' => 'Se edito correctamente',
+                );
             }
         } catch (Exception  $th) {
             $respuesta = array(

@@ -2,7 +2,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Formulario Asistencia</h3>
+                <h3>Formulario Faltas</h3>
             </div>
         </div>
         <br>
@@ -11,7 +11,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Tabla de Asistencia de la empresa</h2>
+                        <h2>Tabla de faltas empleados de la empresa</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -31,7 +31,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Asistencias registradas</h2>
+                                    <h2>Faltas registradas</h2>
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                         </li>
@@ -46,8 +46,7 @@
                                                     <th>ID</th>
                                                     <th>Empleado</th>
                                                     <th>Cargo</th>
-                                                    <th>Fecha Hora entrada</th>
-                                                    <th>Fecha Hora salida</th>
+                                                    <th>Fecha </th>
                                                     <th>Observaciones</th>
                                                     <th>Acciones</th>
                                                 </tr>
@@ -94,19 +93,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="fecha_hora_ingreso">Fecha hora ingreso <span class="required">*</span>
+                        <label class="control-label" for="fecha_falta">Fecha <span class="required">*</span>
                         </label>
                         <div class="">
-                            <input type="datetime-local" id="fecha_hora_ingreso" name="fecha_hora_ingreso" required="required" class="form-control col-md-7 col-xs-12">
+                            <input type="date" id="fecha_falta" name="fecha_falta" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label" for="fecha_hora_salida">Fecha hora salida <span class="required">*</span>
-                        </label>
-                        <div class="">
-                            <input type="datetime-local" id="fecha_hora_salida" name="fecha_hora_salida" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>
+                
                     <div class="form-group">
                         <label for="observaciones" class="control-label">Observaciones
                         </label>

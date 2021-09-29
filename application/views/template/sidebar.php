@@ -47,7 +47,10 @@
                                     <li><a><i class="fa fa-arrows-h"></i>Asistencia<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li><a href="<?php echo base_url(); ?>ControlAsistencia">Control de asistencia</a></li>
+                                            <li><a href="<?php echo base_url(); ?>ControlAsistencia/faltasEmpleados">Faltas</a></li>
+
                                         </ul>
+                
                                     </li>
                                 <?php endif; ?>
                                 <?php if ($this->session->userdata('permisos')['pago'] == '1') : ?>
