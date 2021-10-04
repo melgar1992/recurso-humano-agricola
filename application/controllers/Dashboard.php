@@ -15,6 +15,8 @@ class Dashboard extends BaseController
 
     $data = array(
       'contratos' => $this->Contrato_model->obtenerContratosOrdenApellidos(),
+      'contratosVigentes' => $this->Contrato_model->obtenerContratosVigentes(),
+      'BalanceEmpleados' => $this->Reporte_model->obtenerBalanceDelMesEmpleados(),
 
     );
 

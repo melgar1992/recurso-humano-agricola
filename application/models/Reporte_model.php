@@ -15,7 +15,6 @@ class Reporte_model extends CI_Model
         $this->db->where('fecha_hora_ingreso >=', $fechaIni);
         $this->db->where('fecha_hora_ingreso <=', $fechaFin);
         return $this->db->get()->row_array();
-
     }
     public function obtenerIngresosDirectoEntreFecha($id_contrato, $fechaIni, $fechaFin)
     {
@@ -46,5 +45,25 @@ class Reporte_model extends CI_Model
         $this->db->where('fecha <=', $fechaFin);
 
         return $this->db->get()->result_array();
+    }
+    public function obtenerBalanceDelMesEmpleados()
+    {
+        $fechaIni = date('Y-m-01');
+        $fechaFin = date('Y-m-t');
+
+        $this->db->select('sum(horaNormal) as horaNormal,
+        sum(horaExtras) as horaExtras,
+        sum(horaFeriado) as horaFeriado,
+        sum(porPagarFeriado) as TotalHoraFeriado, 
+        sum(porPagarNormal) as TotalHoraNormal, 
+        sum(porPagarHoraExtra) as TotalHoraExtra,
+        (sum(porPagarFeriado) + sum(porPagarNormal)  + sum(porPagarHoraExtra)) as totalGanado');
+        $this->db->from('tabla_asistencia_ingresos');
+        $this->db->where('fecha_hora_ingreso >=', $fechaIni);
+        $this->db->where('fecha_hora_ingreso <=', $fechaFin);
+        return $this->db->get()->row_array();
+    }
+    public function obtenerTotalPagarMes()
+    {
     }
 }

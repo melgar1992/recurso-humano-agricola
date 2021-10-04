@@ -16,19 +16,16 @@
                                 <div class="row tile_count">
                                     <div class="tile_count">
                                         <div class="col-md-4 col-sm-4  tile_stats_count">
-                                            <span class="count_top"><i class="fa fa-user"></i> Total empleados</span>
-                                            <div class="count">2500</div>
-                                            <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+                                            <span class="count_top"><i class="fa fa-user"></i> Total empleados activos</span>
+                                            <div class="count"><?php echo count($contratosVigentes) ?></div>
                                         </div>
                                         <div class="col-md-4 col-sm-4  tile_stats_count">
-                                            <span class="count_top"><i class="fa fa-clock-o"></i> Horas trabajadas</span>
-                                            <div class="count">123.50</div>
-                                            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
+                                            <span class="count_top"><i class="fa fa-clock-o"></i> Horas trabajadas personal</span>
+                                            <div class="count"><?php echo $BalanceEmpleados['horaNormal'] + $BalanceEmpleados['horaExtras'] + $BalanceEmpleados['horaFeriado'] ?></div>
                                         </div>
                                         <div class="col-md-4 col-sm-4  tile_stats_count">
-                                            <span class="count_top"><i class="fa fa-user"></i> Total pagar</span>
-                                            <div class="count green">2,500</div>
-                                            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                                            <span class="count_top"><i class="fa fa-user"></i> Total</span>
+                                            <div class="count red"><?php echo $BalanceEmpleados['totalGanado']?> Bs</div>
                                         </div>
                                     </div>
                                 </div>
