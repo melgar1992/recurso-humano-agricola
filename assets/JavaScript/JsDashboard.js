@@ -68,6 +68,77 @@ $(document).ready(function () {
 			"sProcesing": "Procesando...",
 		}
 	});
+	var tablaContratosActivos = $('#tablaEmpleadosActivos').DataTable({
+		responsive: true,
+		pageLength: 25,
+		dom: "Bfrtip",
+		ajax: {
+			url: base_url + "Contrato/obtenerContratosVigentes",
+			dataSrc: ""
+		},
+		columns: [{
+				data: 'id_contrato',
+				width: '50px'
+			},
+			{
+				data: 'nombre_completo'
+			},
+			{
+				data: 'cargo_nombre'
+			},
+			{
+				data: 'sueldo_mensual', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') 
+			},
+			{
+				data: 'sueldo_hora', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') 
+			},
+			{
+				data: 'hora_extra', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') 
+			},
+			{
+				data: 'hora_feriada', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') 
+			},
+			{
+				data: 'tipo_pago'
+			},
+		],
+		buttons: [{
+				extend: 'excelHtml5',
+				title: "Listado de empleados",
+				exportOptions: {
+					columns: [1, 2, 3, 4, 5, 6, 7],
+				}
+
+			},
+			{
+				extend: 'print',
+				title: "Listado de empleados",
+				exportOptions: {
+					columns: [1, 2, 3, 4, 5, 6, 7],
+
+				}
+			}
+		],
+		"order": [
+			[0, "desc"]
+		],
+		"language": {
+			'lengthMenu': "Mostrar _MENU_ registros",
+			"zeroRecords": "No se encontraron resultados",
+			"info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registro",
+			"infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+			"infoFiltered": "(filtrado de un total de _MAX_ registros)",
+			"sSearch": "Buscar",
+			"oPaginate": {
+				"sFirst": "Primero",
+				"sLast": "Ultimo",
+				"sNext": "Siguiente",
+				"sPrevious": "Anterior",
+
+			},
+			"sProcesing": "Procesando...",
+		}
+	});
 	$(document).on('click', '.btn-print', function () {
 
 		$("#modal-detalle .modal-body").print({

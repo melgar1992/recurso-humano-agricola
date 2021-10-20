@@ -15,17 +15,17 @@
                             <div class="" role="main">
                                 <div class="row tile_count">
                                     <div class="tile_count">
-                                        <div class="col-md-4 col-sm-4  tile_stats_count">
+                                        <div class="col-md-4 col-sm-12  tile_stats_count">
                                             <span class="count_top"><i class="fa fa-user"></i> Total empleados activos</span>
                                             <div class="count"><?php echo count($contratosVigentes) ?></div>
                                         </div>
-                                        <div class="col-md-4 col-sm-4  tile_stats_count">
+                                        <div class="col-md-4 col-sm-12  tile_stats_count">
                                             <span class="count_top"><i class="fa fa-clock-o"></i> Horas trabajadas personal</span>
                                             <div class="count"><?php echo $BalanceEmpleados['horaNormal'] + $BalanceEmpleados['horaExtras'] + $BalanceEmpleados['horaFeriado'] ?></div>
                                         </div>
-                                        <div class="col-md-4 col-sm-4  tile_stats_count">
+                                        <div class="col-md-4 col-sm-12  tile_stats_count">
                                             <span class="count_top"><i class="fa fa-user"></i> Total</span>
-                                            <div class="count red"><?php echo $BalanceEmpleados['totalGanado']?> Bs</div>
+                                            <div class="count red"><?php echo $BalanceEmpleados['totalGanado'] ?> Bs</div>
                                         </div>
                                     </div>
                                 </div>
@@ -95,20 +95,20 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link" id="ControlAsistencia-tab" data-toggle="tab" href="#ControlAsistencia" role="tab" aria-controls="ControlAsistencia" aria-selected="true">Control Asistencia</a>
-                            </li>
-                            <!-- <li class="nav-item">
-                                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-                                            </li> -->
-                        </ul>
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show" id="ControlAsistencia" role="tabpanel" aria-labelledby="ControlAsistencia-tab">
-                                <div class="x_content">
+                        <div class="row">
+                            <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                                <li class="nav-item active">
+                                    <a class="nav-link" id="ControlAsistencia-tab" data-toggle="tab" href="#ControlAsistencia" role="tab" aria-controls="ControlAsistencia" aria-expanded="true">Control Asistencia</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="Empleados-tab" data-toggle="tab" href="#Empleados" role="tab" aria-controls="Empleados" aria-expanded="false">Empleados activos</a>
+                                </li>
+                                <!-- <li class="nav-item">
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                            </li> -->
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade active in" id="ControlAsistencia" role="tabpanel" aria-labelledby="ControlAsistencia-tab">
                                     <div class="card-box table-responsive">
                                         <table id="tablaDetalleAsistencia" class="table table-bordered jambo_table" style="width:100%">
                                             <thead>
@@ -127,18 +127,35 @@
                                             <tfoot>
                                             </tfoot>
                                         </table>
-
                                     </div>
                                 </div>
+                                <div class=" tab-pane fade" id="Empleados" role="tabpanel" aria-labelledby="Empleados-tab">
+                                    <div class="card-box table-responsive">
+                                        <table id="tablaEmpleadosActivos" class="table table-bordered jambo_table" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Empleado</th>
+                                                    <th>Cargo</th>
+                                                    <th>sueldo</th>
+                                                    <th>Hora</th>
+                                                    <th>Hora extra</th>
+                                                    <th>Hora feriada</th>
+                                                    <th>Pago</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                            <tfoot>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                                booth letterpress, commodo enim craft beer mlkshk
+                            </div> -->
                             </div>
-                            <!-- <div class=" tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                                Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                                                booth letterpress, commodo enim craft beer mlkshk aliquip
-                                            </div>
-                                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                                xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                                                booth letterpress, commodo enim craft beer mlkshk
-                                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -180,12 +197,12 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_content">
-                           
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
     </div>
 <?php }; ?>

@@ -9,7 +9,6 @@ class Dashboard extends BaseController
     parent::__construct();
   }
 
-
   public function index()
   {
 
