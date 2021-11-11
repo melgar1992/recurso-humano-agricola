@@ -16,7 +16,7 @@ $(document).ready(function () {
             { data: 'sueldo_hora', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') },
             { data: 'hora_extra', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') },
             { data: 'hora_feriada', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') },
-            { data: 10}
+            { data: 'id_contrato' }
         ],
         buttons: [{
             extend: 'excelHtml5',
@@ -40,8 +40,10 @@ $(document).ready(function () {
         ],
         "columnDefs": [{
             "targets": -1,
-            "data": null,
-            "defaultContent": "<div class='text-right'> <div class='btn-group'><button class='btn btn-warning btn-sm' id='btn-editar'><i class='fas fa-pencil-alt'></i> Editar</button><button class='btn btn-danger btn-sm' id='btn-borrar'><i class='fas fa-trash-alt'></i> Borrar</button></div></div>",
+            "data": 'id_contrato',
+            "render": function (data, type, row, meta) {
+                return "<div class='text-right'> <div class='btn-group'><button class='btn btn-warning btn-sm' value='" + data + "' id='btn-editar'><i class='fas fa-pencil-alt'></i> Editar</button><button class='btn btn-danger btn-sm' id='btn-borrar'><i class='fas fa-trash-alt'></i> Borrar</button></div></div>";
+            }
         }],
         "language": {
             'lengthMenu': "Mostrar _MENU_ registros",
