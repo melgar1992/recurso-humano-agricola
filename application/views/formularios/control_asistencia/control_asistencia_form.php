@@ -22,16 +22,9 @@
                     </div>
                     <div class="x_content">
                         <div class="row">
-                            <div class="col-md-1 col-lg-1 col-sm-12 col-xs-12">
+                            <div class="col-md-12 col-lg-12">
                                 <button class="btn btn-success" id='btn-nuevo' type="button" data-toggle="modal" data-target='#modal-asistencia'>Agregar</button>
                             </div>
-                            <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
-
-                            </div>
-                            <div class="col-md-1 col-lg-1 col-sm-12 col-xs-12">
-                                <button class="btn btn-warning" id='btn-asistencia-multiple' type="button" onclick="window.location.href='<?php echo base_url(); ?>ControlAsistencia/ControlAsistenciaMultiple'">Agregar multiples +</button>
-                            </div>
-
                         </div>
                         <br>
                         <br>
@@ -94,7 +87,8 @@
                                 <option value=""></option>
                                 <?php foreach ($contratos as $row) : ?>
                                     <option value="<?php echo $row['id_contrato'] ?>"><?php echo $row['nombre_completo']
-                                                                                            . ' Cargo: ' . $row['cargo_nombre']; ?></option>
+                                                                                            . ' Cargo: ' . $row['cargo_nombre']
+                                                                                            ; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
