@@ -16,6 +16,14 @@ class ControlAsistencia extends BaseController
 
         $this->loadView("ControlAsistencia", "formularios/control_asistencia/control_asistencia_form", $data);
     }
+    public function ControlAsistenciaMultiple()
+    {
+        $data = array(
+            'contratos' => $this->Contrato_model->obtenerContratosOrdenApellidos(),
+        );
+
+        $this->loadView("ControlAsistenciaMultiple", "formularios/control_asistencia/control_asistencia_multiple", $data);
+    }
     public function faltasEmpleados()
     {
         $data = array(
