@@ -11,7 +11,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_content">
-                        <form action="" id="formasistencia">
+                        <form action="" method="" class="formasistencia" name="formasistencia" id="formasistencia">
                             <p>Los campos con * son obligatorios</p>
                             <div class="error_formulario">
                             </div>
@@ -24,12 +24,20 @@
                                                 <option value=""></option>
                                                 <?php foreach ($contratos as $row) : ?>
                                                     <option value="<?php echo $row['id_contrato'] . '.' . $row['nombre_completo'] . '.' . $row['cargo_nombre'];   ?>"><?php echo $row['nombre_completo']
-                                                                                                                                                                        . ' Cargo: ' . $row['cargo_nombre']; ?></option>
+                                                                                                                                                                            . ' Cargo: ' . $row['cargo_nombre']; ?></option>
                                                 <?php endforeach; ?>
                                             </select>
+
                                         </div>
                                     </div>
-                                    <div class="col-md-6"></div>
+                                    <div class="col-md-3">
+                                        <label class="control-label" for="fecha">Fecha <span class="required">*</span>
+                                        </label>
+                                        <div class="">
+                                            <input type="date" id="fecha" name="fecha" required="required" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3"></div>
                                     <div class="col-md-3">
                                         <label for="agregar">&nbsp;</label>
                                         <button id="btn-agregar" type="button" class="btn btn-success btn-flat btn-block"><span class="fa fa-plus">Agregar</span></button>
@@ -54,8 +62,7 @@
                             </table>
                             <br>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger pull-left" id="btn-cerrar" data-dismiss="modal">Cerrar</button>
-                                <button class="btn btn-primary pull-right" type="reset">Borrar</button>
+                                <button type="button" class="btn btn-warning pull-left" id="btn-volver" onclick="window.location.href='<?php echo base_url(); ?>ControlAsistencia'">volver</button>
                                 <button type="submit" class="btn btn-success pull-right" id="btn-guardar">Guardar</button>
                             </div>
                         </form>

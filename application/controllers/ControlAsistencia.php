@@ -106,6 +106,22 @@ class ControlAsistencia extends BaseController
         }
         echo json_encode($respuesta);
     }
+    public function ingresar_asistencia_multiple()
+    {
+        $this->form_validation->set_rules('id_contrato', 'id_contrato', 'trim|xss_clean|required');
+        $this->form_validation->set_rules('fecha_hora_ingreso', 'fecha_hora_ingreso', 'trim|xss_clean');
+        $this->form_validation->set_rules('fecha_hora_salida', 'fecha_hora_salida', 'trim|xss_clean');
+        $this->form_validation->set_rules('observaciones', 'observaciones', 'trim|xss_clean');
+
+        $id_contrato = $this->input->post('id_contrato');
+        $id_usuario = $this->session->userdata('id_usuario');
+        $fecha_hora_ingreso = $this->input->post('fecha_hora_ingreso');
+        $fecha_hora_salida = $this->input->post('fecha_hora_salida');
+        $observaciones = $this->input->post('observaciones');
+        $ultima_edicion = date('Y-m-d H:i:s');
+        $fecha = date('Y-m-d', strtotime($fecha_hora_ingreso));
+        $calendario = $this->Calendario_model->obtenerFeriadoFecha($fecha);
+    }
     public function ingresarFalta()
     {
         $this->form_validation->set_rules('id_contrato', 'id_contrato', 'trim|xss_clean|required');
