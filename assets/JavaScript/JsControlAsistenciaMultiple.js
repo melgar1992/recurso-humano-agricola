@@ -75,12 +75,11 @@ $(document).ready(function () {
 				},
 				dataType: "json",
 				success: function (respuesta) {
-					console.log(respuesta);
 					if (respuesta['respuesta'] === 'Exitoso') {
 						Swal.fire({
 							title: 'Se guardo!',
 							text: "Se guardo todo correctamente!",
-							icon: 'success',
+							type: 'success',
 							showCancelButton: false,
 							confirmButtonColor: '#3085d6',
 							cancelButtonColor: '#d33',

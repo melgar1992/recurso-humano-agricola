@@ -108,6 +108,7 @@ class ControlAsistencia extends BaseController
     }
     public function ingresar_asistencia_multiple()
     {
+        $id_asistencias = array();
         $id_contrato = $this->input->post('id_contrato');
         $id_usuario = $this->session->userdata('id_usuario');
         $fecha_hora_ingreso = $this->input->post('fecha_hora_ingreso');
@@ -120,22 +121,37 @@ class ControlAsistencia extends BaseController
                     $fecha = date('Y-m-d', strtotime($fecha_hora_ingreso[$i]));
                     $calendario = $this->Calendario_model->obtenerFeriadoFecha($fecha);
                     (isset($calendario)) ? $feriado = '1' : $feriado = '0';
-                    $datos = array(
-                        'id_contrato' => $id_contrato[$i],
-                        'id_usuario' => $id_usuario,
-                        'fecha_hora_ingreso' => $fecha_hora_ingreso[$i],
-                        'fecha_hora_salida' => $fecha_hora_salida[$i],
-                        'feriado' => $feriado,
-                        'observaciones' => $observaciones[$i],
-                        'ultima_edicion' => $ultima_edicion,
-                        'falta' => '0',
-                    );
-                    $this->Control_asistencia_model->ingresarControl($datos);
+                    $existeAsistenciaEntreTiempo = $this->Control_asistencia_model->existeAsistenciaEntreTiempo($id_contrato[$i], $fecha_hora_ingreso[$i], $fecha_hora_salida[$i]);
+                    if ($existeAsistenciaEntreTiempo['respuesta'] == false) {
+                        $datos = array(
+                            'id_contrato' => $id_contrato[$i],
+                            'id_usuario' => $id_usuario,
+                            'fecha_hora_ingreso' => $fecha_hora_ingreso[$i],
+                            'fecha_hora_salida' => $fecha_hora_salida[$i],
+                            'feriado' => $feriado,
+                            'observaciones' => $observaciones[$i],
+                            'ultima_edicion' => $ultima_edicion,
+                            'falta' => '0',
+                        );
+                        $id_asistencias[] = $this->Control_asistencia_model->ingresarControl($datos);
+                    } else {
+                        $respuesta = array(
+                            'respuesta' => 'Error',
+                            'mensaje' => $existeAsistenciaEntreTiempo['mensaje'],
+                        );
+                        foreach ($id_asistencias as $id) {
+                            $this->Control_asistencia_model->eliminar($id);
+                        }
+                        break;
+                    }
                 }
-                $respuesta = array(
-                    'respuesta' => 'Exitoso',
-                    'mensaje' => 'Se guardo correctamente',
-                );
+                if (isset($respuesta)) {
+                } else {
+                    $respuesta = array(
+                        'respuesta' => 'Exitoso',
+                        'mensaje' => 'Se guardo correctamente',
+                    );
+                }
             } else {
                 $respuesta = array(
                     'respuesta' => 'Error',
