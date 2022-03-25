@@ -108,19 +108,48 @@ class ControlAsistencia extends BaseController
     }
     public function ingresar_asistencia_multiple()
     {
-        $this->form_validation->set_rules('id_contrato', 'id_contrato', 'trim|xss_clean|required');
-        $this->form_validation->set_rules('fecha_hora_ingreso', 'fecha_hora_ingreso', 'trim|xss_clean');
-        $this->form_validation->set_rules('fecha_hora_salida', 'fecha_hora_salida', 'trim|xss_clean');
-        $this->form_validation->set_rules('observaciones', 'observaciones', 'trim|xss_clean');
-
         $id_contrato = $this->input->post('id_contrato');
         $id_usuario = $this->session->userdata('id_usuario');
         $fecha_hora_ingreso = $this->input->post('fecha_hora_ingreso');
         $fecha_hora_salida = $this->input->post('fecha_hora_salida');
         $observaciones = $this->input->post('observaciones');
         $ultima_edicion = date('Y-m-d H:i:s');
-        $fecha = date('Y-m-d', strtotime($fecha_hora_ingreso));
-        $calendario = $this->Calendario_model->obtenerFeriadoFecha($fecha);
+        try {
+            if (isset($id_contrato)) {
+                for ($i = 0; $i < count($id_contrato); $i++) {
+                    $fecha = date('Y-m-d', strtotime($fecha_hora_ingreso[$i]));
+                    $calendario = $this->Calendario_model->obtenerFeriadoFecha($fecha);
+                    (isset($calendario)) ? $feriado = '1' : $feriado = '0';
+                    $datos = array(
+                        'id_contrato' => $id_contrato[$i],
+                        'id_usuario' => $id_usuario,
+                        'fecha_hora_ingreso' => $fecha_hora_ingreso[$i],
+                        'fecha_hora_salida' => $fecha_hora_salida[$i],
+                        'feriado' => $feriado,
+                        'observaciones' => $observaciones[$i],
+                        'ultima_edicion' => $ultima_edicion,
+                        'falta' => '0',
+                    );
+                    $this->Control_asistencia_model->ingresarControl($datos);
+                }
+                $respuesta = array(
+                    'respuesta' => 'Exitoso',
+                    'mensaje' => 'Se guardo correctamente',
+                );
+            } else {
+                $respuesta = array(
+                    'respuesta' => 'Error',
+                    'mensaje' => 'Ocurrio un problema, no llego ninguna dato',
+                );
+            }
+        } catch (Exception $th) {
+            $respuesta = array(
+                'respuesta' => 'Error',
+                'mensaje' => 'Ocurrio un problema' + $th->getMessage(),
+            );
+        }
+
+        echo json_encode($respuesta);
     }
     public function ingresarFalta()
     {
