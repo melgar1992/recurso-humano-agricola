@@ -40,6 +40,7 @@ $(document).ready(function () {
 		fecha_hora_ingreso = new Array;
 		fecha_hora_salida = new Array;
 		observaciones = new Array;
+		fechas_validas = Boolean;
 
 		id_contrato2 = document.formasistencia.elements['id_contrato[]'];
 		fecha_hora_ingreso2 = document.formasistencia.elements['fecha_hora_ingreso[]'];
@@ -53,53 +54,66 @@ $(document).ready(function () {
 				fecha_hora_ingreso.push(fecha_hora_ingreso2.value);
 				fecha_hora_salida.push(fecha_hora_salida2.value);
 				observaciones.push(observaciones2.value);
-				validarFechas(fecha_hora_ingreso, fecha_hora_salida)
+				fechas_validas = validarFechas(fecha_hora_ingreso, fecha_hora_salida)
 			} else {
 				for (i = 0; i < id_contrato2.length; i++) {
 					id_contrato.push(id_contrato2[i].value);
 					fecha_hora_ingreso.push(fecha_hora_ingreso2[i].value);
 					fecha_hora_salida.push(fecha_hora_salida2[i].value);
 					observaciones.push(observaciones2[i].value);
-					validarFechas(fecha_hora_ingreso[i], fecha_hora_salida[i])
+					fechas_validas = validarFechas(fecha_hora_ingreso[i], fecha_hora_salida[i]);
+					if (fechas_validas === false) {
+						break;
+					}
 
 				};
 			}
-			$.ajax({
-				type: "POST",
-				url: base_url + "ControlAsistencia/ingresar_asistencia_multiple",
-				data: {
-					id_contrato: id_contrato,
-					fecha_hora_ingreso: fecha_hora_ingreso,
-					fecha_hora_salida: fecha_hora_salida,
-					observaciones: observaciones,
-				},
-				dataType: "json",
-				success: function (respuesta) {
-					if (respuesta['respuesta'] === 'Exitoso') {
-						Swal.fire({
-							title: 'Se guardo!',
-							text: "Se guardo todo correctamente!",
-							type: 'success',
-							showCancelButton: false,
-							confirmButtonColor: '#3085d6',
-							cancelButtonColor: '#d33',
-							confirmButtonText: 'Ok'
-						}).then((result) => {
-							if (result.value) {
-								window.location.href = base_url + "ControlAsistencia";
-							}
-						})
-					} else {
-						swal({
-							title: 'Error',
-							text: 'Ups algo malo sucedio ' + respuesta['mensaje'],
-							type: 'error'
-						});
-						$("#btn-guardar").attr("disabled", false);
+			if (fechas_validas) {
+				$.ajax({
+					type: "POST",
+					url: base_url + "ControlAsistencia/ingresar_asistencia_multiple",
+					data: {
+						id_contrato: id_contrato,
+						fecha_hora_ingreso: fecha_hora_ingreso,
+						fecha_hora_salida: fecha_hora_salida,
+						observaciones: observaciones,
+					},
+					dataType: "json",
+					success: function (respuesta) {
+						if (respuesta['respuesta'] === 'Exitoso') {
+							Swal.fire({
+								title: 'Se guardo!',
+								text: "Se guardo todo correctamente!",
+								type: 'success',
+								showCancelButton: false,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'Ok'
+							}).then((result) => {
+								if (result.value) {
+									window.location.href = base_url + "ControlAsistencia";
+								}
+							})
+						} else {
+							swal({
+								title: 'Error',
+								text: 'Ups algo malo sucedio ' + respuesta['mensaje'],
+								type: 'error'
+							});
+							$("#btn-guardar").attr("disabled", false);
 
+						}
 					}
-				}
-			});
+				});
+			} else {
+				swal({
+					title: 'Fechas',
+					text: 'La salida tiene que ser depues del ingreso',
+					type: 'error'
+				});
+				$("#btn-guardar").attr("disabled", false);
+			}
+
 		} else {
 			swal({
 				title: 'Cuidado',
@@ -123,13 +137,9 @@ function addZero(i) {
 function validarFechas(fecha_hora_ingreso, fecha_hora_salida) {
 
 	if (fecha_hora_ingreso <= fecha_hora_salida) {
-		return;
+		return true;
 	} else {
-		swal({
-			title: 'Fechas',
-			text: 'La salida tiene que ser depues del ingreso',
-			type: 'error'
-		});
+		return false;
 	}
 
 }
