@@ -21,7 +21,7 @@
                                         </div>
                                         <div class="col-md-4 col-sm-12  tile_stats_count">
                                             <span class="count_top"><i class="fa fa-clock-o"></i> Horas trabajadas personal</span>
-                                            <div class="count"><?php echo $BalanceEmpleados['horaNormal'] + $BalanceEmpleados['horaExtras'] + $BalanceEmpleados['horaFeriado'] ?></div>
+                                            <div class="count"><?php echo $BalanceEmpleados['hora_jornada']  + $BalanceEmpleados['horaFeriado'] ?></div>
                                         </div>
                                         <div class="col-md-4 col-sm-12  tile_stats_count">
                                             <span class="count_top"><i class="fa fa-user"></i> Total</span>

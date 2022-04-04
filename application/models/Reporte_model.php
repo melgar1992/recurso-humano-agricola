@@ -10,10 +10,10 @@ class Reporte_model extends CI_Model
         sum(porPagarNormal) as TotalHoraNormal, 
         sum(porPagarHoraExtra) as TotalHoraExtra,
         (sum(porPagarFeriado) + sum(porPagarNormal)  + sum(porPagarHoraExtra)) as totalGanado');
-        $this->db->from('tabla_asistencia_ingresos');
+        $this->db->from('jornada_dia');
         $this->db->where('id_contrato', $id_contrato);
-        $this->db->where('fecha_hora_ingreso >=', $fechaIni);
-        $this->db->where('fecha_hora_ingreso <=', $fechaFin);
+        $this->db->where('fecha >=', $fechaIni);
+        $this->db->where('fecha <=', $fechaFin);
         return $this->db->get()->row_array();
     }
     public function obtenerIngresosDirectoEntreFecha($id_contrato, $fechaIni, $fechaFin)
@@ -48,19 +48,19 @@ class Reporte_model extends CI_Model
     }
     public function obtenerBalanceDelMesEmpleados()
     {
-        $fechaIni = date('Y-m-01');
+        $fechaIni = date('Y-01-01');
         $fechaFin = date('Y-m-t');
 
-        $this->db->select('sum(horaNormal) as horaNormal,
+        $this->db->select('sum(hora_jornada) as hora_jornada,
         sum(horaExtras) as horaExtras,
         sum(horaFeriado) as horaFeriado,
         sum(porPagarFeriado) as TotalHoraFeriado, 
         sum(porPagarNormal) as TotalHoraNormal, 
         sum(porPagarHoraExtra) as TotalHoraExtra,
         (sum(porPagarFeriado) + sum(porPagarNormal)  + sum(porPagarHoraExtra)) as totalGanado');
-        $this->db->from('tabla_asistencia_ingresos');
-        $this->db->where('fecha_hora_ingreso >=', $fechaIni);
-        $this->db->where('fecha_hora_ingreso <=', $fechaFin);
+        $this->db->from('jornada_dia');
+        $this->db->where('fecha >=', $fechaIni);
+        $this->db->where('fecha <=', $fechaFin);
         return $this->db->get()->row_array();
     }
     public function obtenerTotalPagarMes()
