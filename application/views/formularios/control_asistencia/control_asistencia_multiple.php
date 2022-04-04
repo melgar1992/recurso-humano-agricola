@@ -12,9 +12,24 @@
                 <div class="x_panel">
                     <div class="x_content">
                         <form action="" method="" class="formasistencia" name="formasistencia" id="formasistencia">
+                            <br></br>
+                            <table id="tablaAsistencia" class="table table-bordered table-condensed table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Empleado</th>
+                                        <th>Cargo</th>
+                                        <th>Fecha Hora entrada</th>
+                                        <th>Fecha Hora salida</th>
+                                        <th>Observaciones</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            <hr>
+                            <br>
                             <p>Los campos con * son obligatorios</p>
-                            <div class="error_formulario">
-                            </div>
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-md-3">
@@ -44,22 +59,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <br></br>
-                            <table id="tablaAsistencia" class="table table-bordered table-condensed table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Empleado</th>
-                                        <th>Cargo</th>
-                                        <th>Fecha Hora entrada</th>
-                                        <th>Fecha Hora salida</th>
-                                        <th>Observaciones</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
                             <br>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning pull-left" id="btn-volver" onclick="window.location.href='<?php echo base_url(); ?>ControlAsistencia'">volver</button>

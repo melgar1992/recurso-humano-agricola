@@ -2,7 +2,6 @@ $(document).ready(function () {
     opcion = '';
     document.title = 'Sistema Agricola| Asistencia';
     var tabla = $('#tablaAsistencia').DataTable({
-        responsive: true,
         pageLength: 25,
         dom: "Bfrtip",
         ajax: { url: base_url + "ControlAsistencia/obtenerAsistencias", dataSrc: "" },
@@ -194,8 +193,8 @@ $(document).ready(function () {
         }
 
     });
-     //Eliminar Usuario
-     $(document).on('click', '#btn-borrar', function () {
+    //Eliminar Usuario
+    $(document).on('click', '#btn-borrar', function () {
         Swal.fire({
             title: 'Esta seguro de elimar?',
             text: "el control se eliminara, una vez eliminado no se recuperara!",
@@ -240,6 +239,7 @@ $(document).ready(function () {
     })
 });
 function LimpiarFormulario() {
+
     $('#modal-asistencia').modal('hide');
     $('.modal-title').text('Formulario asistencia');
     $('#observaciones').text('');

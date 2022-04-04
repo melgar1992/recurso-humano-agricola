@@ -5,7 +5,8 @@ $(document).ready(function () {
 		empleado = $('#empleado').val();
 		fechaValidar = $('#fecha').val();
 		fecha = $('#fecha').val();
-		fecha = fecha + 'T' + '07' + ':00';
+		fechaini = fecha + 'T' + '07' + ':30';
+		fechafin = fecha + 'T' + '12' + ':30';
 		if (empleado != '' && fechaValidar != '') {
 			empleado = empleado.split('.');
 			id_empleado = empleado[0];
@@ -15,8 +16,8 @@ $(document).ready(function () {
 			html += "<td>" + nombre + "</td>";
 			html += "<td>" + cargo + "</td>";
 			html += "<td hidden><input type='hidden' class='' id='id_contrato[]' name = 'id_contrato[]' value ='" + id_empleado + "'></td>"
-			html += '<td><input type="datetime-local" class="" id="fecha_hora_ingreso[]" name="fecha_hora_ingreso[]" value = ' + fecha + ' required="required"></td>';
-			html += '<td><input type="datetime-local" class= "" id="fecha_hora_salida[]" name="fecha_hora_salida[]" value = ' + fecha + ' required="required"></td>';
+			html += '<td><input type="datetime-local" class="" id="fecha_hora_ingreso[]" name="fecha_hora_ingreso[]" value = ' + fechaini + ' required="required"></td>';
+			html += '<td><input type="datetime-local" class= "" id="fecha_hora_salida[]" name="fecha_hora_salida[]" value = ' + fechafin + ' required="required"></td>';
 			html += '<td><input type="text" minlength="0" maxlength="45" class= "observaciones" id="observaciones[]" name="observaciones[]"></td>';
 			html += "<td><button type='button' class='btn btn-danger btn-remove-asistencia'><span class='fa fa-remove'></span></button></td>";
 			html += "</tr>";

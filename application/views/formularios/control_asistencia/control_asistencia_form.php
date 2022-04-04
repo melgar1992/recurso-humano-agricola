@@ -103,14 +103,14 @@
                         <label class="control-label" for="fecha_hora_ingreso">Fecha hora ingreso <span class="required">*</span>
                         </label>
                         <div class="">
-                            <input type="datetime-local" id="fecha_hora_ingreso" name="fecha_hora_ingreso" required="required" class="form-control col-md-7 col-xs-12">
+                            <input type="datetime-local" id="fecha_hora_ingreso" name="fecha_hora_ingreso" value="<?php echo date("Y-m-d") .'T07:30' ?>" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="fecha_hora_salida">Fecha hora salida <span class="required">*</span>
                         </label>
                         <div class="">
-                            <input type="datetime-local" id="fecha_hora_salida" name="fecha_hora_salida" required="required" class="form-control col-md-7 col-xs-12">
+                            <input type="datetime-local" id="fecha_hora_salida" name="fecha_hora_salida" value="<?php echo date("Y-m-d") .'T12:30' ?>" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="form-group">
