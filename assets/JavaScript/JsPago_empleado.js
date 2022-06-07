@@ -38,7 +38,7 @@ $(document).ready(function () {
         "columnDefs": [{
             "targets": -1,
             "data": null,
-            "defaultContent": "<div class='text-right'> <div class='btn-group'><button class='btn btn-warning btn-sm' id='btn-editar'><i class='fas fa-pencil-alt'></i> Editar</button><button class='btn btn-danger btn-sm' id='btn-borrar'><i class='fas fa-trash-alt'></i> Borrar</button></div></div>",
+            "defaultContent": "<div class='text-right'><div class='btn-group'><button class='btn btn-success btn-sm' id='btn-boleta'><i class='fas '></i> Boleta</button> <div class='btn-group'><button class='btn btn-warning btn-sm' id='btn-editar'><i class='fas fa-pencil-alt'></i> Editar</button><button class='btn btn-danger btn-sm' id='btn-borrar'><i class='fas fa-trash-alt'></i> Borrar</button></div></div>",
         }],
         "language": {
             'lengthMenu': "Mostrar _MENU_ registros",
@@ -85,6 +85,38 @@ $(document).ready(function () {
         opcion = 'editar';
 
     });
+    //Generar boleta de pago
+    $(document).on('click', '#btn-boleta', function () {
+        fila = $(this).closest('tr');
+        id_pagos_empleados = parseInt(fila.find('td:eq(0)').text());
+        $('#modal-boleta-pago').modal('show')
+        $.ajax({
+            type: "POST",
+            url: base_url + "Pago_empleados/boletaPago",
+            data: {
+                id_pagos_empleados: id_pagos_empleados
+            },
+            dataType: "html",
+            success: function (respuesta) {
+                $('#modal-boleta-pago .modal-body').html(respuesta);
+            }
+        });
+
+    });
+    //Imprimir
+    $(document).on('click', '.btn-print', function () {
+
+		$("#modal-boleta-pago .modal-body").print({
+			//Use Global styles
+			globalStyles: true,
+			//Add link with attrbute media=print
+			mediaPrint: false,
+			//Print in a hidden iframe
+			iframe: true,
+			//Don't print this
+
+		});
+	});
     //ingresar o editar Feriado
     $('#formulario').submit(function (e) {
         e.preventDefault();
@@ -235,6 +267,7 @@ function LimpiarFormulario() {
     $('#modal-form').modal('hide');
     $('.modal-title').text('Formulario pago de empleados');
     $("#id_contrato option:selected").removeAttr("selected");
+    $('#detalle').text('');
     $('#formulario').trigger('reset');
     opcion = '';
 };

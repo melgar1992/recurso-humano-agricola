@@ -130,3 +130,23 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+
+<div class="modal fade" id="modal-boleta-pago">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Boleta pago</h4>
+                </div>
+                <div class="modal-body ui-front">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary btn-print"><span class="fa fa-print">Imprimir</span></button>
+                </div>
+                <!-- /.modal-content boleta pago -->
+            </div>
+            <!-- /.modal-dialog boleta pago -->
+        </div>
+    </div>

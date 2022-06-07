@@ -39,6 +39,12 @@ class Pago_empleados extends BaseController
     $pago = $this->Pago_empleado_model->obtenerPagoEmpleado($id_pagos_empleados);
     echo json_encode($pago);
   }
+  public function boletaPago()
+  {
+    $id_pagos_empleados = $this->input->post('id_pagos_empleados');
+    $pago = $this->Pago_empleado_model->obtenerPagoEmpleado($id_pagos_empleados);
+    $this->load->view('reportes/boletaPago', $pago);
+  }
   public function ingresarIngresoEmpleado()
   {
     $id_contrato = $this->input->post('id_contrato');

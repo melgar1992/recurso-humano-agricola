@@ -1,6 +1,6 @@
 $(document).ready(function () {
-	document.title = 'Sistema Agricola';
-	var tablaAsistencia = $('#tablaDetalleAsistencia').DataTable({
+	document.title = 'Sistema Agricola Dashboard';
+	let tablaAsistencia = $('#tablaDetalleAsistencia').DataTable({
 		responsive: true,
 		pageLength: 25,
 		dom: "Bfrtip",
@@ -68,7 +68,7 @@ $(document).ready(function () {
 			"sProcesing": "Procesando...",
 		}
 	});
-	var tablaContratosActivos = $('#tablaEmpleadosActivos').DataTable({
+	let tablaContratosActivos = $('#tablaEmpleadosActivos').DataTable({
 		responsive: true,
 		pageLength: 25,
 		dom: "Bfrtip",

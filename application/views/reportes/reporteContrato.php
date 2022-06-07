@@ -24,25 +24,25 @@
                 </tr>
                 <tr>
                     <th width=>Detalle</th>
-                    <th width=>Horas</th>
+                    <th width=>Dia trabajados</th>
                     <th width=>Ingresos Bs</th>
 
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Horas Trabajadas</td>
-                    <td><?php echo $ingresosAsistenciaContrato['horaNormal'] ?></td>
-                    <td ALIGN="center"><?php echo number_format($ingresosAsistenciaContrato['TotalHoraNormal'], 2) ?> Bs</td>
+                    <td>Dias Trabajadas</td>
+                    <td><?php echo number_format($ingresosAsistenciaContrato['horaNormal'] / 8, 2)  ?></td>
+                    <td ALIGN="center"><?php echo number_format($ingresosAsistenciaContrato['TotalHoraNormal'], 2)?> Bs</td>
                 </tr>
                 <tr>
-                    <td>Horas Extras</td>
-                    <td><?php echo $ingresosAsistenciaContrato['horaExtras'] ?></td>
+                    <td>Dias Extras</td>
+                    <td><?php echo number_format($ingresosAsistenciaContrato['horaExtras'] / 8,2)  ?></td>
                     <td ALIGN="center"><?php echo number_format($ingresosAsistenciaContrato['TotalHoraExtra'], 2) ?> Bs</td>
                 </tr>
                 <tr>
-                    <td>Horas Feriados</td>
-                    <td><?php echo $ingresosAsistenciaContrato['horaFeriado'] ?></td>
+                    <td>Dias Feriados</td>
+                    <td><?php echo number_format($ingresosAsistenciaContrato['horaFeriado'] / 8, 2)  ?></td>
                     <td ALIGN="center"><?php echo number_format($ingresosAsistenciaContrato['TotalHoraFeriado'], 2) ?> Bs</td>
                 </tr>
                 <?php
@@ -120,5 +120,16 @@
 <div class="row">
     <div class="col-xs-12 text-left">
         <h4>Balance : <?php echo (($ingresosAsistenciaContrato['totalGanado'] + $sumIngresoDirecto) - $pagosContratoDirecto) ?> Bs</h4><br>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-xs-6 text-center">
+        <p>- - - - - - - - - - - - - - -</p><br>
+        <p>Recibi conforme</p>
+    </div>
+    <div class="col-lg-6 col-md-6 col-xs-6 text-center">
+        <p>- - - - - - - - - - - - - - -</p><br>
+        <p>Entregue conforme</p>
     </div>
 </div>
