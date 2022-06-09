@@ -66,4 +66,22 @@ class Reporte_model extends CI_Model
     public function obtenerTotalPagarMes()
     {
     }
+    public function obtenerHorasEmpleadosPorMes()
+    {
+        $fechaIni = date('Y-01-01');
+        $fechaFin = date('Y-m-t');
+
+        $this->db->select('nombre_completo, ci, sum(hora_jornada) as hora_trabajadas, month(fecha) as mes');
+        $this->db->from('jornada_dia');
+        $this->db->where('fecha >=', $fechaIni);
+        $this->db->where('fecha <=', $fechaFin);
+        $this->db->group_by('nombre_completo');
+        $this->db->group_by('ci');
+        $this->db->group_by('mes');
+        $this->db->order_by('mes', 'DESC');
+        $this->db->limit(200);
+
+        return $this->db->get()->result_array();
+
+    }
 }

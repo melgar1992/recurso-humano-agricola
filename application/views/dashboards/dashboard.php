@@ -106,16 +106,13 @@
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade active in" id="ControlAsistencia" role="tabpanel" aria-labelledby="ControlAsistencia-tab">
                                     <div class="card-box table-responsive">
-                                        <table id="tablaDetalleAsistencia" class="table table-bordered jambo_table" style="width:100%">
+                                        <table id="tablaHorasMes" class="table table-bordered jambo_table" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
                                                     <th>Empleado</th>
-                                                    <th>Cargo</th>
-                                                    <th>Fecha Hora entrada</th>
-                                                    <th>Fecha Hora salida</th>
-                                                    <th>Horas trabajadas</th>
-                                                    <th>Observaciones</th>
+                                                    <th>Carnet</th>
+                                                    <th>Horas Trabajadas</th>
+                                                    <th>Mes</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

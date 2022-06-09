@@ -34,4 +34,9 @@ class Dashboard extends BaseController
 		$this->load->view('reportes/reporteContrato', $datos);
 
   }
+  public function tablaHorasEmpleadosMes()
+  {
+    $horasMesEmpleados = $this->Reporte_model->obtenerHorasEmpleadosPorMes();
+    echo json_encode($horasMesEmpleados);
+  }
 }
