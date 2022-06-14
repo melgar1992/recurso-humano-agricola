@@ -68,8 +68,8 @@ class Reporte_model extends CI_Model
     }
     public function obtenerHorasEmpleadosPorMes()
     {
-        $fechaIni = date('Y-01-01');
         $fechaFin = date('Y-m-t');
+        $fechaIni = date('Y-m-t', mktime(0, 0, 0, date("m"),   date("d"),   date("Y") - 1));
 
         $this->db->select('nombre_completo, ci, sum(hora_jornada) as hora_trabajadas, month(fecha) as mes');
         $this->db->from('jornada_dia');
@@ -82,6 +82,5 @@ class Reporte_model extends CI_Model
         $this->db->limit(200);
 
         return $this->db->get()->result_array();
-
     }
 }
