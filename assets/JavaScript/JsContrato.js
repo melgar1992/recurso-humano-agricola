@@ -2,8 +2,7 @@ $(document).ready(function () {
     opcion = '';
     document.title = 'Sistema Agricola| Contrato';
     var tabla = $('#tablaEmpleados').DataTable({
-        pageLength: 25,
-        dom: "Bfrtip",
+        dom: "Blfrtip",
         ajax: { url: base_url + "Contrato/obtenerContratosAjax", dataSrc: "" },
         columns: [
             { data: 'id_contrato', width: '50px' },
