@@ -36,13 +36,13 @@
                     <td ALIGN="center"><?php echo number_format($ingresosAsistenciaContrato['TotalHoraNormal'], 2)?> Bs</td>
                 </tr>
                 <tr>
-                    <td>Dias Extras</td>
-                    <td><?php echo number_format($ingresosAsistenciaContrato['horaExtras'] / 8,2)  ?></td>
+                    <td>Horas Extras</td>
+                    <td><?php echo number_format($ingresosAsistenciaContrato['horaExtras'],2)  ?></td>
                     <td ALIGN="center"><?php echo number_format($ingresosAsistenciaContrato['TotalHoraExtra'], 2) ?> Bs</td>
                 </tr>
                 <tr>
-                    <td>Dias Feriados</td>
-                    <td><?php echo number_format($ingresosAsistenciaContrato['horaFeriado'] / 8, 2)  ?></td>
+                    <td>Horas Feriados</td>
+                    <td><?php echo number_format($ingresosAsistenciaContrato['horaFeriado'], 2)  ?></td>
                     <td ALIGN="center"><?php echo number_format($ingresosAsistenciaContrato['TotalHoraFeriado'], 2) ?> Bs</td>
                 </tr>
                 <?php

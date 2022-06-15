@@ -11,6 +11,28 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Horas trabajadas </h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <select name="year" id="year" class="form-control">
+                                    <?php foreach($year as $row) : ?>
+                                    <option value="<?php echo $row['year'] ?>"><?php echo $row['year'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="graficoHorasTrabajadas" id="graficoHorasTrabajadas" style="position: relative; height: 300px;">
+                                <canvas id="GraficoHT"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
                         <div class="x_content">
                             <div class="" role="main">
                                 <div class="row tile_count">
@@ -78,6 +100,7 @@
                     </div>
                 </div>
             </div>
+          
         </div>
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -85,12 +108,12 @@
                     <div class="x_title">
                         <h2><i class="fa fa-bars"></i> Tablas de informacion general </h2>
                         <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="x_content" style="display: none;">
+                    <div class="x_content" >
                         <div class="row">
                             <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
                                 <li class="nav-item active">

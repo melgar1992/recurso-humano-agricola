@@ -1,6 +1,8 @@
 $(document).ready(function () {
 	document.title = 'Sistema Agricola Dashboard';
-	let mes = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+	let year = new Date();
+	year = year.getFullYear();
+	GenerarGraficoHorasTrabajadas(year);
 	let tablaAsistencia = $('#tablaHorasMes').DataTable({
 		responsive: true,
 		pageLength: 25,
@@ -10,8 +12,7 @@ $(document).ready(function () {
 			url: base_url + "Dashboard/tablaHorasEmpleadosMes",
 			dataSrc: ""
 		},
-		columns: [
-			{
+		columns: [{
 				data: 'nombre_completo'
 			},
 			{
@@ -24,13 +25,13 @@ $(document).ready(function () {
 				data: 'mes',
 			},
 		],
-		columnDefs: [{
-            targets: -1,
-            data: 'mes',
-            render: function (data, type, row, meta) {
-                return mes.at(data - 1);
-            }
-        }],
+		// columnDefs: [{
+		//     targets: -1,
+		//     data: 'mes',
+		//     render: function (data, type, row, meta) {
+		//         return mes.at(data - 1);
+		//     }
+		// }],
 		buttons: [{
 				extend: 'excelHtml5',
 				title: "Listado de empleados",
@@ -84,16 +85,20 @@ $(document).ready(function () {
 				data: 'cargo_nombre'
 			},
 			{
-				data: 'sueldo_mensual', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') 
+				data: 'sueldo_mensual',
+				render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ')
 			},
 			{
-				data: 'sueldo_hora', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') 
+				data: 'sueldo_hora',
+				render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ')
 			},
 			{
-				data: 'hora_extra', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') 
+				data: 'hora_extra',
+				render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ')
 			},
 			{
-				data: 'hora_feriada', render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ') 
+				data: 'hora_feriada',
+				render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ')
 			},
 			{
 				data: 'tipo_pago'
@@ -176,4 +181,57 @@ $(document).ready(function () {
 			});
 		}
 	});
+	//Generar de nuevo el grafico cuando se cambia de ano
+	$('#year').on('change', function () {
+		yearselected = $(this).val();	
+		GenerarGraficoHorasTrabajadas(yearselected);
+	});
+
 });
+
+function resetGrafico() {
+	$('#GraficoHT').remove(); // this is my <canvas> element
+	$('#graficoHorasTrabajadas').append('<canvas id="GraficoHT" ></canvas>');
+}
+
+function GenerarGraficoHorasTrabajadas(year) {
+	$.ajax({
+		type: "POST",
+		url: base_url + "/Dashboard/horasTrabajadasXMes",
+		data: {
+			year: year
+		},
+		dataType: "json",
+		success: function (datos) {
+			resetGrafico();
+			GraficoHorasTrabadajas(datos);
+		}
+	});
+}
+
+function GraficoHorasTrabadajas(data) {
+
+	// var f = document.getElementById("GraficoHT");
+	var f = document.getElementById("GraficoHT").getContext('2d');
+	new Chart(f, {
+		type: "line",
+		data: {
+			labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+			datasets: [{
+				label: "Horas trabajadas",
+				backgroundColor: "rgba(38, 185, 154, 0.31)",
+				borderColor: "rgba(38, 185, 154, 0.7)",
+				pointBorderColor: "rgba(38, 185, 154, 0.7)",
+				pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+				pointHoverBackgroundColor: "#fff",
+				pointHoverBorderColor: "rgba(220,220,220,1)",
+				pointBorderWidth: 1,
+				data: data,
+			}]
+		},
+		options: {
+			maintainAspectRatio: false,
+		}
+
+	});
+}

@@ -1,6 +1,13 @@
 <?php
 class Reporte_model extends CI_Model
 {
+    public function obtenerAnosTrabajo()
+    {
+        $this->db->select('year(fecha) as year');
+        $this->db->from('jornada_dia');
+        $this->db->group_by('year');   
+        return $this->db->get()->result_array();
+    }
     public function obtenerIngresosContratoEntreFecha($id_contrato, $fechaIni, $fechaFin)
     {
         $this->db->select('sum(horaNormal) as horaNormal,
@@ -63,15 +70,45 @@ class Reporte_model extends CI_Model
         $this->db->where('fecha <=', $fechaFin);
         return $this->db->get()->row_array();
     }
-    public function obtenerTotalPagarMes()
+    public function obtenerSumaHoraTrabajadasMes($year)
     {
+        $horaTrabajadas = array(
+            0 => 0,
+            1 => 0,
+            2 => 0,
+            3 => 0,
+            4 => 0,
+            5 => 0,
+            6 => 0,
+            7 => 0,
+            8 => 0,
+            9 => 0,
+            10 => 0,
+            11 => 0,
+        );
+
+        $this->db->select('sum(hora_jornada) as hora_trabajadas, month(fecha) as mes');
+        $this->db->from('jornada_dia');
+        $this->db->where('fecha >=', $year . '-01-01');
+        $this->db->where('fecha <=',$year . '-12-31');
+        $this->db->group_by('mes');
+
+
+        $datos = $this->db->get()->result_array();
+
+        foreach ($datos as $dato ) {
+            $horaTrabajadas[(int) $dato['mes'] - 1] = (float) $dato['hora_trabajadas'];
+            
+        }
+        return $horaTrabajadas;
     }
     public function obtenerHorasEmpleadosPorMes()
     {
+        $fechaIni = date('Y-01-01');
         $fechaFin = date('Y-m-t');
-        $fechaIni = date('Y-m-t', mktime(0, 0, 0, date("m"),   date("d"),   date("Y") - 1));
+        // $fechaIni = date('Y-m-t', mktime(0, 0, 0, date("m"),   date("d"),   date("Y") - 1));
 
-        $this->db->select('nombre_completo, ci, sum(hora_jornada) as hora_trabajadas, month(fecha) as mes');
+        $this->db->select('nombre_completo, ci, sum(hora_jornada) as hora_trabajadas, monthname(fecha) as mes');
         $this->db->from('jornada_dia');
         $this->db->where('fecha >=', $fechaIni);
         $this->db->where('fecha <=', $fechaFin);
@@ -79,7 +116,6 @@ class Reporte_model extends CI_Model
         $this->db->group_by('ci');
         $this->db->group_by('mes');
         $this->db->order_by('mes', 'DESC');
-        $this->db->limit(200);
 
         return $this->db->get()->result_array();
     }

@@ -16,7 +16,7 @@ class Dashboard extends BaseController
       'contratos' => $this->Contrato_model->obtenerContratosOrdenApellidos(),
       'contratosVigentes' => $this->Contrato_model->obtenerContratosVigentes(),
       'BalanceEmpleados' => $this->Reporte_model->obtenerBalanceDelMesEmpleados(),
-
+      'year' => $this->Reporte_model->obtenerAnosTrabajo(),
     );
 
     $this->loadView("Dashboard", "dashboards/dashboard", $data);
@@ -38,5 +38,11 @@ class Dashboard extends BaseController
   {
     $horasMesEmpleados = $this->Reporte_model->obtenerHorasEmpleadosPorMes();
     echo json_encode($horasMesEmpleados);
+  }
+  public function horasTrabajadasXMes()
+  {
+    $year = $this->input->post('year');
+    $horasMes = $this->Reporte_model->obtenerSumaHoraTrabajadasMes($year);
+    echo json_encode($horasMes);
   }
 }
