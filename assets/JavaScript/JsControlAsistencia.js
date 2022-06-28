@@ -32,7 +32,7 @@ $(document).ready(function () {
         }
         ],
         "order": [
-            [0, "desc"]
+            [3, "desc"]
         ],
         "columnDefs": [{
             "targets": -1,

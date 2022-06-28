@@ -108,14 +108,15 @@ class Reporte_model extends CI_Model
         $fechaFin = date('Y-m-t');
         // $fechaIni = date('Y-m-t', mktime(0, 0, 0, date("m"),   date("d"),   date("Y") - 1));
 
-        $this->db->select('nombre_completo, ci, sum(hora_jornada) as hora_trabajadas, monthname(fecha) as mes');
+        $this->db->select('nombre_completo, ci, sum(hora_jornada) as hora_trabajadas, monthname(fecha) as mes, month(fecha) as mesNumero');
         $this->db->from('jornada_dia');
         $this->db->where('fecha >=', $fechaIni);
         $this->db->where('fecha <=', $fechaFin);
         $this->db->group_by('nombre_completo');
         $this->db->group_by('ci');
         $this->db->group_by('mes');
-        $this->db->order_by('mes', 'DESC');
+        $this->db->group_by('mesNumero');
+        $this->db->order_by('mesNumero', 'DESC');
 
         return $this->db->get()->result_array();
     }
