@@ -13,17 +13,17 @@ $(document).ready(function () {
 			dataSrc: ""
 		},
 		columns: [{
-				data: 'nombre_completo'
-			},
-			{
-				data: 'ci'
-			},
-			{
-				data: 'hora_trabajadas'
-			},
-			{
-				data: 'mes',
-			},
+			data: 'nombre_completo'
+		},
+		{
+			data: 'ci'
+		},
+		{
+			data: 'hora_trabajadas'
+		},
+		{
+			data: 'mes',
+		},
 		],
 		// columnDefs: [{
 		//     targets: -1,
@@ -33,21 +33,21 @@ $(document).ready(function () {
 		//     }
 		// }],
 		buttons: [{
-				extend: 'excelHtml5',
-				title: "Listado de empleados",
-				exportOptions: {
-					columns: [0, 1, 2, 3],
-				}
-
-			},
-			{
-				extend: 'print',
-				title: "Listado de empleados",
-				exportOptions: {
-					columns: [0, 1, 2, 3],
-
-				}
+			extend: 'excelHtml5',
+			title: "Listado de empleados",
+			exportOptions: {
+				columns: [0, 1, 2, 3],
 			}
+
+		},
+		{
+			extend: 'print',
+			title: "Listado de empleados",
+			exportOptions: {
+				columns: [0, 1, 2, 3],
+
+			}
+		}
 		],
 		"language": {
 			'lengthMenu': "Mostrar _MENU_ registros",
@@ -75,51 +75,51 @@ $(document).ready(function () {
 			dataSrc: ""
 		},
 		columns: [{
-				data: 'id_contrato',
-				width: '50px'
-			},
-			{
-				data: 'nombre_completo'
-			},
-			{
-				data: 'cargo_nombre'
-			},
-			{
-				data: 'sueldo_mensual',
-				render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ')
-			},
-			{
-				data: 'sueldo_hora',
-				render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ')
-			},
-			{
-				data: 'hora_extra',
-				render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ')
-			},
-			{
-				data: 'hora_feriada',
-				render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ')
-			},
-			{
-				data: 'tipo_pago'
-			},
+			data: 'id_contrato',
+			width: '50px'
+		},
+		{
+			data: 'nombre_completo'
+		},
+		{
+			data: 'cargo_nombre'
+		},
+		{
+			data: 'sueldo_mensual',
+			render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ')
+		},
+		{
+			data: 'sueldo_hora',
+			render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ')
+		},
+		{
+			data: 'hora_extra',
+			render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ')
+		},
+		{
+			data: 'hora_feriada',
+			render: $.fn.dataTable.render.number(',', '.', 2, 'Bs ')
+		},
+		{
+			data: 'tipo_pago'
+		},
 		],
 		buttons: [{
-				extend: 'excelHtml5',
-				title: "Listado de empleados",
-				exportOptions: {
-					columns: [1, 2, 3, 4, 5, 6, 7],
-				}
-
-			},
-			{
-				extend: 'print',
-				title: "Listado de empleados",
-				exportOptions: {
-					columns: [1, 2, 3, 4, 5, 6, 7],
-
-				}
+			extend: 'excelHtml5',
+			title: "Listado de empleados",
+			exportOptions: {
+				columns: [1, 2, 3, 4, 5, 6, 7],
 			}
+
+		},
+		{
+			extend: 'print',
+			title: "Listado de empleados",
+			exportOptions: {
+				columns: [1, 2, 3, 4, 5, 6, 7],
+
+			}
+		}
 		],
 		"order": [
 			[0, "desc"]
@@ -157,22 +157,24 @@ $(document).ready(function () {
 	$(document).on('submit', '#reporte-contrato', function (e) {
 		e.preventDefault();
 		id_contrato = $.trim($('#id_contrato').val());
+		tipo_reporte = $.trim($('#tipo_reporte').val());
 		fechaIni = $.trim($('#fechaIni').val());
 		fechaFin = $.trim($('#fechaFin').val());
 		if (fechaIni < fechaFin) {
-			$.ajax({
-				type: "POST",
-				url: base_url + "/Dashboard/reporteContrato",
-				data: {
-					id_contrato: id_contrato,
-					fechaIni: fechaIni,
-					fechaFin: fechaFin,
-				},
-				dataType: "html",
-				success: function (respuesta) {
-					$('#modal-detalle .modal-body').html(respuesta);
-				}
-			});
+			switch (tipo_reporte) {
+				case 'balance':
+					reporteContrato();
+					break;
+				case 'asistencia':
+					reporteAsistencia();
+					break;
+				default:
+					swal({
+						title: 'Error de reporte',
+						text: 'Eliga el tipo de reporte!',
+						type: 'error'
+					});
+			}
 		} else {
 			swal({
 				title: 'Error de fecha',
@@ -183,12 +185,42 @@ $(document).ready(function () {
 	});
 	//Generar de nuevo el grafico cuando se cambia de ano
 	$('#year').on('change', function () {
-		yearselected = $(this).val();	
+		yearselected = $(this).val();
 		GenerarGraficoHorasTrabajadas(yearselected);
 	});
 
 });
 
+function reporteContrato() {
+	$.ajax({
+		type: "POST",
+		url: base_url + "/Dashboard/reporteContrato",
+		data: {
+			id_contrato: id_contrato,
+			fechaIni: fechaIni,
+			fechaFin: fechaFin,
+		},
+		dataType: "html",
+		success: function (respuesta) {
+			$('#modal-detalle .modal-body').html(respuesta);
+		}
+	});
+}
+function reporteAsistencia() {
+	$.ajax({
+		type: "POST",
+		url: base_url + "/Dashboard/reporteAsistencia",
+		data: {
+			id_contrato: id_contrato,
+			fechaIni: fechaIni,
+			fechaFin: fechaFin,
+		},
+		dataType: "html",
+		success: function (respuesta) {
+			$('#modal-detalle .modal-body').html(respuesta);
+		}
+	});
+}
 function resetGrafico() {
 	$('#GraficoHT').remove(); // this is my <canvas> element
 	$('#graficoHorasTrabajadas').append('<canvas id="GraficoHT" ></canvas>');

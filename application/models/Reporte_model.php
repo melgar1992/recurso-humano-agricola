@@ -120,4 +120,16 @@ class Reporte_model extends CI_Model
 
         return $this->db->get()->result_array();
     }
+    public function obtenerAsistenciaEntreFecha($id_contrato, $fechaIni, $fechaFin)
+    {
+        $this->db->select('*');
+        $this->db->from('jornada_dia');
+        $this->db->where('id_contrato', $id_contrato);
+        $this->db->where('fecha >=', $fechaIni);
+        $this->db->where('fecha <=', $fechaFin);
+        $this->db->order_by('fecha','ASC');
+
+        return $this->db->get()->result_array();
+
+    }
 }

@@ -34,6 +34,18 @@ class Dashboard extends BaseController
 		$this->load->view('reportes/reporteContrato', $datos);
 
   }
+  public function reporteAsistencia()
+  {
+    $id_contrato = $this->input->post('id_contrato');
+    $fechaIni = $this->input->post('fechaIni');
+    $fechaFin = $this->input->post('fechaFin');
+
+    $datos['contrato'] = $this->Contrato_model->obtenerContrato($id_contrato);
+    $datos['asistencia'] = $this->Reporte_model->obtenerAsistenciaEntreFecha($id_contrato, $fechaIni, $fechaFin);
+
+    $this->load->view('reportes/reporteAsistenciaContrato', $datos);
+
+  }
   public function tablaHorasEmpleadosMes()
   {
     $horasMesEmpleados = $this->Reporte_model->obtenerHorasEmpleadosPorMes();

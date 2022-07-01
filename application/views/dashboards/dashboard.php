@@ -55,7 +55,7 @@
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="x_panel">
                                             <div class="x_title">
-                                                <h2>Balance de empleados por contrato</h2>
+                                                <h2>Reportes empleados por contrato</h2>
                                                 <ul class="nav navbar-right panel_toolbox">
                                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                                     </li>
@@ -76,6 +76,14 @@
                                                                 <?php endforeach; ?>
                                                             </select>
                                                         </div>
+                                                        <label for="" class="col-md-1 col-xs-12 control-label text-right">Reporte: </label>
+                                                        <div class="col-md-1 col-xs-12">
+                                                            <select name="tipo_reporte" id="tipo_reporte" class="form-control">
+                                                                <option value="balance">Balance</option>
+                                                                <option value="asistencia">asistencia</option>
+                                                            </select>
+
+                                                        </div>
                                                         <label for="fechaIni" class="col-md-1 col-xs-12 control-label text-right">Desde: </label>
                                                         <div class="col-md-2 col-xs-12">
                                                             <input type="date" name="fechaIni" id="fechaIni" class="form-control" required>
@@ -84,7 +92,7 @@
                                                         <div class="col-md-2 col-xs-12">
                                                             <input type="date" name="fechaFin" id="fechaFin" class="form-control" required>
                                                         </div>
-                                                        <div class="col-md-2 col-xs-12">
+                                                        <div class="col-md-1 col-xs-12">
                                                             <button type="submit" data-toggle="modal" data-target="#modal-detalle" class="btn btn-block btn-success">Generar</button>
                                                         </div>
                                                     </div>
